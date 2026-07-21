@@ -90,9 +90,27 @@ uv run python3 -m http.server 8000
 
 ## 배포 (GitHub Pages)
 
-1. `main` 브랜치에 푸시
-2. GitHub 저장소 → **Settings → Pages** → Source: `main` / `/ (root)`
-3. 잠시 후 https://potato9753.github.io/wedding/ 에서 확인
+콘텐츠(`config.js`)나 코드를 수정한 뒤:
+
+```bash
+# 1) 캐시버스팅: CSS/JS URL 에 ?v=<날짜시각> 스탬프 (모듈 import 체인까지)
+node tools/bump_version.mjs
+# 2) 커밋 & 푸시
+git add -A && git commit -m "update" && git push
+```
+
+- 최초 1회만: GitHub 저장소 → **Settings → Pages** → Source `main` / `/ (root)`
+- 배포 후 https://potato9753.github.io/wedding/ 에서 확인
+
+### ⚠ 캐시 주의 (카카오톡 등 인앱 브라우저)
+
+- GitHub Pages 는 커스텀 캐시 헤더를 못 정합니다(HTML·JS·CSS 모두 `max-age=600`).
+- 카카오 인앱 브라우저는 캐시를 오래 잡아 **옛 버전**이 보일 수 있습니다.
+  → 배포마다 `node tools/bump_version.mjs` 로 `?v=` 를 갱신하면 파일을 새로 받습니다.
+- **링크 미리보기(썸네일·제목)** 가 안 바뀌면 카카오 OG 캐시를 초기화하세요:
+  https://developers.kakao.com/tool/clear/og (배포 URL 입력 → 초기화)
+- 미리보기 썸네일을 쓰려면 `meta.ogImage` 에 실제 이미지(1200×630 jpg/png)가 필요합니다.
+  (현재 `assets/images/og-cover.jpg` 미첨부 상태 → 썸네일 미표시)
 
 ## 프라이버시 · 보안 노트
 

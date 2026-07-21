@@ -1,15 +1,15 @@
 // main.js — 초기화 · 와이어링
 //  이후 태스크에서 gallery / audio / share 등을 연결합니다.
-import { WEDDING_CONFIG } from "./config.js";
-import { renderInvitation } from "./render.js";
-import { initReveal } from "./reveal.js";
-import { startCountdown, dDay, formatDday, elapsedDays } from "./countdown.js";
-import { initGallery } from "./gallery.js";
-import { initDirections } from "./directions.js";
-import { initContact } from "./contact.js";
-import { initAccounts } from "./accounts.js";
-import { initShare } from "./share.js";
-import { initAudio } from "./audio.js";
+import { WEDDING_CONFIG } from "./config.js?v=202607211808";
+import { renderInvitation } from "./render.js?v=202607211808";
+import { initReveal } from "./reveal.js?v=202607211808";
+import { startCountdown, dDay, formatDday, elapsedDays } from "./countdown.js?v=202607211808";
+import { initGallery } from "./gallery.js?v=202607211808";
+import { initDirections } from "./directions.js?v=202607211808";
+import { initContact } from "./contact.js?v=202607211808";
+import { initAccounts } from "./accounts.js?v=202607211808";
+import { initShare } from "./share.js?v=202607211808";
+import { initAudio } from "./audio.js?v=202607211808";
 
 document.addEventListener("DOMContentLoaded", () => {
   const config = WEDDING_CONFIG;
