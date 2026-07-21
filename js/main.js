@@ -4,6 +4,12 @@ import { WEDDING_CONFIG } from "./config.js";
 import { renderInvitation } from "./render.js";
 import { initReveal } from "./reveal.js";
 import { startCountdown, dDay, formatDday, elapsedDays } from "./countdown.js";
+import { initGallery } from "./gallery.js";
+import { initDirections } from "./directions.js";
+import { initContact } from "./contact.js";
+import { initAccounts } from "./accounts.js";
+import { initShare } from "./share.js";
+import { initAudio } from "./audio.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const config = WEDDING_CONFIG;
@@ -30,6 +36,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const days = elapsedDays(since);
     const label = config?.relationship?.label || "함께한 지";
     counterEl.textContent = `${label} ${days.toLocaleString("ko-KR")}일`;
+  }
+
+  // 갤러리 그리드 + 라이트박스
+  try {
+    initGallery(config);
+  } catch (err) {
+    console.error("[wedding] gallery 초기화 실패:", err);
+  }
+
+  // 오시는 길 (약도 · 지도앱 · 주소복사 · 교통편)
+  try {
+    initDirections(config);
+  } catch (err) {
+    console.error("[wedding] directions 초기화 실패:", err);
+  }
+
+  // 연락/RSVP · 계좌 · 공유 · 배경음악
+  try {
+    initContact(config);
+    initAccounts(config);
+    initShare(config);
+    initAudio(config);
+  } catch (err) {
+    console.error("[wedding] 인터랙션 초기화 실패:", err);
   }
 
   // 스크롤 등장 애니메이션

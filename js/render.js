@@ -294,6 +294,80 @@ function buildCalendarGrid(year, month, weddingDay) {
   return grid;
 }
 
+/** 잘못된 날짜여도 throw 없이 안전하게 점 표기로 변환 */
+function safeDotDate(iso) {
+  try {
+    return formatDotDate(iso);
+  } catch {
+    return String(iso || "");
+  }
+}
+
+/** 우리의 시간: 러브스토리 타임라인 (날짜·제목·설명) */
+export function renderTimeline(config, root = document) {
+  const host = root.querySelector("[data-timeline]");
+  if (!host) return;
+  const items = Array.isArray(config?.timeline) ? config.timeline : [];
+  host.textContent = "";
+  if (!items.length) return;
+
+  const list = document.createElement("ol");
+  list.className = "timeline";
+  items.forEach((it) => {
+    const li = document.createElement("li");
+    li.className = "timeline__item";
+
+    const dot = document.createElement("span");
+    dot.className = "timeline__dot";
+    dot.setAttribute("aria-hidden", "true");
+
+    const body = document.createElement("div");
+    body.className = "timeline__body";
+    const date = document.createElement("p");
+    date.className = "timeline__date";
+    date.textContent = it.date ? safeDotDate(it.date) : "";
+    const title = document.createElement("p");
+    title.className = "timeline__title";
+    title.textContent = it.title || "";
+    const desc = document.createElement("p");
+    desc.className = "timeline__desc";
+    desc.textContent = it.description || "";
+    body.append(date, title, desc);
+
+    li.append(dot, body);
+    list.appendChild(li);
+  });
+  host.appendChild(list);
+}
+
+/** 편지(읽기전용): 없으면 #letters 섹션 숨김 */
+export function renderLetters(config, root = document) {
+  const section = root.querySelector("#letters");
+  const host = root.querySelector("[data-letters]");
+  const letters = Array.isArray(config?.letters) ? config.letters : [];
+  if (!letters.length) {
+    if (section) section.hidden = true;
+    return;
+  }
+  if (!host) return;
+  host.textContent = "";
+  letters.forEach((lt) => {
+    const card = document.createElement("article");
+    card.className = "letter";
+    const msg = document.createElement("p");
+    msg.className = "letter__message";
+    normalizeLines(lt.message).forEach((line, i) => {
+      if (i > 0) msg.appendChild(document.createElement("br"));
+      msg.appendChild(document.createTextNode(line));
+    });
+    const meta = document.createElement("p");
+    meta.className = "letter__meta";
+    meta.textContent = [lt.author, lt.date].filter(Boolean).join(" · ");
+    card.append(msg, meta);
+    host.appendChild(card);
+  });
+}
+
 /** 예식 안내: 일시/장소 텍스트 + 월 달력 그리드 */
 export function renderCalendar(config, root = document) {
   const iso = config?.wedding?.datetime;
@@ -325,5 +399,7 @@ export function renderInvitation(config, doc = document) {
   renderParents(config, doc);
   renderProfile(config, doc);
   renderCalendar(config, doc);
+  renderTimeline(config, doc);
+  renderLetters(config, doc);
   renderFooter(config, doc);
 }

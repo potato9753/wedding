@@ -6,6 +6,7 @@
     <title>이재진 ♥ 이소은 결혼합니다</title>
     <meta name="description" content="저희 두 사람이 사랑으로 하나 되는 자리에 초대합니다." />
     <meta name="theme-color" content="#c9a26b" />
+    <meta name="robots" content="noindex, nofollow" />
 
     <!-- Open Graph (카카오톡/메신저 링크 미리보기) -->
     <meta property="og:type" content="website" />
@@ -101,60 +102,62 @@
         <div class="countdown" data-countdown></div>
       </section>
 
-      <!-- ⑥ 갤러리 (Task 6) -->
+      <!-- ⑥ 갤러리 -->
       <section class="section" id="gallery" data-reveal>
         <p class="section__eyebrow">Gallery</p>
         <h2 class="section__title">우리의 순간</h2>
         <div class="divider" aria-hidden="true"></div>
-        <div class="placeholder" data-slot="gallery">사진 갤러리가 들어갈 자리입니다.</div>
+        <div class="gallery" data-gallery></div>
       </section>
 
-      <!-- ⑦ 우리의 시간 (러브스토리 타임라인, Task 7) -->
-      <section class="section" id="timeline" data-reveal>
-        <p class="section__eyebrow">Our Story</p>
-        <h2 class="section__title">우리의 시간</h2>
-        <div class="divider" aria-hidden="true"></div>
-        <div class="placeholder" data-slot="timeline">러브스토리 타임라인이 들어갈 자리입니다.</div>
-      </section>
-
-      <!-- ⑧ 오시는 길 (Task 8) -->
+      <!-- ⑧ 오시는 길 -->
       <section class="section" id="directions" data-reveal>
         <p class="section__eyebrow">Location</p>
         <h2 class="section__title">오시는 길</h2>
         <div class="divider" aria-hidden="true"></div>
-        <div class="placeholder" data-slot="directions">약도와 지도앱 링크가 들어갈 자리입니다.</div>
+        <p class="directions__venue" data-venue-name></p>
+        <p class="directions__hall" data-venue-hall></p>
+        <img class="directions__map" data-sketchmap alt="예식장 약도" loading="lazy" />
+        <p class="directions__address" data-venue-address></p>
+        <button type="button" class="btn directions__copy" data-copy-address>주소 복사</button>
+        <nav class="map-links" data-maplinks aria-label="지도앱으로 열기"></nav>
+        <ul class="transit" data-transit></ul>
       </section>
 
-      <!-- ⑨ 연락 / RSVP (Task 9) -->
+      <!-- ⑨ 연락 / RSVP -->
       <section class="section" id="contact" data-reveal>
         <p class="section__eyebrow">Contact</p>
         <h2 class="section__title">연락하기</h2>
         <div class="divider" aria-hidden="true"></div>
-        <div class="placeholder" data-slot="contact">전화·문자·카톡 연락 버튼이 들어갈 자리입니다.</div>
+        <p class="section__desc" data-rsvp-message></p>
+        <div class="contact" data-contact></div>
       </section>
 
-      <!-- ⑩ 마음 전하실 곳 (계좌, Task 9) -->
+      <!-- ⑩ 마음 전하실 곳 (계좌) -->
       <section class="section" id="accounts" data-reveal>
         <p class="section__eyebrow">Gift</p>
         <h2 class="section__title">마음 전하실 곳</h2>
         <div class="divider" aria-hidden="true"></div>
-        <div class="placeholder" data-slot="accounts">축의금 계좌 정보가 들어갈 자리입니다.</div>
+        <div class="accounts" data-accounts></div>
       </section>
 
-      <!-- ⑪ 편지 (읽기전용, Task 9) -->
+      <!-- ⑪ 편지 (읽기전용) -->
       <section class="section" id="letters" data-reveal>
         <p class="section__eyebrow">Message</p>
         <h2 class="section__title">축하 편지</h2>
         <div class="divider" aria-hidden="true"></div>
-        <div class="placeholder" data-slot="letters">축하 편지가 들어갈 자리입니다.</div>
+        <div class="letters" data-letters></div>
       </section>
 
-      <!-- ⑫ 공유 (Task 10) -->
+      <!-- ⑫ 공유 -->
       <section class="section" id="share" data-reveal>
         <p class="section__eyebrow">Share</p>
         <h2 class="section__title">청첩장 공유</h2>
         <div class="divider" aria-hidden="true"></div>
-        <div class="placeholder" data-slot="share">공유·링크복사 버튼이 들어갈 자리입니다.</div>
+        <div class="share">
+          <button type="button" class="btn btn--primary" data-share>공유하기</button>
+          <button type="button" class="btn" data-copy-link>링크 복사</button>
+        </div>
       </section>
 
       <!-- ⑬ 푸터 -->

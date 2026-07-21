@@ -28,7 +28,7 @@ export const WEDDING_CONFIG = {
     groom: {
       firstName: "이재진",     // 이름
       englishName: "Jaejin",   // (선택) 영문 표기
-      order: "아들",           // 아들/장남/차남 등 관계 표기
+      order: "차남",           // 아들/장남/차남 등 관계 표기
       phone: "010-0000-0000",
       photo: "",               // 소개 카드용 (선택). 비우면 placeholder
       traits: ["언제나 듬직한 사람", "잘 웃고 잘 웃겨주는 사람", "손이 참 따뜻한 사람"], // 소개 카드
@@ -36,7 +36,7 @@ export const WEDDING_CONFIG = {
     bride: {
       firstName: "이소은",
       englishName: "Soeun",
-      order: "딸",
+      order: "차녀",
       phone: "010-0000-0000",
       photo: "",
       traits: ["함께 있으면 편안한 사람", "작은 것도 살뜰히 챙기는 사람", "웃음이 예쁜 사람"],
@@ -47,12 +47,12 @@ export const WEDDING_CONFIG = {
   //  deceased: true 이면 이름 앞에 국화(故) 표기 등 렌더에서 처리
   parents: {
     groom: {
-      father: { name: "홍부친", deceased: false },
-      mother: { name: "이모친", deceased: false },
+      father: { name: "이준희", deceased: false },
+      mother: { name: "김현미", deceased: false },
     },
     bride: {
-      father: { name: "김부친", deceased: false },
-      mother: { name: "박모친", deceased: false },
+      father: { name: "이정돈", deceased: false },
+      mother: { name: "이정희", deceased: false },
     },
   },
 
@@ -63,14 +63,16 @@ export const WEDDING_CONFIG = {
     venue: {
       name: "더컨벤션 송파문정",
       hall: "아모르홀",
-      address: "서울특별시 송파구 문정동 (정확한 주소 입력 예정)",
+      address: "서울 송파구 송파대로 155 NH송파농협 11~13층", // 도로명 (표시·복사)
+      addressJibun: "서울 송파구 문정동 651-8",                // 지번
+      zipcode: "05855",
       tel: "",
     },
   },
 
   // ── 함께한 시간 (푸터 카운터 기준) ──────────────────────
   relationship: {
-    since: "2020-03-14", // 처음 만난 날 / 연애 시작일
+    since: "2017-06-05", // 처음 만난 날 / 연애 시작일
     label: "우리가 처음 만난 날부터",
   },
 
@@ -93,39 +95,53 @@ export const WEDDING_CONFIG = {
   //  * 저작권 있는 시/가사 전문 복사에 주의하세요. (직접 작성 또는 출처 표기)
   quote: {
     text: [
-      "함께 걷는 길이라면",
-      "먼 길도 설레는 여정이 됩니다.",
+      "사랑은 서로를 마주 보는 것이 아니라",
+      "함께 같은 곳을 바라보는 것입니다.",
     ],
-    author: "", // 예: "○○○, 「시집 제목」 중" (비우면 표시 안 함)
+    author: "생텍쥐페리", // 비우면 표시 안 함
   },
 
   // ── 갤러리 ──────────────────────────────────────────────
-  //  Task 11 이미지 파이프라인으로 최적화(WebP)한 뒤 경로를 채우세요.
+  //  지금은 placeholder(SVG)입니다. 실제 사진이 준비되면 이 목록만 교체하세요.
+  //  (Task 11 이미지 파이프라인으로 EXIF 제거 + WebP 최적화 후 경로 지정)
   gallery: {
     images: [
-      // { src: "assets/images/gallery/01.webp", alt: "웨딩 사진 1" },
+      { src: "assets/images/gallery/01.svg", alt: "웨딩 사진 1" },
+      { src: "assets/images/gallery/02.svg", alt: "웨딩 사진 2" },
+      { src: "assets/images/gallery/03.svg", alt: "웨딩 사진 3" },
+      { src: "assets/images/gallery/04.svg", alt: "웨딩 사진 4" },
+      { src: "assets/images/gallery/05.svg", alt: "웨딩 사진 5" },
+      { src: "assets/images/gallery/06.svg", alt: "웨딩 사진 6" },
     ],
   },
 
   // ── 우리의 시간 (러브스토리 타임라인) ───────────────────
+  //  현재 화면에서 제외된 섹션입니다. 다시 넣으려면 index.html 의
+  //  #timeline 섹션(<div data-timeline>)을 복원하면 자동 렌더됩니다.
   timeline: [
-    { date: "2020-03-14", title: "첫 만남", description: "우연처럼 시작된 인연" },
-    { date: "2021-03-14", title: "연애 시작", description: "서로의 봄이 되기로 한 날" },
-    { date: "2025-12-24", title: "프러포즈", description: "평생을 약속한 겨울밤" },
-    { date: "2026-05-16", title: "Wedding Day", description: "저희, 결혼합니다" },
+    { date: "2017-06-05", title: "첫 만남", description: "우연처럼 시작된 인연" },
+    { date: "2018-06-05", title: "연애 시작", description: "서로의 봄이 되기로 한 날" }, // 날짜 확인 예정
+    { date: "2025-12-24", title: "프러포즈", description: "평생을 약속한 겨울밤" },       // 날짜 확인 예정
+    { date: "2026-12-20", title: "Wedding Day", description: "저희, 결혼합니다" },
   ],
 
   // ── 오시는 길 (지도 API 키 없음: 약도 이미지 + 딥링크) ──
   directions: {
-    sketchMap: "assets/images/map.png", // 약도 이미지 경로
+    sketchMap: "assets/images/map.svg", // 약도 이미지 경로 (실제 약도로 교체)
     mapQuery: "더컨벤션 송파문정",         // 지도앱 검색어 (딥링크 자동 생성용)
-    // 아래를 채우면 자동 생성 대신 해당 URL을 사용합니다. (비우면 mapQuery 사용)
-    mapLinks: { kakao: "", naver: "", tmap: "", google: "" },
+    // 명시 URL을 채우면 자동 생성 대신 사용합니다. (비우면 mapQuery로 생성)
+    mapLinks: {
+      kakao: "",
+      naver: "https://map.naver.com/p/entry/place/1958047921",
+      tmap: "",
+      google: "",
+    },
+    // ⚠ 지하철/버스는 위치 기반 추정 초안 — 예식장 공식 안내로 확인 후 수정하세요.
     transit: {
-      subway: "○호선 ○○역 0번 출구에서 도보 5분",
-      bus: "○○ 정류장 하차 (간선 000 / 지선 0000)",
-      car: "내비게이션에 '더컨벤션 송파문정' 검색",
-      parking: "건물 지하 주차장 2시간 무료",
+      subway: "지하철 8호선 문정역에서 도보 약 8분",
+      bus: "송파대로 'NH송파농협 / 문정동' 정류장 하차",
+      car: "내비게이션에 '더컨벤션 송파문정' 또는 '송파대로 155' 검색",
+      parking: "건물 주차장 이용 (무료 시간은 예식장 문의)",
     },
   },
 
@@ -141,11 +157,11 @@ export const WEDDING_CONFIG = {
   accounts: {
     groom: [
       { relation: "신랑", bank: "○○은행", number: "000-000000-00-000", holder: "이재진", kakaopay: "" },
-      { relation: "신랑 아버지", bank: "○○은행", number: "000-000000-00-000", holder: "홍부친", kakaopay: "" },
+      { relation: "신랑 아버지", bank: "○○은행", number: "000-000000-00-000", holder: "이준희", kakaopay: "" },
     ],
     bride: [
       { relation: "신부", bank: "○○은행", number: "000-000000-00-000", holder: "이소은", kakaopay: "" },
-      { relation: "신부 어머니", bank: "○○은행", number: "000-000000-00-000", holder: "박모친", kakaopay: "" },
+      { relation: "신부 어머니", bank: "○○은행", number: "000-000000-00-000", holder: "이정희", kakaopay: "" },
     ],
   },
 
