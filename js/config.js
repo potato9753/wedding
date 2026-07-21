@@ -127,7 +127,7 @@ export const WEDDING_CONFIG = {
 
   // ── 오시는 길 (지도 API 키 없음: 약도 이미지 + 딥링크) ──
   directions: {
-    sketchMap: "assets/images/map.svg", // 약도 이미지 경로 (실제 약도로 교체)
+    sketchMap: "assets/images/map.webp", // 예식장 공식 약도 (PDF → 크롭·최적화)
     mapQuery: "더컨벤션 송파문정",         // 지도앱 검색어 (딥링크 자동 생성용)
     // 명시 URL을 채우면 자동 생성 대신 사용합니다. (비우면 mapQuery로 생성)
     mapLinks: {
