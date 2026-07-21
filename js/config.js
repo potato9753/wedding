@@ -23,6 +23,12 @@ export const WEDDING_CONFIG = {
     photo: "", // assets/images/cover.webp (비우면 placeholder 표시)
   },
 
+  // ── 화면 이펙트 ─────────────────────────────────────────
+  effects: {
+    falling: "petal", // "petal" | "snow" | "none" — 은은하게 떨어지는 입자 (12월엔 "snow"도 추천)
+    intensity: 16,    // 입자 수 (모바일 성능 고려, 권장 10~24)
+  },
+
   // ── 신랑 · 신부 ─────────────────────────────────────────
   couple: {
     groom: {

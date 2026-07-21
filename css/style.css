@@ -919,3 +919,168 @@ body.no-scroll {
   color: var(--color-primary);
   background: rgba(255, 255, 255, 0.92);
 }
+
+/* ============================================================
+   화면 연출 (이펙트)
+   ============================================================ */
+
+/* 떨어지는 입자 오버레이 */
+.fx-falling {
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+/* 커버 인트로: 순차 등장 */
+@keyframes fx-cover-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.cover__eyebrow {
+  animation: fx-cover-in 0.9s var(--ease) both;
+}
+.cover__photo {
+  animation: fx-cover-in 1s var(--ease) 0.12s both;
+}
+.cover__names {
+  animation: fx-cover-in 1s var(--ease) 0.28s both;
+}
+.cover__date {
+  animation: fx-cover-in 1s var(--ease) 0.46s both;
+}
+.cover__scroll {
+  animation: fx-cover-in 1s var(--ease) 0.7s both;
+}
+
+/* 하트 은은한 박동 */
+@keyframes fx-heart {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.16);
+  }
+}
+.cover__heart {
+  display: inline-block;
+  animation: fx-heart 1.8s ease-in-out 1.2s infinite;
+}
+
+/* 대표사진 켄번스 (사진 지정 시 느린 줌) */
+@keyframes fx-kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+.cover__photo--filled {
+  animation: fx-kenburns 14s ease-out both;
+}
+
+/* 스크롤 인디케이터 (마우스 스타일) */
+.cover__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom) + 20px);
+  width: 24px;
+  height: 38px;
+  margin-left: -12px;
+  border: 1.5px solid var(--color-primary);
+  border-radius: 12px;
+  opacity: 0.7;
+  transition: opacity 0.4s var(--ease);
+}
+.cover__scroll span {
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  width: 4px;
+  height: 8px;
+  margin-left: -2px;
+  border-radius: 2px;
+  background: var(--color-primary);
+  animation: fx-scroll 1.6s ease-in-out infinite;
+}
+@keyframes fx-scroll {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+}
+.cover__scroll.is-hidden {
+  opacity: 0;
+}
+
+/* 스크롤 등장 업그레이드 (기존 규칙 위에 덮어씀) */
+.js-reveal [data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+}
+.js-reveal [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* 카드 스태거 팝인 (섹션 진입 시) */
+@keyframes fx-pop {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.js-reveal #gallery.is-visible .gallery__item,
+.js-reveal #profile.is-visible .profile-card {
+  animation: fx-pop 0.6s var(--ease) backwards;
+}
+.js-reveal #profile.is-visible .profile-card:nth-child(2) {
+  animation-delay: 0.12s;
+}
+.js-reveal #gallery.is-visible .gallery__item:nth-child(2) {
+  animation-delay: 0.06s;
+}
+.js-reveal #gallery.is-visible .gallery__item:nth-child(3) {
+  animation-delay: 0.12s;
+}
+.js-reveal #gallery.is-visible .gallery__item:nth-child(4) {
+  animation-delay: 0.18s;
+}
+.js-reveal #gallery.is-visible .gallery__item:nth-child(5) {
+  animation-delay: 0.24s;
+}
+.js-reveal #gallery.is-visible .gallery__item:nth-child(6) {
+  animation-delay: 0.3s;
+}
+
+/* 모션 최소화 선호 시 입자/무한 애니 제거 */
+@media (prefers-reduced-motion: reduce) {
+  .fx-falling {
+    display: none;
+  }
+  .cover__heart,
+  .cover__scroll span {
+    animation: none;
+  }
+}

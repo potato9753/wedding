@@ -1,15 +1,16 @@
 // main.js — 초기화 · 와이어링
 //  이후 태스크에서 gallery / audio / share 등을 연결합니다.
-import { WEDDING_CONFIG } from "./config.js?v=202607211848";
-import { renderInvitation } from "./render.js?v=202607211848";
-import { initReveal } from "./reveal.js?v=202607211848";
-import { startCountdown, dDay, formatDday, elapsedDays } from "./countdown.js?v=202607211848";
-import { initGallery } from "./gallery.js?v=202607211848";
-import { initDirections } from "./directions.js?v=202607211848";
-import { initContact } from "./contact.js?v=202607211848";
-import { initAccounts } from "./accounts.js?v=202607211848";
-import { initShare } from "./share.js?v=202607211848";
-import { initAudio } from "./audio.js?v=202607211848";
+import { WEDDING_CONFIG } from "./config.js?v=202607211903";
+import { renderInvitation } from "./render.js?v=202607211903";
+import { initReveal } from "./reveal.js?v=202607211903";
+import { startCountdown, dDay, formatDday, elapsedDays } from "./countdown.js?v=202607211903";
+import { initGallery } from "./gallery.js?v=202607211903";
+import { initDirections } from "./directions.js?v=202607211903";
+import { initContact } from "./contact.js?v=202607211903";
+import { initAccounts } from "./accounts.js?v=202607211903";
+import { initShare } from "./share.js?v=202607211903";
+import { initAudio } from "./audio.js?v=202607211903";
+import { initEffects } from "./effects.js?v=202607211903";
 
 document.addEventListener("DOMContentLoaded", () => {
   const config = WEDDING_CONFIG;
@@ -60,6 +61,13 @@ document.addEventListener("DOMContentLoaded", () => {
     initAudio(config);
   } catch (err) {
     console.error("[wedding] 인터랙션 초기화 실패:", err);
+  }
+
+  // 화면 연출 (떨어지는 입자 · 커버 인트로 · 스크롤 인디케이터)
+  try {
+    initEffects(config);
+  } catch (err) {
+    console.error("[wedding] effects 초기화 실패:", err);
   }
 
   // 스크롤 등장 애니메이션
