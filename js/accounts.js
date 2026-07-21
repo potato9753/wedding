@@ -4,7 +4,7 @@
 //  * 계좌가 하나도 없으면 #accounts 섹션을 숨깁니다.
 //  * <details>/<summary> 로 접이식 (JS 토글 불필요).
 // ============================================================
-import { showToast, copyToClipboard } from "./ui.js?v=202607211808";
+import { showToast, copyToClipboard } from "./ui.js?v=202607211838";
 
 function buildAccountRow(acc) {
   const row = document.createElement("div");

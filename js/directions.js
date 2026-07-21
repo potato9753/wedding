@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 //  * buildMapLinks 만 순수 함수(테스트 대상). 나머지는 브라우저 전용.
 // ============================================================
-import { showToast, copyToClipboard } from "./ui.js?v=202607211808";
+import { showToast, copyToClipboard } from "./ui.js?v=202607211838";
 
 /**
  * 지도앱 딥링크 4종 생성. 명시 URL(links)이 있으면 우선, 없으면 검색어(query)로 생성.
@@ -94,7 +94,10 @@ export function initDirections(config, root = document) {
       tag.textContent = label;
       const val = document.createElement("span");
       val.className = "transit__text";
-      val.textContent = text;
+      String(text).split("\n").forEach((line, i) => {
+        if (i > 0) val.appendChild(document.createElement("br"));
+        val.appendChild(document.createTextNode(line));
+      });
       li.append(tag, val);
       transitHost.appendChild(li);
     });
