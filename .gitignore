@@ -1,0 +1,30 @@
+# ── OS ──
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── 에디터 ──
+.idea/
+*.swp
+*.swo
+
+# ── Python (tools/optimize_images.py) ──
+__pycache__/
+*.pyc
+.venv/
+venv/
+.uv/
+
+# ── Node (tests) ──
+node_modules/
+npm-debug.log*
+
+# ── 원본/미최적화 이미지: 저장소에 커밋하지 않음 ──
+#   최적화 스크립트의 입력 폴더. EXIF 포함 원본이 유출되지 않도록 제외.
+assets/images/originals/
+**/originals/
+
+# ── 임시 파일 ──
+.fonttmp/
+_tmp_*.py
+*.tmp

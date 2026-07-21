@@ -1,0 +1,11 @@
+{
+  "name": "wedding-invitation",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "순수 HTML/CSS/JS 모바일 청첩장 (정적 호스팅)",
+  "scripts": {
+    "test": "node --test",
+    "serve": "python3 -m http.server 8000"
+  }
+}

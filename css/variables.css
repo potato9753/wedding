@@ -1,0 +1,66 @@
+/* ============================================================
+   Design Tokens — 색상 · 타이포 · 간격 · 레이아웃
+   따뜻한 아이보리 + 골드/로즈 톤 (클래식 웨딩)
+   ============================================================ */
+:root {
+  /* ── 색상 ── */
+  --color-bg: #ede7de;          /* 컨테이너 바깥 배경 */
+  --color-surface: #faf7f2;     /* 본문 배경 (아이보리) */
+  --color-surface-2: #f2ece2;   /* 카드/구획 배경 */
+  --color-text: #3a3632;        /* 본문 텍스트 */
+  --color-text-soft: #6f6a63;   /* 보조 텍스트 */
+  --color-text-faint: #a79f94;  /* 흐린 텍스트/라벨 */
+  --color-primary: #c9a26b;     /* 골드 (포인트) */
+  --color-primary-dark: #a8824b;
+  --color-accent: #b9838a;      /* 로즈 (하트/강조) */
+  --color-line: #e3dccf;        /* 구분선 */
+  --color-white: #ffffff;
+
+  /* ── 타이포그래피 ── */
+  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-serif: "Gowun Batang", "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
+
+  --fs-xs: 0.75rem;    /* 12 */
+  --fs-sm: 0.8125rem;  /* 13 */
+  --fs-base: 0.9375rem;/* 15 */
+  --fs-md: 1rem;       /* 16 */
+  --fs-lg: 1.125rem;   /* 18 */
+  --fs-xl: 1.375rem;   /* 22 */
+  --fs-2xl: 1.75rem;   /* 28 */
+  --fs-3xl: 2.25rem;   /* 36 */
+
+  --lh-tight: 1.3;
+  --lh-normal: 1.65;
+  --lh-loose: 2;
+
+  /* ── 간격 ── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+  --space-12: 5rem;
+  --section-gap: 4.5rem;     /* 섹션 간 세로 여백 */
+  --page-pad: 1.5rem;        /* 좌우 안쪽 여백 */
+
+  /* ── 레이아웃 ── */
+  --container-max: 480px;
+  --header-height: 52px;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+
+  --shadow-sm: 0 1px 3px rgba(58, 54, 50, 0.08);
+  --shadow-md: 0 6px 24px rgba(58, 54, 50, 0.1);
+  --shadow-lg: 0 12px 40px rgba(58, 54, 50, 0.14);
+
+  /* ── 모션 ── */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.6s;
+}

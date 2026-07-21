@@ -1,0 +1,44 @@
+/* ============================================================
+   자가호스팅 폰트 — 외부 CDN/추적 없음 (assets/fonts/*.woff2)
+   본문/UI: Pretendard (한글+라틴 서브셋)
+   제목/이름: Gowun Batang (세리프)
+   ============================================================ */
+
+/* Pretendard 400 / 600 / 700 */
+@font-face {
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/Pretendard-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/Pretendard-SemiBold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/Pretendard-Bold.woff2") format("woff2");
+}
+
+/* Gowun Batang 400 / 700 */
+@font-face {
+  font-family: "Gowun Batang";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/GowunBatang-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Gowun Batang";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/GowunBatang-Bold.woff2") format("woff2");
+}

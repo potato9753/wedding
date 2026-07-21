@@ -1,0 +1,485 @@
+/* ============================================================
+   style.css — 기본 타이포 · 모바일 컨테이너 · 섹션 셸
+   불러오는 순서: fonts → reset → variables → style
+   ============================================================ */
+
+/* ── 베이스 ── */
+body {
+  display: flex;
+  justify-content: center;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  word-break: keep-all; /* 한글 어절 단위 줄바꿈 */
+}
+
+/* ── 모바일 컨테이너 ── */
+.app {
+  position: relative;
+  width: 100%;
+  max-width: var(--container-max);
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--color-surface);
+  overflow: hidden; /* 스크롤 애니메이션 대비 */
+}
+
+@media (min-width: 520px) {
+  body {
+    padding-block: var(--space-6);
+  }
+  .app {
+    min-height: calc(100dvh - 2 * var(--space-6));
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+/* ── 상단 고정 바 (배경음악 토글) ── */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: var(--container-max);
+  height: var(--header-height);
+  padding: 0 var(--page-pad);
+  padding-top: env(safe-area-inset-top, 0);
+  pointer-events: none; /* 바 자체는 클릭 통과, 버튼만 활성 */
+}
+
+.bgm-toggle {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-full);
+  color: var(--color-primary-dark);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform 0.2s var(--ease), background 0.2s var(--ease);
+}
+.bgm-toggle:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+.bgm-toggle:active {
+  transform: scale(0.94);
+}
+.bgm-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ── 섹션 공통 ── */
+.section {
+  position: relative;
+  padding: var(--section-gap) var(--page-pad);
+  text-align: center;
+}
+.section:not(:last-of-type) {
+  border-bottom: 1px solid transparent;
+}
+
+.section__eyebrow {
+  margin-bottom: var(--space-3);
+  color: var(--color-primary-dark);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.section__title {
+  margin-bottom: var(--space-4);
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: var(--fs-2xl);
+  color: var(--color-text);
+}
+
+.section__desc {
+  color: var(--color-text-soft);
+  font-size: var(--fs-base);
+  line-height: var(--lh-loose);
+}
+
+/* 장식 구분선 (라인 + 다이아몬드) */
+.divider {
+  position: relative;
+  width: 60px;
+  height: 1px;
+  margin: 0 auto var(--space-5);
+  background: var(--color-line);
+}
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: var(--color-primary);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* 빈 콘텐츠 영역 표시용 placeholder */
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  padding: var(--space-6);
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-2);
+  color: var(--color-text-faint);
+  font-size: var(--fs-sm);
+  text-align: center;
+}
+
+/* ── 커버 ── */
+.cover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--space-12) var(--page-pad) var(--space-10);
+  text-align: center;
+}
+.cover__eyebrow {
+  color: var(--color-primary-dark);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.cover__names {
+  font-family: var(--font-serif);
+  font-size: var(--fs-3xl);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-text);
+}
+.cover__heart {
+  color: var(--color-accent);
+}
+.cover__date {
+  color: var(--color-text-soft);
+  font-size: var(--fs-md);
+  letter-spacing: 0.05em;
+}
+.cover__photo {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 3 / 4;
+}
+
+/* ── 기본 버튼 (후속 태스크 공용) ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 46px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  transition: transform 0.15s var(--ease), background 0.2s var(--ease);
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.btn--block {
+  width: 100%;
+}
+
+/* ── 푸터 ── */
+.footer {
+  padding: var(--space-8) var(--page-pad) calc(var(--space-8) + env(safe-area-inset-bottom, 0));
+  background: var(--color-surface-2);
+  text-align: center;
+}
+.footer__thanks {
+  margin-bottom: var(--space-3);
+  font-family: var(--font-serif);
+  font-size: var(--fs-lg);
+  color: var(--color-text);
+}
+.footer__meta {
+  color: var(--color-text-faint);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.05em;
+}
+
+/* 접근성: 화면에는 숨기고 스크린리더에는 노출 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── 감성 인용구 ── */
+.quote {
+  padding-block: var(--section-gap);
+}
+.quote::before {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 40px;
+  margin: 0 auto var(--space-5);
+  background: var(--color-primary);
+  opacity: 0.5;
+}
+.quote__text {
+  font-family: var(--font-serif);
+  font-size: var(--fs-lg);
+  line-height: 2.1;
+  color: var(--color-text-soft);
+}
+.quote__author {
+  margin-top: var(--space-4);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.04em;
+  color: var(--color-text-faint);
+}
+.quote__author:empty {
+  display: none;
+}
+
+/* ── 혼주 ── */
+.parents {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-line);
+}
+.parents__line {
+  color: var(--color-text-soft);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.01em;
+}
+.parents__line:empty {
+  display: none;
+}
+
+/* ── 커버 대표 사진 (경로 지정 시) ── */
+.cover__photo--filled {
+  min-height: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-md);
+  background-size: cover;
+  background-position: center;
+  box-shadow: var(--shadow-md);
+}
+
+/* ── 스크롤 등장 애니메이션 ── */
+/*  JS 활성 시에만 숨김 → 미동작 시 항상 표시 (견고성) */
+.js-reveal [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  will-change: opacity, transform;
+}
+.js-reveal [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ── 푸터 카운터 ── */
+.footer__counter {
+  margin-bottom: var(--space-3);
+  color: var(--color-primary-dark);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.04em;
+}
+.footer__counter:empty {
+  display: none;
+}
+
+/* ── 신랑·신부 소개 카드 ── */
+.profile {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+}
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-3);
+  background: var(--color-surface-2);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+.profile-card__photo {
+  display: grid;
+  place-items: center;
+  width: 92px;
+  height: 92px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+}
+.profile-card__photo::after {
+  content: "\2661"; /* ♡ */
+  color: var(--color-text-faint);
+  font-size: 1.5rem;
+}
+.profile-card__photo--filled {
+  border: none;
+  background-size: cover;
+  background-position: center;
+}
+.profile-card__photo--filled::after {
+  content: none;
+}
+.profile-card__role {
+  color: var(--color-primary-dark);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+.profile-card__name {
+  font-family: var(--font-serif);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.profile-card__traits {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+.profile-card__traits li {
+  font-size: var(--fs-sm);
+  line-height: 1.4;
+  color: var(--color-text-soft);
+}
+
+/* ── 예식 안내 / 캘린더 ── */
+.calendar__datetime {
+  font-family: var(--font-serif);
+  font-size: var(--fs-lg);
+  color: var(--color-text);
+}
+.calendar__venue {
+  margin-top: var(--space-1);
+  margin-bottom: var(--space-6);
+  color: var(--color-text-soft);
+  font-size: var(--fs-sm);
+}
+.calendar {
+  max-width: 320px;
+  margin: 0 auto;
+}
+.calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  row-gap: 8px;
+}
+.calendar__head {
+  padding-bottom: var(--space-2);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--color-text-faint);
+}
+.calendar__day {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+  border-radius: var(--radius-full);
+}
+.calendar__day--empty {
+  visibility: hidden;
+}
+.calendar__cell--sun {
+  color: var(--color-accent);
+}
+.calendar__day--wedding {
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── D-day + 카운트다운 ── */
+.dday {
+  margin-top: var(--space-6);
+  font-family: var(--font-serif);
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-primary-dark);
+}
+.dday:empty {
+  display: none;
+}
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+.countdown__unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 54px;
+  padding: var(--space-3) 0;
+  background: var(--color-surface-2);
+  border-radius: var(--radius-md);
+}
+.countdown__num {
+  font-family: var(--font-serif);
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+.countdown__label {
+  margin-top: 2px;
+  font-size: var(--fs-xs);
+  color: var(--color-text-faint);
+}
