@@ -175,17 +175,94 @@ export function initFalling(config) {
   });
 }
 
-/** 커버 스크롤 인디케이터: 스크롤 시작 시 사라짐 */
+/** 지정 좌표에서 눈꽃이 팡 터지는 버스트 */
+function snowBurst(cx, cy) {
+  if (prefersReduced()) return;
+  const N = 12;
+  for (let i = 0; i < N; i++) {
+    const el = document.createElement("span");
+    el.className = "fx-burst";
+    const size = 8 + Math.random() * 10;
+    el.style.width = el.style.height = size + "px";
+    el.style.left = cx - size / 2 + "px";
+    el.style.top = cy - size / 2 + "px";
+    document.body.appendChild(el);
+    const ang = (Math.PI * 2 * i) / N + (Math.random() - 0.5) * 0.6;
+    const dist = 45 + Math.random() * 70;
+    const dx = Math.cos(ang) * dist;
+    const dy = Math.sin(ang) * dist + 24;
+    const rot = (Math.random() * 2 - 1) * 220;
+    requestAnimationFrame(() => {
+      el.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg)`;
+      el.style.opacity = "0";
+    });
+    setTimeout(() => el.remove(), 950);
+  }
+}
+
+/** 커버 스크롤 인디케이터 + 하트 탭 눈꽃 버스트 */
 export function initCover(root = document) {
   const indicator = root.querySelector("[data-scroll-indicator]");
-  if (!indicator) return;
-  const onScroll = () => {
-    if (window.scrollY > 40) {
-      indicator.classList.add("is-hidden");
-      window.removeEventListener("scroll", onScroll);
-    }
+  if (indicator) {
+    const onScroll = () => {
+      if (window.scrollY > 40) {
+        indicator.classList.add("is-hidden");
+        window.removeEventListener("scroll", onScroll);
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+  const heart = root.querySelector(".cover__heart");
+  if (heart) {
+    heart.style.cursor = "pointer";
+    heart.addEventListener("click", () => {
+      const r = heart.getBoundingClientRect();
+      snowBurst(r.left + r.width / 2, r.top + r.height / 2);
+    });
+  }
+}
+
+/** 섹션 제목을 글자 단위로 분리 (등장 시 스태거 애니메이션용) */
+export function initTitleStagger(root = document) {
+  root.querySelectorAll(".section__title").forEach((title) => {
+    const text = title.textContent;
+    title.textContent = "";
+    [...text].forEach((ch, i) => {
+      const span = document.createElement("span");
+      span.className = "ch";
+      span.textContent = ch === " " ? "\u00A0" : ch;
+      span.style.animationDelay = (i * 0.035).toFixed(3) + "s";
+      title.appendChild(span);
+    });
+  });
+}
+
+/** 상단 스크롤 진행 바 */
+export function initScrollProgress() {
+  if (typeof document === "undefined") return;
+  const bar = document.createElement("div");
+  bar.className = "fx-progress";
+  bar.setAttribute("aria-hidden", "true");
+  document.body.appendChild(bar);
+  let ticking = false;
+  const update = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+    bar.style.transform = `scaleX(${p})`;
+    ticking = false;
   };
-  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
+  window.addEventListener("resize", update, { passive: true });
+  update();
 }
 
 /**
@@ -232,4 +309,6 @@ export function countUp(el, target, format, duration = 1500) {
 export function initEffects(config, root = document) {
   initCover(root);
   initFalling(config);
+  initTitleStagger(root);
+  initScrollProgress();
 }

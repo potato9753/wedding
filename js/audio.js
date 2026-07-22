@@ -32,7 +32,28 @@ export function initAudio(config, root = document) {
     toggle.classList.toggle("is-playing", p);
   };
 
+  // 재생 유도: 파일이 있으면 토글을 은은히 강조하고, 첫 사용자 제스처에 재생 시도
+  const stopHint = () => toggle.classList.remove("is-hint");
+  toggle.classList.add("is-hint");
+
+  const gestureEvents = ["pointerdown", "touchstart", "keydown", "scroll"];
+  const onFirstGesture = async () => {
+    gestureEvents.forEach((e) => window.removeEventListener(e, onFirstGesture));
+    if (!available || playing) return;
+    try {
+      await audio.play();
+      setPlaying(true);
+      stopHint();
+    } catch {
+      /* 정책상 실패 시 토글로 수동 재생 */
+    }
+  };
+  gestureEvents.forEach((e) =>
+    window.addEventListener(e, onFirstGesture, { passive: true })
+  );
+
   toggle.addEventListener("click", async () => {
+    stopHint();
     if (!available) return;
     if (playing) {
       audio.pause();

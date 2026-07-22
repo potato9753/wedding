@@ -1146,3 +1146,98 @@ body::after {
     animation: none;
   }
 }
+
+/* ── 커버 이름 샤인 스윕 ── */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .cover__names span:not(.cover__heart) {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-text) 42%,
+      rgba(255, 255, 255, 0.92) 50%,
+      var(--color-text) 58%
+    );
+    background-size: 260% 100%;
+    background-position: 180% 0;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fx-shine 6s ease-in-out 2s infinite;
+  }
+}
+@keyframes fx-shine {
+  0% {
+    background-position: 180% 0;
+  }
+  100% {
+    background-position: -80% 0;
+  }
+}
+
+/* ── 하트 탭 눈꽃 버스트 ── */
+.cover__heart {
+  cursor: pointer;
+}
+.fx-burst {
+  position: fixed;
+  z-index: 7;
+  pointer-events: none;
+  opacity: 0.95;
+  background: url("../assets/icons/snowflake.svg") center / contain no-repeat;
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.9s ease-out;
+}
+
+/* ── 상단 스크롤 진행 바 ── */
+.fx-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 60;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-winter));
+}
+
+/* ── 섹션 제목 글자 스태거 등장 ── */
+.section__title {
+  white-space: nowrap;
+}
+.js-reveal .section__title .ch {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.5em);
+}
+.js-reveal .is-visible .section__title .ch {
+  animation: fx-charin 0.55s var(--ease) forwards;
+}
+@keyframes fx-charin {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── 배경음악 토글 재생 유도 힌트 ── */
+@keyframes fx-bgm-hint {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+.bgm-toggle.is-hint {
+  animation: fx-bgm-hint 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover__names span:not(.cover__heart) {
+    animation: none;
+  }
+  .bgm-toggle.is-hint {
+    animation: none;
+  }
+}

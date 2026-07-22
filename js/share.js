@@ -1,7 +1,7 @@
 // ============================================================
 //  share.js — 공유 (Web Share API + 링크 복사). Kakao SDK 미사용.
 // ============================================================
-import { showToast, copyToClipboard } from "./ui.js?v=202607221024";
+import { showToast, copyToClipboard } from "./ui.js?v=202607221033";
 
 export function initShare(config, root = document) {
   const shareBtn = root.querySelector("[data-share]");
