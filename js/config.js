@@ -27,6 +27,7 @@ export const WEDDING_CONFIG = {
   effects: {
     falling: "snow",  // "petal" | "snow" | "none"
     intensity: 55,    // 입자 수 (모바일 성능 고려, 권장 16~55)
+    introText: "Jaejin & Soeun", // 진입 인트로 캘리그래피 문구 (비우면 영문 이름 자동)
   },
 
   // ── 신랑 · 신부 ─────────────────────────────────────────

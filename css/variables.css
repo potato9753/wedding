@@ -21,6 +21,7 @@
   --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont,
     "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
   --font-serif: "Gowun Batang", "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
+  --font-script: "Great Vibes", cursive; /* 인트로 캘리그래피 */
 
   --fs-xs: 0.75rem;    /* 12 */
   --fs-sm: 0.8125rem;  /* 13 */

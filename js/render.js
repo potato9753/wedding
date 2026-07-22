@@ -169,6 +169,17 @@ export function renderMeta(config, doc = document) {
   if (theme && meta.themeColor) theme.setAttribute("content", meta.themeColor);
 }
 
+/** 진입 인트로: 캘리그래피 문구 + 날짜 서브라인 */
+export function renderIntro(config, root = document) {
+  const couple = config?.couple || {};
+  const fallback = [couple.groom?.englishName, couple.bride?.englishName]
+    .filter(Boolean)
+    .join(" & ");
+  setText(root, "[data-intro-text]", config?.effects?.introText || fallback);
+  const iso = config?.wedding?.datetime;
+  if (iso) setText(root, "[data-intro-sub]", formatDotDate(iso).replace(/\. /g, " · "));
+}
+
 /** 커버: 태그라인 + 대표사진 + 신랑·신부 이름 + 예식 일시 */
 export function renderCover(config, root = document) {
   const couple = config?.couple || {};
@@ -393,6 +404,7 @@ export function renderFooter(config, root = document) {
 /** 전체 렌더 오케스트레이터 (이후 태스크에서 섹션 렌더 추가) */
 export function renderInvitation(config, doc = document) {
   renderMeta(config, doc);
+  renderIntro(config, doc);
   renderCover(config, doc);
   renderQuote(config, doc);
   renderGreeting(config, doc);
