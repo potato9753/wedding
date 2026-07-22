@@ -18,11 +18,12 @@ FONT_CANDIDATES = [
 
 W, H = 1200, 630
 PW = 560  # 좌측 사진 패널 폭
-COL_TEXT = (74, 70, 63)
-COL_SOFT = (123, 117, 107)
-COL_PRIMARY = (146, 121, 93)
-COL_LINE = (216, 209, 197)
-COL_BG = (243, 240, 233)
+COL_TEXT = (62, 69, 78)
+COL_SOFT = (107, 114, 123)
+COL_PRIMARY = (142, 166, 180)
+COL_ACCENT = (185, 143, 147)
+COL_LINE = (220, 227, 231)
+COL_BG = (240, 244, 246)
 
 
 def font_path():
@@ -68,7 +69,7 @@ def main(argv):
             x += w
 
     center(196, "W E D D I N G   I N V I T A T I O N", f(18), COL_PRIMARY)
-    center_segs(240, [("이재진 ", COL_TEXT), ("♥", COL_PRIMARY), (" 이소은", COL_TEXT)], f(60))
+    center_segs(240, [("이재진 ", COL_TEXT), ("♥", COL_ACCENT), (" 이소은", COL_TEXT)], f(60))
     draw.line([(cx - 42, 340), (cx + 42, 340)], fill=COL_LINE, width=2)
     center(362, "2026. 12. 20 (일) 오후 3시", f(27), COL_TEXT)
     center(406, "더컨벤션 송파문정 · 아모르홀", f(21), COL_SOFT)

@@ -1,16 +1,16 @@
 // main.js — 초기화 · 와이어링
 //  이후 태스크에서 gallery / audio / share 등을 연결합니다.
-import { WEDDING_CONFIG } from "./config.js?v=202607221001";
-import { renderInvitation } from "./render.js?v=202607221001";
-import { initReveal } from "./reveal.js?v=202607221001";
-import { startCountdown, dDay, formatDday, elapsedDays } from "./countdown.js?v=202607221001";
-import { initGallery } from "./gallery.js?v=202607221001";
-import { initDirections } from "./directions.js?v=202607221001";
-import { initContact } from "./contact.js?v=202607221001";
-import { initAccounts } from "./accounts.js?v=202607221001";
-import { initShare } from "./share.js?v=202607221001";
-import { initAudio } from "./audio.js?v=202607221001";
-import { initEffects } from "./effects.js?v=202607221001";
+import { WEDDING_CONFIG } from "./config.js?v=202607221015";
+import { renderInvitation } from "./render.js?v=202607221015";
+import { initReveal } from "./reveal.js?v=202607221015";
+import { startCountdown, dDay, formatDday, elapsedDays } from "./countdown.js?v=202607221015";
+import { initGallery } from "./gallery.js?v=202607221015";
+import { initDirections } from "./directions.js?v=202607221015";
+import { initContact } from "./contact.js?v=202607221015";
+import { initAccounts } from "./accounts.js?v=202607221015";
+import { initShare } from "./share.js?v=202607221015";
+import { initAudio } from "./audio.js?v=202607221015";
+import { initEffects } from "./effects.js?v=202607221015";
 
 document.addEventListener("DOMContentLoaded", () => {
   const config = WEDDING_CONFIG;

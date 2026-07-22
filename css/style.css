@@ -1109,8 +1109,8 @@ body::after {
   z-index: 4;
   pointer-events: none;
   background:
-    radial-gradient(120% 78% at 50% -12%, rgba(226, 238, 246, 0.42), rgba(226, 238, 246, 0) 42%),
-    radial-gradient(100% 58% at 50% 112%, rgba(222, 232, 240, 0.28), rgba(222, 232, 240, 0) 40%);
+    radial-gradient(120% 82% at 50% -12%, rgba(210, 228, 240, 0.6), rgba(210, 228, 240, 0) 45%),
+    radial-gradient(100% 62% at 50% 112%, rgba(206, 224, 238, 0.42), rgba(206, 224, 238, 0) 44%);
 }
 
 /* ── 커버 문구 양옆 눈꽃 장식 ── */

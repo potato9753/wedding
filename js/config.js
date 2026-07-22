@@ -14,7 +14,7 @@ export const WEDDING_CONFIG = {
     description: "저희 두 사람이 사랑으로 하나 되는 자리에 초대합니다.",
     url: "https://potato9753.github.io/wedding/", // 배포 URL (OG 태그용)
     ogImage: "assets/images/og-cover.jpg",         // 공유 썸네일 (권장 1200x630)
-    themeColor: "#b49b7e",
+    themeColor: "#8ea6b4",
   },
 
   // ── 커버 ────────────────────────────────────────────────
@@ -26,7 +26,7 @@ export const WEDDING_CONFIG = {
   // ── 화면 이펙트 ─────────────────────────────────────────
   effects: {
     falling: "snow",  // "petal" | "snow" | "none"
-    intensity: 30,    // 입자 수 (모바일 성능 고려, 권장 16~40)
+    intensity: 50,    // 입자 수 (모바일 성능 고려, 권장 16~55)
   },
 
   // ── 신랑 · 신부 ─────────────────────────────────────────
