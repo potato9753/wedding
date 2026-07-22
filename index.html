@@ -11,6 +11,13 @@
     <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
 
+    <!-- 보안 하드닝 (OWASP): 콘텐츠 보안 정책 · 리퍼러 정책 -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
     <!-- Open Graph (카카오톡/메신저 링크 미리보기) -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="모바일 청첩장" />
@@ -37,10 +44,10 @@
     <link rel="preload" href="assets/fonts/GowunBatang-Regular.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- 스타일 (fonts → reset → variables → style) -->
-    <link rel="stylesheet" href="css/fonts.css?v=202607220935" />
-    <link rel="stylesheet" href="css/reset.css?v=202607220935" />
-    <link rel="stylesheet" href="css/variables.css?v=202607220935" />
-    <link rel="stylesheet" href="css/style.css?v=202607220935" />
+    <link rel="stylesheet" href="css/fonts.css?v=202607220947" />
+    <link rel="stylesheet" href="css/reset.css?v=202607220947" />
+    <link rel="stylesheet" href="css/variables.css?v=202607220947" />
+    <link rel="stylesheet" href="css/style.css?v=202607220947" />
   </head>
   <body>
     <main class="app">
@@ -172,6 +179,6 @@
       </footer>
     </main>
 
-    <script type="module" src="js/main.js?v=202607220935"></script>
+    <script type="module" src="js/main.js?v=202607220947"></script>
   </body>
 </html>
