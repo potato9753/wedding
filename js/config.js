@@ -20,7 +20,7 @@ export const WEDDING_CONFIG = {
   // ── 커버 ────────────────────────────────────────────────
   cover: {
     tagline: "We're getting married",
-    photo: "", // assets/images/cover.webp (비우면 placeholder 표시)
+    photo: "assets/images/cover.webp", // 대표 사진 (EXIF 제거·최적화 완료)
   },
 
   // ── 화면 이펙트 ─────────────────────────────────────────
@@ -112,12 +112,15 @@ export const WEDDING_CONFIG = {
   //  (Task 11 이미지 파이프라인으로 EXIF 제거 + WebP 최적화 후 경로 지정)
   gallery: {
     images: [
-      { src: "assets/images/gallery/01.svg", alt: "웨딩 사진 1" },
-      { src: "assets/images/gallery/02.svg", alt: "웨딩 사진 2" },
-      { src: "assets/images/gallery/03.svg", alt: "웨딩 사진 3" },
-      { src: "assets/images/gallery/04.svg", alt: "웨딩 사진 4" },
-      { src: "assets/images/gallery/05.svg", alt: "웨딩 사진 5" },
-      { src: "assets/images/gallery/06.svg", alt: "웨딩 사진 6" },
+      { src: "assets/images/gallery/01.webp", alt: "웨딩 사진 1" },
+      { src: "assets/images/gallery/02.webp", alt: "웨딩 사진 2" },
+      { src: "assets/images/gallery/03.webp", alt: "웨딩 사진 3" },
+      { src: "assets/images/gallery/04.webp", alt: "웨딩 사진 4" },
+      { src: "assets/images/gallery/05.webp", alt: "웨딩 사진 5" },
+      { src: "assets/images/gallery/06.webp", alt: "웨딩 사진 6" },
+      { src: "assets/images/gallery/07.webp", alt: "웨딩 사진 7" },
+      { src: "assets/images/gallery/08.webp", alt: "웨딩 사진 8" },
+      { src: "assets/images/gallery/09.webp", alt: "웨딩 사진 9" },
     ],
   },
 

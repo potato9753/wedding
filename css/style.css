@@ -492,7 +492,7 @@ body {
 }
 .gallery__item {
   padding: 0;
-  aspect-ratio: 1;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
   border-radius: var(--radius-sm);
   background: var(--color-surface-2);
@@ -1072,6 +1072,15 @@ body.no-scroll {
 }
 .js-reveal #gallery.is-visible .gallery__item:nth-child(6) {
   animation-delay: 0.3s;
+}
+.js-reveal #gallery.is-visible .gallery__item:nth-child(7) {
+  animation-delay: 0.36s;
+}
+.js-reveal #gallery.is-visible .gallery__item:nth-child(8) {
+  animation-delay: 0.42s;
+}
+.js-reveal #gallery.is-visible .gallery__item:nth-child(9) {
+  animation-delay: 0.48s;
 }
 
 /* 모션 최소화 선호 시 입자/무한 애니 제거 */
