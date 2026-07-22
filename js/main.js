@@ -1,16 +1,16 @@
 // main.js — 초기화 · 와이어링
 //  이후 태스크에서 gallery / audio / share 등을 연결합니다.
-import { WEDDING_CONFIG } from "./config.js?v=202607221015";
-import { renderInvitation } from "./render.js?v=202607221015";
-import { initReveal } from "./reveal.js?v=202607221015";
-import { startCountdown, dDay, formatDday, elapsedDays } from "./countdown.js?v=202607221015";
-import { initGallery } from "./gallery.js?v=202607221015";
-import { initDirections } from "./directions.js?v=202607221015";
-import { initContact } from "./contact.js?v=202607221015";
-import { initAccounts } from "./accounts.js?v=202607221015";
-import { initShare } from "./share.js?v=202607221015";
-import { initAudio } from "./audio.js?v=202607221015";
-import { initEffects } from "./effects.js?v=202607221015";
+import { WEDDING_CONFIG } from "./config.js?v=202607221024";
+import { renderInvitation } from "./render.js?v=202607221024";
+import { initReveal } from "./reveal.js?v=202607221024";
+import { startCountdown, dDay, formatDday, elapsedDays } from "./countdown.js?v=202607221024";
+import { initGallery } from "./gallery.js?v=202607221024";
+import { initDirections } from "./directions.js?v=202607221024";
+import { initContact } from "./contact.js?v=202607221024";
+import { initAccounts } from "./accounts.js?v=202607221024";
+import { initShare } from "./share.js?v=202607221024";
+import { initAudio } from "./audio.js?v=202607221024";
+import { initEffects, countUp } from "./effects.js?v=202607221024";
 
 document.addEventListener("DOMContentLoaded", () => {
   const config = WEDDING_CONFIG;
@@ -22,21 +22,24 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("[wedding] render 실패:", err);
   }
 
-  // D-day 배지 + 실시간 카운트다운
+  // D-day 배지(카운트업) + 실시간 카운트다운
   const iso = config?.wedding?.datetime;
   if (iso) {
     const ddayEl = document.querySelector("[data-dday]");
-    if (ddayEl) ddayEl.textContent = formatDday(dDay(iso));
+    if (ddayEl) {
+      const n = dDay(iso);
+      if (n > 0) countUp(ddayEl, n, (v) => `D-${v}`);
+      else ddayEl.textContent = formatDday(n); // D-DAY / D+n
+    }
     startCountdown(document.querySelector("[data-countdown]"), iso);
   }
 
-  // "함께한 시간" 카운터 (푸터)
+  // "함께한 시간" 카운터 (푸터, 카운트업)
   const counterEl = document.querySelector("[data-counter]");
   const since = config?.relationship?.since;
   if (counterEl && since) {
-    const days = elapsedDays(since);
     const label = config?.relationship?.label || "함께한 지";
-    counterEl.textContent = `${label} ${days.toLocaleString("ko-KR")}일`;
+    countUp(counterEl, elapsedDays(since), (v) => `${label} ${v.toLocaleString("ko-KR")}일`);
   }
 
   // 갤러리 그리드 + 라이트박스

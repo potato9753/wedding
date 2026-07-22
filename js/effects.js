@@ -1,9 +1,9 @@
 // ============================================================
-//  effects.js — 화면 연출 (떨어지는 눈꽃 · 커버 인트로 · 스크롤 인디케이터)
+//  effects.js — 화면 연출
+//  떨어지는 눈꽃(원근 심도) · 커버 인트로 · 스크롤 인디케이터 · 카운트업
 // ------------------------------------------------------------
 //  * 외부 라이브러리 없음. prefers-reduced-motion 존중.
-//  * 탭이 비활성이면 애니메이션을 멈춰 배터리/성능 절약.
-//  * 눈은 6각 결정(눈꽃송이) 스프라이트를 그려 재사용 → 많아도 가벼움.
+//  * 탭 비활성 시 정지. 스프라이트 재사용 + 사전 블러로 심도 표현.
 // ============================================================
 
 function prefersReduced() {
@@ -14,7 +14,7 @@ function prefersReduced() {
   );
 }
 
-/** 6각 눈꽃 결정 스프라이트 (variant 로 가지 모양에 변화) */
+/** 6각 눈꽃 결정 스프라이트 (variant 로 가지 모양 변화) */
 function makeFlakeSprite(variant) {
   const S = 56;
   const c = document.createElement("canvas");
@@ -25,21 +25,18 @@ function makeFlakeSprite(variant) {
   g.lineWidth = Math.max(1, S * 0.03);
   g.lineCap = "round";
   g.lineJoin = "round";
-  g.shadowColor = "rgba(150,168,190,0.55)"; // 밝은 배경에서도 보이도록 쿨 헤일로
+  g.shadowColor = "rgba(150,168,190,0.55)";
   g.shadowBlur = S * 0.07;
-
   const R = S * 0.4;
-  // variant 별 가지 위치/길이
   const branches = variant === 0
     ? [[0.55, 0.22, 0.16], [0.8, 0.16, 0.11]]
     : [[0.48, 0.2, 0.16], [0.72, 0.17, 0.12], [0.9, 0.1, 0.08]];
-
   for (let i = 0; i < 6; i++) {
     g.save();
     g.rotate((i * Math.PI) / 3);
     g.beginPath();
     g.moveTo(0, 0);
-    g.lineTo(0, -R); // 팔
+    g.lineTo(0, -R);
     for (const [t, spread, up] of branches) {
       const by = -R * t;
       g.moveTo(0, by);
@@ -53,7 +50,6 @@ function makeFlakeSprite(variant) {
   return c;
 }
 
-/** 꽃잎 스프라이트 (petal 모드용) */
 function makePetalSprite() {
   const S = 56;
   const c = document.createElement("canvas");
@@ -72,7 +68,17 @@ function makePetalSprite() {
   return c;
 }
 
-/** 화면에 떨어지는 입자(눈꽃/꽃잎) — 원근감 + 회전 + 반짝임 + 드리프트 */
+/** 스프라이트를 사전 블러 (심도용). ctx.filter 미지원 시 원본 반환. */
+function blurredSprite(src, radius) {
+  const c = document.createElement("canvas");
+  c.width = c.height = src.width;
+  const g = c.getContext("2d");
+  if ("filter" in g) g.filter = `blur(${radius}px)`;
+  g.drawImage(src, 0, 0);
+  return c;
+}
+
+/** 화면에 떨어지는 입자(눈꽃/꽃잎) — 원근 심도 + 회전 + 반짝임 + 드리프트 */
 export function initFalling(config) {
   const kind = config?.effects?.falling || "none";
   if (kind === "none" || prefersReduced()) return;
@@ -86,26 +92,36 @@ export function initFalling(config) {
   if (!ctx) return;
 
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  const count = Math.max(8, Math.min(60, config?.effects?.intensity || 30));
+  const count = Math.max(8, Math.min(70, config?.effects?.intensity || 30));
   const isSnow = kind === "snow";
-  const sprites = isSnow ? [makeFlakeSprite(0), makeFlakeSprite(1)] : [makePetalSprite()];
+
+  const sharp = isSnow ? [makeFlakeSprite(0), makeFlakeSprite(1)] : [makePetalSprite()];
+  const soft = sharp.map((s) => blurredSprite(s, 1.6)); // 먼 입자 (심도)
+  const bokeh = blurredSprite(sharp[0], 4.5); // 가까운 큰 보케 입자
 
   let w = 0;
   let h = 0;
 
   function seed(p, initial) {
-    p.depth = 0.5 + Math.random() * 0.7;
+    const isBokeh = isSnow && Math.random() < 0.12;
+    p.depth = isBokeh ? 1.05 + Math.random() * 0.55 : 0.5 + Math.random() * 0.7;
     p.x = Math.random() * w;
     p.y = initial ? Math.random() * h : -30;
-    p.size = (isSnow ? 4 : 6) * p.depth + Math.random() * (isSnow ? 4 : 3);
+    const base = isSnow ? 4 : 6;
+    p.size = base * p.depth + Math.random() * (isSnow ? 4 : 3);
+    if (isBokeh) p.size *= 1.9;
     p.speed = ((isSnow ? 0.3 : 0.45) + Math.random() * (isSnow ? 0.65 : 1.0)) * p.depth;
     p.sway = 0.4 + Math.random() * 1.0;
     p.phase = Math.random() * Math.PI * 2;
     p.baseAlpha = (0.6 + Math.random() * 0.4) * (0.55 + p.depth * 0.35);
+    if (isBokeh) p.baseAlpha *= 0.45;
     p.twPhase = Math.random() * Math.PI * 2;
     p.rot = Math.random() * Math.PI * 2;
     p.vr = (Math.random() - 0.5) * (isSnow ? 0.012 : 0.02);
-    p.sprite = sprites[(Math.random() * sprites.length) | 0];
+    if (!isSnow) p.sprite = sharp[0];
+    else if (isBokeh) p.sprite = bokeh;
+    else if (p.depth < 0.78) p.sprite = soft[(Math.random() * soft.length) | 0];
+    else p.sprite = sharp[(Math.random() * sharp.length) | 0];
     return p;
   }
 
@@ -131,8 +147,7 @@ export function initFalling(config) {
       p.x += Math.sin(p.phase) * p.sway * 0.4;
       p.rot += p.vr;
       p.twPhase += 0.03;
-      if (p.y - p.size > h + 16) seed(p, false);
-
+      if (p.y - p.size > h + 20) seed(p, false);
       const twinkle = isSnow ? 0.75 + Math.sin(p.twPhase) * 0.25 : 1;
       ctx.globalAlpha = Math.max(0, Math.min(1, p.baseAlpha * twinkle));
       const s = p.size * 2;
@@ -160,7 +175,7 @@ export function initFalling(config) {
   });
 }
 
-/** 커버 스크롤 인디케이터: 스크롤을 시작하면 사라짐 */
+/** 커버 스크롤 인디케이터: 스크롤 시작 시 사라짐 */
 export function initCover(root = document) {
   const indicator = root.querySelector("[data-scroll-indicator]");
   if (!indicator) return;
@@ -171,6 +186,47 @@ export function initCover(root = document) {
     }
   };
   window.addEventListener("scroll", onScroll, { passive: true });
+}
+
+/**
+ * 숫자 카운트업 — 요소가 화면에 들어오면 0→target 로 증가.
+ * @param {Element} el 대상
+ * @param {number} target 목표 값(양의 정수)
+ * @param {(n:number)=>string} format 표시 포맷
+ */
+export function countUp(el, target, format, duration = 1500) {
+  if (!el) return;
+  if (prefersReduced() || !(target > 0)) {
+    el.textContent = format(target);
+    return;
+  }
+  const run = () => {
+    const t0 = performance.now();
+    const step = (now) => {
+      const p = Math.min(1, (now - t0) / duration);
+      const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+      el.textContent = format(Math.round(target * eased));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  el.textContent = format(0);
+  if (typeof IntersectionObserver === "undefined") {
+    run();
+    return;
+  }
+  const io = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          run();
+          obs.disconnect();
+        }
+      });
+    },
+    { threshold: 0.4 }
+  );
+  io.observe(el);
 }
 
 export function initEffects(config, root = document) {
