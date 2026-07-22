@@ -115,23 +115,23 @@ body {
   line-height: var(--lh-loose);
 }
 
-/* 장식 구분선 (라인 + 다이아몬드) */
+/* 장식 구분선 (라인 + 눈꽃송이) */
 .divider {
-  position: relative;
-  width: 60px;
-  height: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  width: 104px;
+  height: 20px;
   margin: 0 auto var(--space-5);
-  background: var(--color-line);
+  background: url("../assets/icons/snowflake.svg") center / 20px 20px no-repeat;
 }
+.divider::before,
 .divider::after {
   content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 6px;
-  height: 6px;
-  background: var(--color-primary);
-  transform: translate(-50%, -50%) rotate(45deg);
+  width: 30px;
+  height: 1px;
+  background: var(--color-line);
 }
 
 /* 빈 콘텐츠 영역 표시용 placeholder */
@@ -1099,4 +1099,29 @@ body.no-scroll {
   background:
     radial-gradient(130% 75% at 50% 20%, #ffffff 0%, rgba(255, 255, 255, 0) 62%),
     var(--color-surface);
+}
+
+/* ── 겨울 프로스트 라이트 (은은한 쿨 톤 글로우) ── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 78% at 50% -12%, rgba(226, 238, 246, 0.42), rgba(226, 238, 246, 0) 42%),
+    radial-gradient(100% 58% at 50% 112%, rgba(222, 232, 240, 0.28), rgba(222, 232, 240, 0) 40%);
+}
+
+/* ── 커버 문구 양옆 눈꽃 장식 ── */
+.cover__eyebrow::before,
+.cover__eyebrow::after {
+  content: "";
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  vertical-align: -1px;
+  margin: 0 10px;
+  background: url("../assets/icons/snowflake.svg") center / contain no-repeat;
+  opacity: 0.85;
 }
