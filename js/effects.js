@@ -306,7 +306,37 @@ export function countUp(el, target, format, duration = 1500) {
   io.observe(el);
 }
 
+/** 인트로/커버 CSS 애니메이션을 처음부터 다시 재생 (리플로우 트릭) */
+function restartIntro() {
+  const els = document.querySelectorAll(
+    ".intro, .intro__script, .intro__sub, .cover__eyebrow, .cover__photo, .cover__names, .cover__date, .cover__scroll"
+  );
+  els.forEach((el) => {
+    el.style.animation = "none";
+  });
+  void document.body.offsetWidth; // 리플로우 → 애니메이션 리셋
+  els.forEach((el) => {
+    el.style.animation = "";
+  });
+}
+
+/**
+ * 진입/재진입 처리:
+ *  - 항상 최상단에서 시작 (브라우저 스크롤 복원 비활성화)
+ *  - 뒤로가기 등 bfcache 복원 시 인트로 다시 재생
+ */
+export function initPageEntry() {
+  if (typeof window === "undefined") return;
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  window.scrollTo(0, 0);
+  window.addEventListener("pageshow", (e) => {
+    window.scrollTo(0, 0);
+    if (e && e.persisted) restartIntro(); // bfcache 복원 → 인트로 재생
+  });
+}
+
 export function initEffects(config, root = document) {
+  initPageEntry();
   initCover(root);
   initFalling(config);
   initTitleStagger(root);
