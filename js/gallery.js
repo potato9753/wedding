@@ -102,6 +102,20 @@ export function initGallery(config, root = document) {
   });
   host.appendChild(strip);
 
+  // 썸네일 3D 커버플로우 (모션 최소화 시 CSS 정적 폴백)
+  const reduceMotion =
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduceMotion) {
+    strip.classList.add("is-3d");
+    strip.addEventListener("scroll", onStripScroll, { passive: true });
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", onStripScroll, { passive: true });
+      window.addEventListener("load", onStripScroll);
+    }
+  }
+
   // 라이트박스 (body 에 부착)
   const lb = buildLightbox();
   document.body.appendChild(lb.el);
@@ -110,6 +124,36 @@ export function initGallery(config, root = document) {
     if (!el || typeof strip.scrollTo !== "function") return;
     const target = (el.offsetLeft || 0) - ((strip.clientWidth || 0) - (el.clientWidth || 0)) / 2;
     strip.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
+  }
+
+  let cfTicking = false;
+  function onStripScroll() {
+    if (cfTicking) return;
+    cfTicking = true;
+    requestAnimationFrame(() => {
+      cfTicking = false;
+      updateCoverflow();
+    });
+  }
+  // 각 썸네일을 스트립 중앙 기준으로 회전/스케일 → 코버플로우 입체감
+  function updateCoverflow() {
+    if (reduceMotion || typeof strip.getBoundingClientRect !== "function") return;
+    const rect = strip.getBoundingClientRect();
+    if (!rect.width) return;
+    const center = rect.left + rect.width / 2;
+    const half = rect.width / 2 || 1;
+    thumbs.forEach((t) => {
+      const r = t.getBoundingClientRect();
+      const tc = r.left + r.width / 2;
+      let d = (tc - center) / half;
+      d = Math.max(-1.5, Math.min(1.5, d));
+      const rot = -d * 36;
+      const scale = 1.06 - Math.min(0.4, Math.abs(d) * 0.32);
+      const tz = -Math.abs(d) * 40;
+      t.style.transform = `rotateY(${rot}deg) translateZ(${tz}px) scale(${scale})`;
+      t.style.opacity = String(Math.max(0.4, 1 - Math.abs(d) * 0.5));
+      t.style.zIndex = String(200 - Math.round(Math.abs(d) * 100));
+    });
   }
 
   // 메인 사진 교체 + 썸네일 활성 표시 + 가운데 정렬
@@ -123,6 +167,7 @@ export function initGallery(config, root = document) {
     else mainImg.addEventListener("load", () => mainImg.classList.add("is-loaded"), { once: true });
     thumbs.forEach((t, idx) => t.classList.toggle("is-active", idx === current));
     if (scroll) centerThumb(thumbs[current]);
+    if (typeof requestAnimationFrame === "function") requestAnimationFrame(updateCoverflow);
   }
 
   function lbShow(i) {
