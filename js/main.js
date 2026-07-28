@@ -1,16 +1,16 @@
 // main.js — 초기화 · 와이어링
 //  이후 태스크에서 gallery / audio / share 등을 연결합니다.
-import { WEDDING_CONFIG } from "./config.js?v=202607281357";
-import { renderInvitation } from "./render.js?v=202607281357";
-import { initReveal } from "./reveal.js?v=202607281357";
-import { startCountdown, dDay, formatDday, elapsedDays } from "./countdown.js?v=202607281357";
-import { initGallery } from "./gallery.js?v=202607281357";
-import { initDirections } from "./directions.js?v=202607281357";
-import { initContact } from "./contact.js?v=202607281357";
-import { initAccounts } from "./accounts.js?v=202607281357";
-import { initShare } from "./share.js?v=202607281357";
-import { initAudio } from "./audio.js?v=202607281357";
-import { initEffects, countUp } from "./effects.js?v=202607281357";
+import { WEDDING_CONFIG } from "./config.js?v=202607281819";
+import { renderInvitation } from "./render.js?v=202607281819";
+import { initReveal } from "./reveal.js?v=202607281819";
+import { startCountdown, dDay, formatDday, elapsedDays } from "./countdown.js?v=202607281819";
+import { initGallery } from "./gallery.js?v=202607281819";
+import { initDirections } from "./directions.js?v=202607281819";
+import { initContact } from "./contact.js?v=202607281819";
+import { initAccounts } from "./accounts.js?v=202607281819";
+import { initShare } from "./share.js?v=202607281819";
+import { initAudio } from "./audio.js?v=202607281819";
+import { initEffects, countUp, mountDdayRing } from "./effects.js?v=202607281819";
 
 // 새로고침/재접근 시 브라우저 스크롤 복원 방지 — 가능한 가장 이른 시점에 설정
 if (typeof history !== "undefined" && "scrollRestoration" in history) {
@@ -35,6 +35,17 @@ document.addEventListener("DOMContentLoaded", () => {
       const n = dDay(iso);
       if (n > 0) countUp(ddayEl, n, (v) => `D-${v}`);
       else ddayEl.textContent = formatDday(n); // D-DAY / D+n
+      // 원형 프로그레스 링: since→wedding 진행률 (since 없으면 마지막 365일 기준)
+      const sinceIso = config?.relationship?.since;
+      let progress = 1;
+      if (sinceIso) {
+        const total = dDay(iso, new Date(sinceIso)); // 총 여정 일수
+        const done = elapsedDays(sinceIso); // 지난 일수
+        progress = total > 0 ? done / total : 1;
+      } else if (n > 0) {
+        progress = Math.max(0, (365 - Math.min(n, 365)) / 365);
+      }
+      mountDdayRing(ddayEl, progress);
     }
     startCountdown(document.querySelector("[data-countdown]"), iso);
   }

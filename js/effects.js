@@ -306,6 +306,200 @@ export function countUp(el, target, format, duration = 1500) {
   io.observe(el);
 }
 
+/** 커버 패럴럭스: 스크롤 시 대표사진이 천천히 밀리고 커버가 서서히 옅어짐 */
+export function initCoverParallax(root = document) {
+  if (typeof window === "undefined" || prefersReduced()) return;
+  const cover = root.querySelector("#cover");
+  if (!cover) return;
+  const photo = root.querySelector("[data-cover-photo]");
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const y = window.scrollY || 0;
+    const vh = window.innerHeight || 1;
+    if (y > vh) return; // 커버 벗어나면 갱신 불필요
+    if (photo) photo.style.backgroundPositionY = `calc(50% + ${y * 0.18}px)`;
+    cover.style.opacity = String(Math.max(0.2, 1 - (y / vh) * 0.72));
+  };
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
+  update();
+}
+
+/**
+ * D-day 원형 프로그레스 링: 기존 [data-dday] 숫자를 링 가운데로 감싼다.
+ * @param {Element} el D-day 텍스트 요소
+ * @param {number} progress 0..1 (예: since→wedding 진행률)
+ */
+export function mountDdayRing(el, progress) {
+  if (!el || typeof document === "undefined" || !el.parentNode) return;
+  const p = Math.max(0, Math.min(1, Number(progress) || 0));
+  const NS = "http://www.w3.org/2000/svg";
+  const R = 54;
+  const C = 2 * Math.PI * R;
+
+  const ring = document.createElement("div");
+  ring.className = "dday-ring";
+
+  const svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("class", "dday-ring__svg");
+  svg.setAttribute("viewBox", "0 0 120 120");
+  svg.setAttribute("aria-hidden", "true");
+
+  const track = document.createElementNS(NS, "circle");
+  track.setAttribute("class", "dday-ring__track");
+  track.setAttribute("cx", "60");
+  track.setAttribute("cy", "60");
+  track.setAttribute("r", String(R));
+
+  const prog = document.createElementNS(NS, "circle");
+  prog.setAttribute("class", "dday-ring__prog");
+  prog.setAttribute("cx", "60");
+  prog.setAttribute("cy", "60");
+  prog.setAttribute("r", String(R));
+  prog.setAttribute("stroke-dasharray", String(C));
+  prog.setAttribute("stroke-dashoffset", String(C)); // 비어있는 상태에서 시작
+
+  svg.append(track, prog);
+
+  el.parentNode.insertBefore(ring, el);
+  ring.append(svg, el); // 숫자를 링 중앙으로 이동
+
+  const fill = () => {
+    prog.style.strokeDashoffset = String(C * (1 - p));
+  };
+  if (prefersReduced() || typeof IntersectionObserver === "undefined") {
+    fill();
+    return;
+  }
+  const io = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          requestAnimationFrame(fill);
+          obs.disconnect();
+        }
+      });
+    },
+    { threshold: 0.4 }
+  );
+  io.observe(ring);
+}
+
+/** 우측 플로팅 섹션 내비게이션 점 (활성 표시 + 탭 이동) */
+export function initNavDots(root = document) {
+  if (typeof document === "undefined") return;
+  const labels = {
+    cover: "홈",
+    greeting: "인사말",
+    profile: "신랑·신부",
+    calendar: "예식 안내",
+    gallery: "갤러리",
+    directions: "오시는 길",
+    info: "안내 말씀",
+    contact: "연락하기",
+    accounts: "마음 전하실 곳",
+    share: "공유",
+    footer: "감사합니다",
+  };
+  const sections = Array.from(root.querySelectorAll(".section[id], .footer[id]")).filter(
+    (s) => !s.hidden && s.id !== "quote"
+  );
+  if (sections.length < 3) return;
+
+  const nav = document.createElement("nav");
+  nav.className = "nav-dots";
+  nav.setAttribute("aria-label", "섹션 바로가기");
+  const map = new Map();
+  sections.forEach((s) => {
+    const dot = document.createElement("a");
+    dot.className = "nav-dots__dot";
+    dot.href = `#${s.id}`;
+    const label = labels[s.id] || s.id;
+    dot.setAttribute("aria-label", label);
+    const tip = document.createElement("span");
+    tip.className = "nav-dots__tip";
+    tip.textContent = label;
+    dot.appendChild(tip);
+    dot.addEventListener("click", (e) => {
+      e.preventDefault();
+      s.scrollIntoView({ block: "start" });
+    });
+    nav.appendChild(dot);
+    map.set(s, dot);
+  });
+  document.body.appendChild(nav);
+
+  if (typeof IntersectionObserver !== "undefined") {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            map.forEach((d) => d.classList.remove("is-active"));
+            const dot = map.get(e.target);
+            if (dot) dot.classList.add("is-active");
+          }
+        });
+      },
+      { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+    );
+    sections.forEach((s) => io.observe(s));
+  }
+  // 인트로가 걷힌 뒤 등장
+  setTimeout(() => nav.classList.add("is-ready"), prefersReduced() ? 200 : 2400);
+}
+
+/** 예식일 셀 탭 → 눈꽃 버스트 + "우리 결혼해요" 말풍선 */
+export function initCalendarTap(root = document) {
+  const cell = root.querySelector(".calendar__day--wedding");
+  if (!cell) return;
+  cell.style.cursor = "pointer";
+  cell.setAttribute("role", "button");
+  cell.setAttribute("tabindex", "0");
+  cell.setAttribute("aria-label", "예식일 — 우리 결혼해요");
+  const fire = () => {
+    const r = cell.getBoundingClientRect();
+    snowBurst(r.left + r.width / 2, r.top + r.height / 2);
+    showWedTip(r);
+  };
+  cell.addEventListener("click", fire);
+  cell.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      fire();
+    }
+  });
+}
+
+let wedTipEl = null;
+function showWedTip(rect) {
+  if (typeof document === "undefined") return;
+  if (wedTipEl) wedTipEl.remove();
+  const tip = document.createElement("div");
+  tip.className = "wed-tip";
+  tip.textContent = "우리 결혼해요 💍";
+  document.body.appendChild(tip);
+  tip.style.left = `${rect.left + rect.width / 2}px`;
+  tip.style.top = `${rect.top}px`;
+  wedTipEl = tip;
+  requestAnimationFrame(() => tip.classList.add("is-visible"));
+  setTimeout(() => {
+    tip.classList.remove("is-visible");
+    setTimeout(() => {
+      tip.remove();
+      if (wedTipEl === tip) wedTipEl = null;
+    }, 300);
+  }, 1800);
+}
+
 /** 인트로/커버 CSS 애니메이션을 처음부터 다시 재생 (리플로우 트릭) */
 function restartIntro() {
   const els = document.querySelectorAll(
@@ -338,7 +532,10 @@ export function initPageEntry() {
 export function initEffects(config, root = document) {
   initPageEntry();
   initCover(root);
+  initCoverParallax(root);
   initFalling(config);
   initTitleStagger(root);
   initScrollProgress();
+  initNavDots(root);
+  initCalendarTap(root);
 }

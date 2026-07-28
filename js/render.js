@@ -351,6 +351,68 @@ export function renderTimeline(config, root = document) {
   host.appendChild(list);
 }
 
+// 안내 카드 아이콘 (인라인 SVG, 외부 요청 없음)
+const INFO_ICON_PATHS = {
+  parking: ["M5 4h9a4 4 0 0 1 0 8H9v8", "M9 4v16"],
+  meal: ["M6 3v8a2 2 0 0 0 4 0V3", "M8 11v10", "M17 3c-1.2 1-2 3-2 6 0 1.8 2 2 2 2v10"],
+  photo: ["M4 8h3l1.5-2h7L17 8h3v12H4z", "M12 17.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"],
+  default: ["M12 8v5", "M12 16h.01", "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z"],
+};
+
+/** 안내 카드용 아이콘 래퍼(div.info-card__icon > svg) 생성 */
+function makeInfoIcon(key) {
+  const NS = "http://www.w3.org/2000/svg";
+  const wrap = document.createElement("div");
+  wrap.className = "info-card__icon";
+  wrap.setAttribute("aria-hidden", "true");
+  const svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  const paths = INFO_ICON_PATHS[key] || INFO_ICON_PATHS.default;
+  paths.forEach((d) => {
+    const p = document.createElementNS(NS, "path");
+    p.setAttribute("d", d);
+    svg.appendChild(p);
+  });
+  wrap.appendChild(svg);
+  return wrap;
+}
+
+/** 안내 말씀(주차/식사/포토부스 등): items 비면 #info 섹션 숨김 */
+export function renderInfo(config, root = document) {
+  const section = root.querySelector("#info");
+  const host = root.querySelector("[data-info]");
+  const info = config?.info || {};
+  const items = Array.isArray(info.items)
+    ? info.items.filter((it) => it && (it.title || it.desc))
+    : [];
+  if (!items.length) {
+    if (section) section.hidden = true;
+    return;
+  }
+  if (info.title) setText(root, "#info .section__title", info.title);
+  if (!host) return;
+  host.textContent = "";
+  items.forEach((it) => {
+    const card = document.createElement("div");
+    card.className = "info-card";
+    card.appendChild(makeInfoIcon(it.icon));
+    const body = document.createElement("div");
+    body.className = "info-card__body";
+    const t = document.createElement("p");
+    t.className = "info-card__title";
+    t.textContent = it.title || "";
+    const d = document.createElement("p");
+    d.className = "info-card__desc";
+    normalizeLines(it.desc).forEach((line, i) => {
+      if (i > 0) d.appendChild(document.createElement("br"));
+      d.appendChild(document.createTextNode(line));
+    });
+    body.append(t, d);
+    card.appendChild(body);
+    host.appendChild(card);
+  });
+}
+
 /** 편지(읽기전용): 없으면 #letters 섹션 숨김 */
 export function renderLetters(config, root = document) {
   const section = root.querySelector("#letters");
@@ -412,6 +474,7 @@ export function renderInvitation(config, doc = document) {
   renderProfile(config, doc);
   renderCalendar(config, doc);
   renderTimeline(config, doc);
+  renderInfo(config, doc);
   renderLetters(config, doc);
   renderFooter(config, doc);
 }

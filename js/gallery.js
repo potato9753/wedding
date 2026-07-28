@@ -70,10 +70,14 @@ export function initGallery(config, root = document) {
     btn.className = "gallery__item";
     btn.setAttribute("aria-label", `사진 ${i + 1} 크게 보기`);
     const thumb = document.createElement("img");
+    thumb.className = "gallery__img";
     thumb.src = image.src;
     thumb.alt = image.alt || `웨딩 사진 ${i + 1}`;
     thumb.loading = "lazy";
     thumb.decoding = "async";
+    // blur-up: 로드 완료 시 흐림 해제 (캐시된 경우 즉시)
+    if (thumb.complete) thumb.classList.add("is-loaded");
+    else thumb.addEventListener("load", () => thumb.classList.add("is-loaded"), { once: true });
     btn.appendChild(thumb);
     btn.addEventListener("click", () => open(i));
     grid.appendChild(btn);
