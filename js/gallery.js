@@ -46,8 +46,9 @@ function buildLightbox() {
 }
 
 /**
- * 갤러리 초기화: [data-gallery] 에 "큰 메인 + 가로 슬라이드 썸네일" 렌더.
- *  - 썸네일 탭/슬라이드 → 선택 사진이 메인에 크게 표시
+ * 갤러리 초기화: [data-gallery] 에 "스와이프 메인 캐러셀 + 전체 썸네일 인디케이터" 렌더.
+ *  - 메인을 좌우로 밀면(스크롤 스냅) 한 장씩 넘어감 → 아래 썸네일 하이라이트 이동
+ *  - 썸네일 전부 한 줄에 보임(사진 개수 한눈에), 탭하면 해당 사진으로 이동
  *  - 메인 탭 → 라이트박스(전체화면, 스와이프/키보드)
  */
 export function initGallery(config, root = document) {
@@ -67,20 +68,41 @@ export function initGallery(config, root = document) {
 
   let current = 0;
 
-  // 메인 (선택된 사진 크게)
-  const main = document.createElement("button");
-  main.type = "button";
-  main.className = "gallery__main";
-  main.setAttribute("aria-label", "선택한 사진 크게 보기");
-  const mainImg = document.createElement("img");
-  mainImg.className = "gallery__main-img";
-  mainImg.decoding = "async";
-  main.appendChild(mainImg);
-  host.appendChild(main);
+  // 메인 캐러셀 (액자 + 가로 스크롤 스냅 뷰포트)
+  const frame = document.createElement("div");
+  frame.className = "gallery__frame";
+  const viewport = document.createElement("div");
+  viewport.className = "gallery__viewport";
+  const slides = [];
+  images.forEach((image, i) => {
+    const slide = document.createElement("button");
+    slide.type = "button";
+    slide.className = "gallery__slide";
+    slide.setAttribute("aria-label", `사진 ${i + 1} 크게 보기`);
+    const im = document.createElement("img");
+    im.className = "gallery__slide-img gallery__img";
+    im.src = image.src;
+    im.alt = image.alt || `웨딩 사진 ${i + 1}`;
+    im.loading = i === 0 ? "eager" : "lazy";
+    im.decoding = "async";
+    if (im.complete) im.classList.add("is-loaded");
+    else im.addEventListener("load", () => im.classList.add("is-loaded"), { once: true });
+    slide.appendChild(im);
+    slide.addEventListener("click", () => open(i));
+    viewport.appendChild(slide);
+    slides.push(slide);
+  });
+  frame.appendChild(viewport);
+  host.appendChild(frame);
 
-  // 가로 슬라이드 썸네일 스트립
+  // 현재 위치 표시 (n / 전체)
+  const count = document.createElement("p");
+  count.className = "gallery__count";
+  host.appendChild(count);
+
+  // 전체 썸네일 (한 줄에 모두 보임 = 개수 한눈에)
   const strip = document.createElement("div");
-  strip.className = "gallery__strip";
+  strip.className = "gallery__thumbs";
   const thumbs = [];
   images.forEach((image, i) => {
     const t = document.createElement("button");
@@ -96,88 +118,63 @@ export function initGallery(config, root = document) {
     if (im.complete) im.classList.add("is-loaded");
     else im.addEventListener("load", () => im.classList.add("is-loaded"), { once: true });
     t.appendChild(im);
-    t.addEventListener("click", () => setMain(i));
+    t.addEventListener("click", () => goTo(i, true));
     strip.appendChild(t);
     thumbs.push(t);
   });
   host.appendChild(strip);
 
-  // 썸네일 3D 커버플로우 (모션 최소화 시 CSS 정적 폴백)
-  const reduceMotion =
-    typeof window !== "undefined" &&
-    typeof window.matchMedia === "function" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!reduceMotion) {
-    strip.classList.add("is-3d");
-    strip.addEventListener("scroll", onStripScroll, { passive: true });
-    if (typeof window !== "undefined") {
-      window.addEventListener("resize", onStripScroll, { passive: true });
-      window.addEventListener("load", onStripScroll);
-    }
-  }
-
   // 라이트박스 (body 에 부착)
   const lb = buildLightbox();
   document.body.appendChild(lb.el);
 
-  function centerThumb(el) {
-    if (!el || typeof strip.scrollTo !== "function") return;
-    const target = (el.offsetLeft || 0) - ((strip.clientWidth || 0) - (el.clientWidth || 0)) / 2;
-    strip.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
-  }
+  const slideWidth = () => viewport.clientWidth || 1;
 
-  let cfTicking = false;
-  function onStripScroll() {
-    if (cfTicking) return;
-    cfTicking = true;
-    requestAnimationFrame(() => {
-      cfTicking = false;
-      updateCoverflow();
-    });
-  }
-  // 각 썸네일을 스트립 중앙 기준으로 회전/스케일 → 코버플로우 입체감
-  function updateCoverflow() {
-    if (reduceMotion || typeof strip.getBoundingClientRect !== "function") return;
-    const rect = strip.getBoundingClientRect();
-    if (!rect.width) return;
-    const center = rect.left + rect.width / 2;
-    const half = rect.width / 2 || 1;
-    thumbs.forEach((t) => {
-      const r = t.getBoundingClientRect();
-      const tc = r.left + r.width / 2;
-      let d = (tc - center) / half;
-      d = Math.max(-1.5, Math.min(1.5, d));
-      const rot = -d * 36;
-      const scale = 1.06 - Math.min(0.4, Math.abs(d) * 0.32);
-      const tz = -Math.abs(d) * 40;
-      t.style.transform = `rotateY(${rot}deg) translateZ(${tz}px) scale(${scale})`;
-      t.style.opacity = String(Math.max(0.4, 1 - Math.abs(d) * 0.5));
-      t.style.zIndex = String(200 - Math.round(Math.abs(d) * 100));
-    });
-  }
-
-  // 메인 사진 교체 + 썸네일 활성 표시 + 가운데 정렬
-  function setMain(i, scroll = true) {
+  // 현재 인덱스 표시 갱신 (스크롤/선택 공용)
+  function setActive(i) {
     current = wrapIndex(i, images.length);
-    const image = images[current];
-    mainImg.classList.remove("is-loaded");
-    mainImg.src = image.src;
-    mainImg.alt = image.alt || `웨딩 사진 ${current + 1}`;
-    if (mainImg.complete) mainImg.classList.add("is-loaded");
-    else mainImg.addEventListener("load", () => mainImg.classList.add("is-loaded"), { once: true });
     thumbs.forEach((t, idx) => t.classList.toggle("is-active", idx === current));
-    if (scroll) centerThumb(thumbs[current]);
-    if (typeof requestAnimationFrame === "function") requestAnimationFrame(updateCoverflow);
+    count.textContent = `${current + 1} / ${images.length}`;
   }
 
+  // 메인을 특정 사진으로 이동 (썸네일 탭 등)
+  function goTo(i, smooth) {
+    const idx = wrapIndex(i, images.length);
+    if (typeof viewport.scrollTo === "function") {
+      viewport.scrollTo({ left: idx * slideWidth(), behavior: smooth ? "smooth" : "auto" });
+    }
+    setActive(idx);
+  }
+
+  // 메인 좌우 스크롤 → 현재 사진 갱신 (한 장씩)
+  let sTicking = false;
+  viewport.addEventListener(
+    "scroll",
+    () => {
+      if (sTicking) return;
+      sTicking = true;
+      requestAnimationFrame(() => {
+        sTicking = false;
+        const idx = Math.round(viewport.scrollLeft / slideWidth());
+        if (idx !== current) setActive(idx);
+      });
+    },
+    { passive: true }
+  );
+  if (typeof window !== "undefined") {
+    // 회전/리사이즈 시 현재 사진 위치 재정렬
+    window.addEventListener("resize", () => goTo(current, false), { passive: true });
+  }
+
+  // 라이트박스
   function lbShow(i) {
-    setMain(i);
+    setActive(i);
     lb.img.src = images[current].src;
     lb.img.alt = images[current].alt || `웨딩 사진 ${current + 1}`;
     lb.counter.textContent = `${current + 1} / ${images.length}`;
   }
-  function open() {
-    lbShow(current);
+  function open(i) {
+    lbShow(i);
     lb.el.classList.add("is-open");
     lb.el.setAttribute("aria-hidden", "false");
     document.body.classList.add("no-scroll");
@@ -188,6 +185,7 @@ export function initGallery(config, root = document) {
     lb.el.setAttribute("aria-hidden", "true");
     document.body.classList.remove("no-scroll");
     document.removeEventListener("keydown", onKey);
+    goTo(current, false); // 라이트박스에서 넘긴 위치로 메인 동기화
   }
   const next = () => lbShow(current + 1);
   const prev = () => lbShow(current - 1);
@@ -197,7 +195,6 @@ export function initGallery(config, root = document) {
     else if (e.key === "ArrowLeft") prev();
   }
 
-  main.addEventListener("click", open);
   lb.closeBtn.addEventListener("click", close);
   lb.nextBtn.addEventListener("click", (e) => { e.stopPropagation(); next(); });
   lb.prevBtn.addEventListener("click", (e) => { e.stopPropagation(); prev(); });
@@ -222,6 +219,6 @@ export function initGallery(config, root = document) {
     }
   }, { passive: true });
 
-  // 초기 선택 (페이지 스크롤 이동 없이)
-  setMain(0, false);
+  // 초기 상태
+  setActive(0);
 }
