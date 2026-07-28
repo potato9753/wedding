@@ -45,7 +45,11 @@ function buildLightbox() {
   return { el, stage, img, closeBtn, prevBtn, nextBtn, counter };
 }
 
-/** 갤러리 초기화: [data-gallery] 에 그리드 렌더 + 라이트박스 연결 */
+/**
+ * 갤러리 초기화: [data-gallery] 에 "큰 메인 + 가로 슬라이드 썸네일" 렌더.
+ *  - 썸네일 탭/슬라이드 → 선택 사진이 메인에 크게 표시
+ *  - 메인 탭 → 라이트박스(전체화면, 스와이프/키보드)
+ */
 export function initGallery(config, root = document) {
   const host = root.querySelector("[data-gallery]");
   if (!host) return;
@@ -61,44 +65,74 @@ export function initGallery(config, root = document) {
     return;
   }
 
-  // 썸네일 그리드
-  const grid = document.createElement("div");
-  grid.className = "gallery__grid";
+  let current = 0;
+
+  // 메인 (선택된 사진 크게)
+  const main = document.createElement("button");
+  main.type = "button";
+  main.className = "gallery__main";
+  main.setAttribute("aria-label", "선택한 사진 크게 보기");
+  const mainImg = document.createElement("img");
+  mainImg.className = "gallery__main-img";
+  mainImg.decoding = "async";
+  main.appendChild(mainImg);
+  host.appendChild(main);
+
+  // 가로 슬라이드 썸네일 스트립
+  const strip = document.createElement("div");
+  strip.className = "gallery__strip";
+  const thumbs = [];
   images.forEach((image, i) => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "gallery__item";
-    btn.setAttribute("aria-label", `사진 ${i + 1} 크게 보기`);
-    const thumb = document.createElement("img");
-    thumb.className = "gallery__img";
-    thumb.src = image.src;
-    thumb.alt = image.alt || `웨딩 사진 ${i + 1}`;
-    thumb.loading = "lazy";
-    thumb.decoding = "async";
-    // blur-up: 로드 완료 시 흐림 해제 (캐시된 경우 즉시)
-    if (thumb.complete) thumb.classList.add("is-loaded");
-    else thumb.addEventListener("load", () => thumb.classList.add("is-loaded"), { once: true });
-    btn.appendChild(thumb);
-    btn.addEventListener("click", () => open(i));
-    grid.appendChild(btn);
+    const t = document.createElement("button");
+    t.type = "button";
+    t.className = "gallery__thumb";
+    t.setAttribute("aria-label", `${i + 1}번 사진 보기`);
+    const im = document.createElement("img");
+    im.className = "gallery__img";
+    im.src = image.src;
+    im.alt = image.alt || `웨딩 사진 ${i + 1}`;
+    im.loading = "lazy";
+    im.decoding = "async";
+    if (im.complete) im.classList.add("is-loaded");
+    else im.addEventListener("load", () => im.classList.add("is-loaded"), { once: true });
+    t.appendChild(im);
+    t.addEventListener("click", () => setMain(i));
+    strip.appendChild(t);
+    thumbs.push(t);
   });
-  host.appendChild(grid);
+  host.appendChild(strip);
 
   // 라이트박스 (body 에 부착)
   const lb = buildLightbox();
   document.body.appendChild(lb.el);
 
-  let current = 0;
+  function centerThumb(el) {
+    if (!el || typeof strip.scrollTo !== "function") return;
+    const target = (el.offsetLeft || 0) - ((strip.clientWidth || 0) - (el.clientWidth || 0)) / 2;
+    strip.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
+  }
 
-  function show(i) {
+  // 메인 사진 교체 + 썸네일 활성 표시 + 가운데 정렬
+  function setMain(i, scroll = true) {
     current = wrapIndex(i, images.length);
     const image = images[current];
-    lb.img.src = image.src;
-    lb.img.alt = image.alt || `웨딩 사진 ${current + 1}`;
+    mainImg.classList.remove("is-loaded");
+    mainImg.src = image.src;
+    mainImg.alt = image.alt || `웨딩 사진 ${current + 1}`;
+    if (mainImg.complete) mainImg.classList.add("is-loaded");
+    else mainImg.addEventListener("load", () => mainImg.classList.add("is-loaded"), { once: true });
+    thumbs.forEach((t, idx) => t.classList.toggle("is-active", idx === current));
+    if (scroll) centerThumb(thumbs[current]);
+  }
+
+  function lbShow(i) {
+    setMain(i);
+    lb.img.src = images[current].src;
+    lb.img.alt = images[current].alt || `웨딩 사진 ${current + 1}`;
     lb.counter.textContent = `${current + 1} / ${images.length}`;
   }
-  function open(i) {
-    show(i);
+  function open() {
+    lbShow(current);
     lb.el.classList.add("is-open");
     lb.el.setAttribute("aria-hidden", "false");
     document.body.classList.add("no-scroll");
@@ -110,23 +144,23 @@ export function initGallery(config, root = document) {
     document.body.classList.remove("no-scroll");
     document.removeEventListener("keydown", onKey);
   }
-  const next = () => show(current + 1);
-  const prev = () => show(current - 1);
+  const next = () => lbShow(current + 1);
+  const prev = () => lbShow(current - 1);
   function onKey(e) {
     if (e.key === "Escape") close();
     else if (e.key === "ArrowRight") next();
     else if (e.key === "ArrowLeft") prev();
   }
 
+  main.addEventListener("click", open);
   lb.closeBtn.addEventListener("click", close);
   lb.nextBtn.addEventListener("click", (e) => { e.stopPropagation(); next(); });
   lb.prevBtn.addEventListener("click", (e) => { e.stopPropagation(); prev(); });
-  // 배경(이미지 외부) 탭 시 닫기
   lb.el.addEventListener("click", (e) => {
     if (e.target === lb.el || e.target === lb.stage) close();
   });
 
-  // 스와이프 (좌/우)
+  // 라이트박스 스와이프 (좌/우)
   let startX = 0, startY = 0, tracking = false;
   lb.stage.addEventListener("touchstart", (e) => {
     const t = e.changedTouches[0];
@@ -142,4 +176,7 @@ export function initGallery(config, root = document) {
       if (dx < 0) next(); else prev();
     }
   }, { passive: true });
+
+  // 초기 선택 (페이지 스크롤 이동 없이)
+  setMain(0, false);
 }

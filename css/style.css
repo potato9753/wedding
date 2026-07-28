@@ -1304,28 +1304,75 @@ body::after {
   box-shadow: 0 6px 22px rgba(110, 135, 151, 0.12);
 }
 
-/* ── 갤러리: 매거진 레이아웃(첫 사진 히어로) ── */
-.gallery__grid {
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
+/* ── 갤러리: 큰 메인 + 가로 슬라이드 썸네일 ── */
+.gallery__main {
+  display: block;
+  width: 100%;
+  padding: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-2);
+  box-shadow: var(--shadow-md);
 }
-.gallery__item {
-  aspect-ratio: 1 / 1;
+.gallery__main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s var(--ease), filter 0.5s var(--ease), transform 0.5s var(--ease);
 }
-.gallery__item:first-child {
-  grid-column: span 2;
-  grid-row: span 2;
-  aspect-ratio: auto;
+.gallery__main-img:not(.is-loaded) {
+  opacity: 0;
+  filter: blur(12px);
+  transform: scale(1.04);
+}
+.gallery__main:active .gallery__main-img {
+  transform: scale(0.99);
+}
+.gallery__strip {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 4px 12px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  perspective: 600px;
+}
+.gallery__strip::-webkit-scrollbar {
+  display: none;
+}
+.gallery__thumb {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+  scroll-snap-align: center;
+  opacity: 0.5;
+  transform: scale(0.86);
+  transition: opacity 0.3s var(--ease), transform 0.35s var(--ease), box-shadow 0.3s var(--ease);
+}
+.gallery__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.gallery__thumb.is-active {
+  opacity: 1;
+  transform: scale(1.08);
+  box-shadow: 0 8px 18px rgba(110, 135, 151, 0.32);
 }
 
-/* ── 갤러리: blur-up 로딩(흐림 → 선명) ── */
-.gallery__item img {
-  transition: opacity 0.7s var(--ease), filter 0.7s var(--ease), transform 0.7s var(--ease);
+/* 썸네일 blur-up (가벼운 페이드) */
+.gallery__img {
+  transition: opacity 0.5s var(--ease);
 }
-.gallery__item img:not(.is-loaded) {
+.gallery__img:not(.is-loaded) {
   opacity: 0;
-  filter: blur(14px);
-  transform: scale(1.06);
 }
 
 /* ── 커버 대표사진: 폴라로이드/인화 프레임 ── */
