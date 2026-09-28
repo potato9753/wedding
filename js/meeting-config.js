@@ -21,7 +21,7 @@ export const MEETING_CONFIG = {
     // 사진 5장 기준으로 css(.cover-collage__item:nth-child)가 배치돼 있어요 — 개수를 바꾸면 css/style.css 도 같이 조정하세요.
     // 갤러리와 겹치지 않게, 서로 다른 무드로만 5장 선별
     collage: [
-      { src: "../assets/images/couple/couple-04.webp", alt: "재진 · 소은" },
+      { src: "../assets/images/couple/couple-19.webp", alt: "재진 · 소은" },
       { src: "../assets/images/couple/couple-12.webp", alt: "재진 · 소은 · 시라카와고" },
       { src: "../assets/images/couple/couple-07.webp", alt: "재진 · 소은" },
       { src: "../assets/images/couple/couple-03.webp", alt: "재진 · 소은" },
