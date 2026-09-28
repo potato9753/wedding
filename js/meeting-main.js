@@ -1,14 +1,15 @@
 // meeting-main.js — 상견례 초대장 초기화 · 와이어링 (main.js 의 축소판)
-import { MEETING_CONFIG } from "./meeting-config.js?v=202609281745";
-import { renderInvitation } from "./render.js?v=202609281745";
-import { renderFamily } from "./family.js?v=202609281745";
-import { renderCoverCollage } from "./cover-collage.js?v=202609281745";
-import { renderMenu } from "./menu.js?v=202609281745";
-import { initReveal } from "./reveal.js?v=202609281745";
-import { initGallery } from "./gallery.js?v=202609281745";
-import { initDirections } from "./directions.js?v=202609281745";
-import { initAudio } from "./audio.js?v=202609281745";
-import { initEffects } from "./effects.js?v=202609281745";
+import { MEETING_CONFIG } from "./meeting-config.js?v=202609281752";
+import { renderInvitation } from "./render.js?v=202609281752";
+import { renderFamily } from "./family.js?v=202609281752";
+import { renderCoverCollage } from "./cover-collage.js?v=202609281752";
+import { renderMenu } from "./menu.js?v=202609281752";
+import { initReveal } from "./reveal.js?v=202609281752";
+import { initGallery } from "./gallery.js?v=202609281752";
+import { initDirections } from "./directions.js?v=202609281752";
+import { initAudio } from "./audio.js?v=202609281752";
+import { initEffects } from "./effects.js?v=202609281752";
+import { initInviteModal } from "./invite-modal.js?v=202609281752";
 
 if (typeof history !== "undefined" && "scrollRestoration" in history) {
   history.scrollRestoration = "manual";
@@ -51,6 +52,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   initReveal();
+
+  try {
+    initInviteModal();
+  } catch (err) {
+    console.error("[meeting] 초대장 팝업 초기화 실패:", err);
+  }
 
   const yearEl = document.querySelector("[data-footer-year]");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());

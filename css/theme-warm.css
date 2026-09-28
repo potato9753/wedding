@@ -424,3 +424,78 @@ html {
     linear-gradient(180deg, rgba(248, 244, 233, 0.94) 0%, rgba(248, 244, 233, 0.86) 55%, var(--color-surface) 100%),
     url("../assets/images/couple/couple-08.webp") center 30% / cover no-repeat;
 }
+
+/* ============================================================
+   9) "초대장" 팝업 카드 — 인트로가 끝나면 나타나고, 탭하면 닫힙니다
+   ============================================================ */
+.invite-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--page-pad);
+  background: rgba(61, 57, 40, 0.5);
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.4s var(--ease);
+}
+.invite-modal.is-visible {
+  opacity: 1;
+}
+.invite-modal[hidden] {
+  display: none;
+}
+.invite-modal__card {
+  position: relative;
+  background: var(--color-surface);
+  border: 2px dashed var(--color-primary-dark);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+  max-width: 300px;
+  box-shadow: var(--shadow-lg);
+  transform: scale(0.92) translateY(10px);
+  transition: transform 0.4s var(--ease);
+}
+.invite-modal.is-visible .invite-modal__card {
+  transform: scale(1) translateY(0);
+}
+.invite-modal__label {
+  display: inline-block;
+  margin: 0 auto var(--space-4);
+  padding: 4px 18px;
+  background: var(--color-accent);
+  color: #fff;
+  font-family: var(--font-serif);
+  font-size: var(--fs-sm);
+  border-radius: 999px 999px 999px 4px;
+  transform: rotate(-3deg);
+}
+.invite-modal__text {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--fs-xl);
+  line-height: 1.5;
+  color: var(--color-text);
+}
+.invite-modal__hint {
+  margin: var(--space-5) 0 0;
+  font-size: var(--fs-xs);
+  color: var(--color-text-faint);
+  animation: fx-invite-hint 1.8s ease-in-out infinite;
+}
+@keyframes fx-invite-hint {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .invite-modal,
+  .invite-modal__card {
+    transition: none;
+  }
+  .invite-modal__hint {
+    animation: none;
+  }
+}
