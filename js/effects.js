@@ -417,20 +417,9 @@ export function mountDdayRing(el, progress) {
 /** 우측 플로팅 섹션 내비게이션 점 (활성 표시 + 탭 이동) */
 export function initNavDots(root = document) {
   if (typeof document === "undefined") return;
-  const labels = {
-    cover: "홈",
-    greeting: "인사말",
-    family: "가족 소개",
-    profile: "신랑·신부",
-    calendar: "예식 안내",
-    gallery: "갤러리",
-    directions: "오시는 길",
-    info: "안내 말씀",
-    contact: "연락하기",
-    accounts: "마음 전하실 곳",
-    share: "공유",
-    footer: "감사합니다",
-  };
+  // cover · footer 는 제목(.section__title)이 없는 섹션이라 여기서만 라벨을 고정합니다.
+  // 나머지는 실제 화면에 보이는 섹션 제목을 그대로 읽어와서, 페이지마다(청첩장/상견례) 문구가 달라도 항상 맞습니다.
+  const fixedLabels = { cover: "홈", footer: "감사합니다" };
   const sections = Array.from(root.querySelectorAll(".section[id], .footer[id]")).filter(
     (s) => !s.hidden && s.id !== "quote"
   );
@@ -444,7 +433,7 @@ export function initNavDots(root = document) {
     const dot = document.createElement("a");
     dot.className = "nav-dots__dot";
     dot.href = `#${s.id}`;
-    const label = labels[s.id] || s.id;
+    const label = fixedLabels[s.id] || s.querySelector(".section__title")?.textContent || s.id;
     dot.setAttribute("aria-label", label);
     const tip = document.createElement("span");
     tip.className = "nav-dots__tip";

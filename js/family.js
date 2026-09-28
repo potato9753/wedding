@@ -90,7 +90,8 @@ function buildSideGroup(label, side) {
 
   const photos = side.photos || {};
   // 전체 가족(요즘)이 먼저, 그 다음 옛날 사진(부모님 + 본인 어린 시절)은 한데 묶어서
-  if (photos.recent) group.appendChild(buildPhotoRow("우리 가족", [photos.recent]));
+  const recentPhotos = Array.isArray(photos.recent) ? photos.recent : photos.recent ? [photos.recent] : [];
+  if (recentPhotos.length) group.appendChild(buildPhotoRow("우리 가족", recentPhotos));
   const oldPhotos = [...(Array.isArray(photos.parents) ? photos.parents : []), ...(photos.past ? [photos.past] : [])];
   if (oldPhotos.length) group.appendChild(buildPhotoRow("그 시절 사진", oldPhotos));
   if (photos.pet) group.appendChild(buildPhotoRow("우리집 반려동물", [photos.pet]));

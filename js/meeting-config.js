@@ -79,7 +79,10 @@ export const MEETING_CONFIG = {
           { src: "../assets/images/family/groom/parents-young-02.webp", caption: "" },
           { src: "../assets/images/family/groom/parents-young-03.webp", caption: "" },
         ],
-        recent: { src: "../assets/images/family/groom/recent-family-01.webp", caption: "요즘 우리 셋" },
+        recent: [
+          { src: "../assets/images/family/groom/recent-family-01.webp", caption: "요즘 우리 셋" },
+          { src: "../assets/images/family/groom/recent-family-02.webp", caption: "" },
+        ],
       },
     },
     bride: {
@@ -93,7 +96,7 @@ export const MEETING_CONFIG = {
         past: { src: "", caption: "신부 어린 시절" },
         parents: [{ src: "", caption: "부모님 젊으셨을 때" }],
         recent: { src: "", caption: "형제 포함 최근 가족사진" },
-        pet: { src: "", caption: "두리" }, // ⚠ 사진 받으면 여기에 경로 채워주세요
+        pet: { src: "../assets/images/family/bride/pet-01.webp", caption: "두리" },
       },
     },
   },
@@ -129,7 +132,9 @@ export const MEETING_CONFIG = {
       { src: "../assets/images/couple/couple-06.webp", alt: "재진 · 소은" },
       { src: "../assets/images/couple/couple-09.webp", alt: "재진 · 소은" },
       { src: "../assets/images/couple/couple-11.webp", alt: "재진 · 소은" },
-      { src: "../assets/images/couple/couple-13.webp", alt: "재진 · 소은" },
+      { src: "../assets/images/couple/couple-14.webp", alt: "재진 · 소은" },
+      { src: "../assets/images/couple/couple-15.webp", alt: "재진 · 소은" },
+      { src: "../assets/images/groom/solo-01.webp", alt: "재진" },
       { src: "../assets/images/bride/solo-01.webp", alt: "소은" },
     ],
   },
