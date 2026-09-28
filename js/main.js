@@ -1,16 +1,16 @@
 // main.js — 초기화 · 와이어링
 //  이후 태스크에서 gallery / audio / share 등을 연결합니다.
-import { WEDDING_CONFIG } from "./config.js?v=202609281808";
-import { renderInvitation } from "./render.js?v=202609281808";
-import { initReveal } from "./reveal.js?v=202609281808";
-import { startCountdown, dDay, formatDday, elapsedDays } from "./countdown.js?v=202609281808";
-import { initGallery } from "./gallery.js?v=202609281808";
-import { initDirections } from "./directions.js?v=202609281808";
-import { initContact } from "./contact.js?v=202609281808";
-import { initAccounts } from "./accounts.js?v=202609281808";
-import { initShare } from "./share.js?v=202609281808";
-import { initAudio } from "./audio.js?v=202609281808";
-import { initEffects, countUp, mountDdayRing } from "./effects.js?v=202609281808";
+import { WEDDING_CONFIG } from "./config.js?v=202609281817";
+import { renderInvitation } from "./render.js?v=202609281817";
+import { initReveal } from "./reveal.js?v=202609281817";
+import { startCountdown, dDay, formatDday, elapsedDays } from "./countdown.js?v=202609281817";
+import { initGallery } from "./gallery.js?v=202609281817";
+import { initDirections } from "./directions.js?v=202609281817";
+import { initContact } from "./contact.js?v=202609281817";
+import { initAccounts } from "./accounts.js?v=202609281817";
+import { initShare } from "./share.js?v=202609281817";
+import { initAudio } from "./audio.js?v=202609281817";
+import { initEffects, countUp, mountDdayRing } from "./effects.js?v=202609281817";
 
 // 새로고침/재접근 시 브라우저 스크롤 복원 방지 — 가능한 가장 이른 시점에 설정
 if (typeof history !== "undefined" && "scrollRestoration" in history) {

@@ -8,7 +8,7 @@
 
 export const MEETING_CONFIG = {
   meta: {
-    title: "이재진 · 이소은 상견례에 초대합니다",
+    title: "이재진 · 이소은 상견례 안내",
     description: "두 사람의 가족이 처음으로 인사드리는 자리입니다.",
     url: "https://potato9753.github.io/wedding/meeting/",
     ogImage: "../assets/images/og-cover.jpg",
@@ -212,13 +212,30 @@ export const MEETING_CONFIG = {
     wishlist: ["참외 셔벗 (디저트, 마지막에 별도 주문 예정)"],
     // 네이버플레이스에 등록된 갓포코젠 대표메뉴 9종 (사진은 자가호스팅 — assets/images/menu/)
     // ⚠ 코스 리스트에 이미 있는 대표메뉴(제철 생선회·마구로마키·스키야키전골)는 중복이라 여기서 뺐어요.
+    // 네이버플레이스 전체 메뉴판(37개) 중 코스에 없는 항목은 다 넣었어요.
+    // (시즌아웃/품절 메뉴, 참외셔벗(위시리스트에 이미 있음)은 제외)
     reprMenu: [
-      { name: "(런치) 카이센동 정식", price: "35,000원", photo: "../assets/images/menu/repr-02.webp" },
-      { name: "(런치) 우나쥬 정식", price: "38,000원", photo: "../assets/images/menu/repr-03.webp" },
-      { name: "프로슈토 아보카도 사라다", price: "28,000원", photo: "../assets/images/menu/repr-04.webp" },
-      { name: "고등어봉초밥 (8p)", price: "32,000원", photo: "../assets/images/menu/repr-06.webp" },
-      { name: "양갈비 숯불구이", price: "46,000원", photo: "../assets/images/menu/repr-07.webp" },
-      { name: "돌문어튀김(타코텐푸라)", price: "26,000원", photo: "../assets/images/menu/repr-08.webp" },
+      { name: "(런치) 스키야키 정식", price: "35,000원", photo: "../assets/images/menu/14-lunch-sukiyaki.webp" },
+      { name: "(런치) 우나쥬 정식", price: "38,000원", photo: "../assets/images/menu/15-lunch-unaju.webp" },
+      { name: "(런치) 치라시동 정식", price: "28,000원", photo: "../assets/images/menu/16-lunch-chirashi.webp" },
+      { name: "(런치) 카이센동 정식", price: "35,000원", photo: "../assets/images/menu/17-lunch-kaisendon.webp" },
+      { name: "갈치 아이올리", price: "28,000원", photo: "../assets/images/menu/18-galchi-aioli.webp" },
+      { name: "고등어봉초밥 (4p)", price: "16,000원", photo: "../assets/images/menu/19-mackerel-4.webp" },
+      { name: "고등어봉초밥 (8p)", price: "32,000원", photo: "../assets/images/menu/20-mackerel-8.webp" },
+      { name: "도미 머리 조림", price: "38,000원", photo: "../assets/images/menu/21-domi-jorim.webp" },
+      { name: "돌문어튀김(타코텐푸라)", price: "26,000원", photo: "../assets/images/menu/22-tako-tempura.webp" },
+      { name: "민물장어 숯불구이 (2인)", price: "25,000원", photo: "../assets/images/menu/23-eel-25.webp" },
+      { name: "민물장어숯불구이 (통)", price: "48,000원", photo: "../assets/images/menu/24-eel-48.webp" },
+      { name: "바질부라타치즈 플래터", price: "25,000원", photo: "../assets/images/menu/25-burrata.webp" },
+      { name: "아지후라이", price: "28,000원", photo: "../assets/images/menu/26-aji-fry.webp" },
+      { name: "양갈비 숯불구이", price: "46,000원", photo: "../assets/images/menu/27-lamb.webp" },
+      { name: "참치젓갈 생선회 무침", price: "26,000원", photo: "../assets/images/menu/28-tuna-jeotgal.webp" },
+      { name: "츠케모노 5종", price: "13,000원", photo: "../assets/images/menu/29-tsukemono.webp" },
+      { name: "카이센 갈릭 이나니와 비빔우동", price: "29,000원", photo: "../assets/images/menu/30-udon-garlic.webp" },
+      { name: "타코 사라다", price: "35,000원", photo: "../assets/images/menu/31-taco-salad.webp" },
+      { name: "프로슈토 아보카도 사라다", price: "28,000원", photo: "../assets/images/menu/32-prosciutto.webp" },
+      { name: "해물모시우동", price: "25,000원", photo: "../assets/images/menu/33-udon-seafood.webp" },
+      { name: "해물베이컨토마토스튜", price: "35,000원", photo: "../assets/images/menu/34-stew.webp" },
     ],
     // 전체 메뉴판을 밖에서 더 보고 싶을 때 (펼쳐서 링크로 이동)
     links: {
