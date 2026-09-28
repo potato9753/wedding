@@ -360,3 +360,41 @@ html {
   letter-spacing: 0.04em;
   color: var(--color-text-soft);
 }
+
+/* ============================================================
+   8) 커플 사진을 배경/섹션 사이사이에 살짝 배치
+   ============================================================ */
+/* 섹션 사이 전면 사진 브레이크: 카드 여백 없이 화면 꽉 채워서 리듬 끊기 */
+.photo-break {
+  position: relative;
+  height: 42vh;
+  max-height: 360px;
+  overflow: hidden;
+}
+.photo-break img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photo-break::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(61, 57, 40, 0) 55%, var(--color-surface) 100%);
+}
+
+/* 상견례 안내 섹션: 커플 사진을 은은한 배경으로 (텍스트는 위에 카드로 덮어서 가독성 확보) */
+#calendar {
+  position: relative;
+  isolation: isolate;
+}
+#calendar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(248, 244, 233, 0.94) 0%, rgba(248, 244, 233, 0.86) 55%, var(--color-surface) 100%),
+    url("../assets/images/couple/couple-08.webp") center 30% / cover no-repeat;
+}

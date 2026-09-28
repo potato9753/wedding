@@ -32,38 +32,67 @@ function buildCourse(course) {
   return card;
 }
 
-/** 네이버(장소 검색)·캐치테이블 링크로 이동하는 펼치기(<details>) 블록 */
+function buildReprMenuItem(item) {
+  const fig = document.createElement("figure");
+  fig.className = "menu-repr__item";
+  const img = document.createElement("img");
+  img.className = "menu-repr__img";
+  img.src = item.photo;
+  img.alt = item.name;
+  img.loading = "lazy";
+  fig.appendChild(img);
+  const cap = document.createElement("figcaption");
+  cap.className = "menu-repr__cap";
+  cap.textContent = item.price ? `${item.name} · ${item.price}` : item.name;
+  fig.appendChild(cap);
+  return fig;
+}
+
+/** 대표메뉴 사진 + 네이버·캐치테이블 링크로 이동하는 펼치기(<details>) 블록 */
 function buildLinksDetails(config) {
+  const reprMenu = Array.isArray(config?.menu?.reprMenu) ? config.menu.reprMenu.filter((m) => m && m.name) : [];
+  const naverUrl = config?.directions?.mapLinks?.naver;
   const mapQuery = config?.directions?.mapQuery;
   const catchtable = config?.menu?.links?.catchtable;
 
   const links = [];
-  if (mapQuery) {
+  if (naverUrl) {
+    links.push({ label: "네이버플레이스에서 보기", url: naverUrl });
+  } else if (mapQuery) {
     links.push({ label: "네이버에서 메뉴 더 보기", url: `https://map.naver.com/p/search/${encodeURIComponent(mapQuery)}` });
   }
   if (catchtable) {
     links.push({ label: "캐치테이블에서 메뉴 보기", url: catchtable });
   }
-  if (!links.length) return null;
+  if (!reprMenu.length && !links.length) return null;
 
   const details = document.createElement("details");
   details.className = "menu-links";
   const summary = document.createElement("summary");
-  summary.textContent = "추천메뉴 · 전체 메뉴판 더 보기";
+  summary.textContent = "갓포코젠 대표메뉴 · 전체 메뉴판 더 보기";
   details.appendChild(summary);
 
-  const nav = document.createElement("div");
-  nav.className = "menu-links__nav";
-  links.forEach(({ label, url }) => {
-    const a = document.createElement("a");
-    a.className = "map-links__btn";
-    a.href = url;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-    a.textContent = label;
-    nav.appendChild(a);
-  });
-  details.appendChild(nav);
+  if (reprMenu.length) {
+    const grid = document.createElement("div");
+    grid.className = "menu-repr";
+    reprMenu.forEach((item) => grid.appendChild(buildReprMenuItem(item)));
+    details.appendChild(grid);
+  }
+
+  if (links.length) {
+    const nav = document.createElement("div");
+    nav.className = "menu-links__nav";
+    links.forEach(({ label, url }) => {
+      const a = document.createElement("a");
+      a.className = "map-links__btn";
+      a.href = url;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.textContent = label;
+      nav.appendChild(a);
+    });
+    details.appendChild(nav);
+  }
   return details;
 }
 

@@ -3,7 +3,7 @@
 // ------------------------------------------------------------
 //  * [data-family] 컨테이너에 신랑측/신부측 그룹을 렌더합니다.
 //  * config.family 가 없거나 비어 있으면 #family 섹션을 숨깁니다.
-//  * 사진 카테고리(past/parents/recent) 는 src 가 비어 있으면
+//  * 사진 카테고리(recent/past/pet) 는 src 가 비어 있으면
 //    "사진 준비중" placeholder 로 표시됩니다 (요청용 샘플 화면 용도).
 // ============================================================
 
@@ -89,11 +89,10 @@ function buildSideGroup(label, side) {
   if (members.length) group.appendChild(buildMembersGrid(members));
 
   const photos = side.photos || {};
-  // 전체 가족(요즘)이 먼저, 그 다음 옛날 사진(부모님 + 본인 어린 시절)은 한데 묶어서
+  // 전체 가족(요즘)이 먼저, 그 다음 본인 어린 시절(소개 문구 포함)
   const recentPhotos = Array.isArray(photos.recent) ? photos.recent : photos.recent ? [photos.recent] : [];
   if (recentPhotos.length) group.appendChild(buildPhotoRow("우리 가족", recentPhotos));
-  const oldPhotos = [...(Array.isArray(photos.parents) ? photos.parents : []), ...(photos.past ? [photos.past] : [])];
-  if (oldPhotos.length) group.appendChild(buildPhotoRow("그 시절 사진", oldPhotos));
+  if (photos.past) group.appendChild(buildPhotoRow("그때 우리", [photos.past]));
   if (photos.pet) group.appendChild(buildPhotoRow("우리집 반려동물", [photos.pet]));
 
   return group;

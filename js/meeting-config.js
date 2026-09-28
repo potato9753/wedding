@@ -73,12 +73,11 @@ export const MEETING_CONFIG = {
         { relation: "형", name: "이재철" },
       ],
       photos: {
-        past: { src: "../assets/images/family/groom/childhood-01.webp", caption: "신랑 어린 시절" },
-        parents: [
-          { src: "../assets/images/family/groom/parents-young-01.webp", caption: "부모님 젊으셨을 때" },
-          { src: "../assets/images/family/groom/parents-young-02.webp", caption: "" },
-          { src: "../assets/images/family/groom/parents-young-03.webp", caption: "" },
-        ],
+        // ⚠ 소개 문구는 샘플이에요 — 실제 느낌으로 바꿔주세요.
+        past: {
+          src: "../assets/images/family/groom/childhood-01.webp",
+          caption: "낯가림 없고 장난기 많던 개구쟁이였대요. 지금도 크게 안 변했다는 후문이 있어요.",
+        },
         recent: [
           { src: "../assets/images/family/groom/recent-family-01.webp", caption: "요즘 우리 셋" },
           { src: "../assets/images/family/groom/recent-family-02.webp", caption: "" },
@@ -93,8 +92,10 @@ export const MEETING_CONFIG = {
         { relation: "반려견", name: "두리 (진돗개)" },
       ],
       photos: {
-        past: { src: "../assets/images/family/bride/childhood-01.webp", caption: "신부 어린 시절" },
-        parents: [{ src: "", caption: "부모님 젊으셨을 때" }],
+        past: {
+          src: "../assets/images/family/bride/childhood-01.webp",
+          caption: "순하고 조용한 아이였다고 해요 — 지금 성격이랑 비슷하죠?",
+        },
         recent: { src: "../assets/images/family/bride/recent-01.webp", caption: "" },
         pet: { src: "../assets/images/family/bride/pet-01.webp", caption: "두리" },
       },
@@ -107,10 +108,10 @@ export const MEETING_CONFIG = {
     venue: {
       name: "갓포코젠",
       hall: "", // ⚠ 예약하신 룸/좌석 이름 있으면 채워주세요
-      address: "경기 수원시 영통구 광교", // ⚠ 정확한 지번/도로명 주소로 교체해주세요
-      addressJibun: "",
+      address: "경기 수원시 영통구 도청로66번길 6 상가3동 333호",
+      addressJibun: "경기 수원시 영통구 이의동 1333",
       zipcode: "",
-      tel: "",
+      tel: "031-895-5571",
     },
   },
 
@@ -147,9 +148,9 @@ export const MEETING_CONFIG = {
     intro: "제철 회·튀김·구이를 코스로 즐기는 갓포 다이닝이에요. 룸으로 예약해서 편하게 얘기 나누기 좋아요.",
     sketchMap: "",
     mapQuery: "갓포코젠 광교",
-    mapLinks: { kakao: "", naver: "", tmap: "", google: "" },
+    mapLinks: { kakao: "", naver: "https://map.naver.com/p/entry/place/2044348009", tmap: "", google: "" },
     transit: {
-      subway: "",
+      subway: "광교중앙역(신분당선) 3번 출구에서 도보 1분\n3번 출구로 나와 오른쪽(이편한세상 방향)으로 직진하면 광교힐스에비뉴 상가동이 보여요. 늘봄약국 옆 엘리베이터 타고 3층으로 올라오시면 비율헤어 바로 오른쪽이에요.",
       bus: "",
       car: "",
       parking: "",
@@ -208,10 +209,21 @@ export const MEETING_CONFIG = {
     ],
     // 코스에 없지만 추가로 먹고 싶은 메뉴 (당일 현장 주문 예정 등)
     wishlist: ["참외 셔벗 (디저트, 마지막에 별도 주문 예정)"],
-    // 갓포코젠 추천메뉴·전체 메뉴판을 밖에서 더 보고 싶을 때 (펼쳐서 링크로 이동)
-    // naver 는 directions.mapQuery 로 자동 생성됩니다. catchtable 은 ⚠ 실제 URL로 채워주세요.
+    // 네이버플레이스에 등록된 갓포코젠 대표메뉴 9종 (사진은 자가호스팅 — assets/images/menu/)
+    reprMenu: [
+      { name: "제철 생선회", price: "54,000원", photo: "../assets/images/menu/repr-01.webp" },
+      { name: "(런치) 카이센동 정식", price: "35,000원", photo: "../assets/images/menu/repr-02.webp" },
+      { name: "(런치) 우나쥬 정식", price: "38,000원", photo: "../assets/images/menu/repr-03.webp" },
+      { name: "프로슈토 아보카도 사라다", price: "28,000원", photo: "../assets/images/menu/repr-04.webp" },
+      { name: "참치 김말이 초밥(마구로마키)", price: "25,000원", photo: "../assets/images/menu/repr-05.webp" },
+      { name: "고등어봉초밥 (8p)", price: "32,000원", photo: "../assets/images/menu/repr-06.webp" },
+      { name: "양갈비 숯불구이", price: "46,000원", photo: "../assets/images/menu/repr-07.webp" },
+      { name: "돌문어튀김(타코텐푸라)", price: "26,000원", photo: "../assets/images/menu/repr-08.webp" },
+      { name: "1++ 한우 스키야키전골", price: "45,000원", photo: "../assets/images/menu/repr-09.webp" },
+    ],
+    // 전체 메뉴판을 밖에서 더 보고 싶을 때 (펼쳐서 링크로 이동)
     links: {
-      catchtable: "",
+      catchtable: "https://app.catchtable.co.kr/ct/shop/kappokozen/menuAllList",
     },
   },
 
