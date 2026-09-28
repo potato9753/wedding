@@ -25,7 +25,7 @@ export const MEETING_CONFIG = {
       { src: "../assets/images/couple/couple-12.webp", alt: "재진 · 소은 · 시라카와고" },
       { src: "../assets/images/couple/couple-07.webp", alt: "재진 · 소은" },
       { src: "../assets/images/couple/couple-03.webp", alt: "재진 · 소은" },
-      { src: "../assets/images/couple/couple-02.webp", alt: "재진 · 소은" },
+      { src: "../assets/images/couple/couple-16.webp", alt: "재진 · 소은" },
     ],
   },
 
@@ -93,9 +93,9 @@ export const MEETING_CONFIG = {
         { relation: "반려견", name: "두리 (진돗개)" },
       ],
       photos: {
-        past: { src: "", caption: "신부 어린 시절" },
+        past: { src: "../assets/images/family/bride/childhood-01.webp", caption: "신부 어린 시절" },
         parents: [{ src: "", caption: "부모님 젊으셨을 때" }],
-        recent: { src: "", caption: "형제 포함 최근 가족사진" },
+        recent: { src: "../assets/images/family/bride/recent-01.webp", caption: "" },
         pet: { src: "../assets/images/family/bride/pet-01.webp", caption: "두리" },
       },
     },
@@ -129,7 +129,9 @@ export const MEETING_CONFIG = {
   gallery: {
     // 커버 콜라주와 중복 없이, 비슷한 컷(밤 셀카·뒷모습·아이스크림 등)은 하나씩만
     images: [
+      { src: "../assets/images/couple/couple-17.webp", alt: "재진 · 소은" },
       { src: "../assets/images/couple/couple-06.webp", alt: "재진 · 소은" },
+      { src: "../assets/images/couple/couple-18.webp", alt: "재진 · 소은" },
       { src: "../assets/images/couple/couple-09.webp", alt: "재진 · 소은" },
       { src: "../assets/images/couple/couple-11.webp", alt: "재진 · 소은" },
       { src: "../assets/images/couple/couple-14.webp", alt: "재진 · 소은" },
