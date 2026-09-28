@@ -626,3 +626,52 @@ img[data-zoom] + figcaption {
     transition: none;
   }
 }
+
+/* ── 11. "전체 메뉴판 더 보기" — 눌러볼 수 있는 버튼처럼 보이게 ── */
+.menu-links summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  max-width: max-content;
+  background: var(--color-surface-2);
+  border: 1.5px dashed var(--color-primary);
+  border-radius: 999px;
+  box-shadow: 0 3px 10px rgba(74, 61, 52, 0.12);
+  font-family: var(--font-serif);
+  text-align: center;
+  animation: fx-menu-cta 2.2s ease-in-out infinite;
+}
+.menu-links summary::before {
+  content: "";
+}
+.menu-links summary::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--color-primary-dark);
+  border-bottom: 2px solid var(--color-primary-dark);
+  transform: rotate(45deg);
+  transition: transform 0.25s ease;
+}
+.menu-links[open] summary::after {
+  transform: rotate(-135deg);
+}
+.menu-links[open] summary {
+  animation: none;
+}
+.menu-links summary:active {
+  filter: brightness(0.94);
+}
+@keyframes fx-menu-cta {
+  0%, 100% { box-shadow: 0 3px 10px rgba(74, 61, 52, 0.12); }
+  50% { box-shadow: 0 3px 16px rgba(125, 131, 85, 0.35); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu-links summary {
+    animation: none;
+    transition: none;
+  }
+}
