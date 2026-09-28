@@ -19,19 +19,20 @@ export const MEETING_CONFIG = {
     tagline: "두근두근, 처음 인사드려요",
     // 대표 사진 한 장 대신 5장을 흩뿌린 콜라주로 구성 (첫 번째가 가장 크게).
     // 사진 5장 기준으로 css(.cover-collage__item:nth-child)가 배치돼 있어요 — 개수를 바꾸면 css/style.css 도 같이 조정하세요.
+    // 갤러리와 겹치지 않게, 서로 다른 무드로만 5장 선별
     collage: [
       { src: "../assets/images/couple/couple-04.webp", alt: "재진 · 소은" },
-      { src: "../assets/images/couple/couple-06.webp", alt: "재진 · 소은" },
-      { src: "../assets/images/couple/couple-13.webp", alt: "재진 · 소은" },
-      { src: "../assets/images/couple/couple-11.webp", alt: "재진 · 소은" },
+      { src: "../assets/images/couple/couple-12.webp", alt: "재진 · 소은 · 시라카와고" },
+      { src: "../assets/images/couple/couple-07.webp", alt: "재진 · 소은" },
       { src: "../assets/images/couple/couple-03.webp", alt: "재진 · 소은" },
+      { src: "../assets/images/couple/couple-02.webp", alt: "재진 · 소은" },
     ],
   },
 
   effects: {
     falling: "glow", // "glow" | "petal" | "snow" | "none" — 웜톤 은은한 빛 입자
     intensity: 26,
-    introText: "두 가족,",
+    introText: "먼저 인사드릴게요",
   },
 
   couple: {
@@ -123,12 +124,11 @@ export const MEETING_CONFIG = {
   },
 
   gallery: {
+    // 커버 콜라주와 중복 없이, 비슷한 컷(밤 셀카·뒷모습·아이스크림 등)은 하나씩만
     images: [
-      { src: "../assets/images/couple/couple-01.webp", alt: "재진 · 소은" },
-      { src: "../assets/images/couple/couple-02.webp", alt: "재진 · 소은" },
-      { src: "../assets/images/couple/couple-04.webp", alt: "재진 · 소은" },
       { src: "../assets/images/couple/couple-06.webp", alt: "재진 · 소은" },
-      { src: "../assets/images/couple/couple-12.webp", alt: "재진 · 소은 · 시라카와고" },
+      { src: "../assets/images/couple/couple-09.webp", alt: "재진 · 소은" },
+      { src: "../assets/images/couple/couple-11.webp", alt: "재진 · 소은" },
       { src: "../assets/images/couple/couple-13.webp", alt: "재진 · 소은" },
       { src: "../assets/images/bride/solo-01.webp", alt: "소은" },
     ],
