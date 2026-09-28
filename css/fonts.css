@@ -51,3 +51,12 @@
   font-display: swap;
   src: url("../assets/fonts/GreatVibes-Regular.woff2") format("woff2");
 }
+
+/* BM Jua (배민 주아체) — 상견례 페이지: 따뜻하고 둥글둥글한 손글씨 톤 (MIT, @noonnu/bmjua) */
+@font-face {
+  font-family: "BM Jua";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/BMJua.woff2") format("woff2");
+}

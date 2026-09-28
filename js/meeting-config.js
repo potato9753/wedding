@@ -32,7 +32,7 @@ export const MEETING_CONFIG = {
   effects: {
     falling: "glow", // "glow" | "petal" | "snow" | "none" — 웜톤 은은한 빛 입자
     intensity: 26,
-    introText: "먼저 인사드릴게요",
+    introText: "오늘의 만남이 두 가족의 행복한 시작이 되기를 바랍니다.",
   },
 
   couple: {

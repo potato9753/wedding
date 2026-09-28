@@ -6,22 +6,25 @@
    스티커 태그 · 마스킹테이프 사진 · 손편지 말풍선으로 톤을 가볍게 합니다.
    ============================================================ */
 :root {
-  --color-bg: #f2e4d3;          /* 컨테이너 바깥: 웜 샌드 */
-  --color-surface: #fdf8f1;     /* 본문 배경: 웜 아이보리 */
-  --color-surface-2: #f8ecd9;   /* 카드/구획: 웜 크림 */
-  --color-text: #4a3d34;        /* 본문 텍스트: 웜 차콜 브라운 */
-  --color-text-soft: #8a7364;   /* 보조 텍스트 */
-  --color-text-faint: #b6a291;  /* 흐린 텍스트/라벨 */
-  --color-primary: #e0995f;     /* 웜 테라코타 (포인트) */
-  --color-primary-dark: #c17d47;
-  --color-accent: #e07f5c;      /* 코랄 (하트/강조) */
-  --color-winter: #e0995f;      /* 겨울 눈송이 → 웜 아이콘 */
-  --color-line: #ecdcc5;        /* 구분선 */
+  --color-bg: #e8e1cd;          /* 컨테이너 바깥: 무광 베이지 */
+  --color-surface: #f8f4e9;     /* 본문 배경: 웜 오프화이트 */
+  --color-surface-2: #eee5cf;   /* 카드/구획: 짙은 베이지 */
+  --color-text: #3d3928;        /* 본문 텍스트: 다크 올리브 브라운 */
+  --color-text-soft: #6e6650;   /* 보조 텍스트 */
+  --color-text-faint: #a89c7e;  /* 흐린 텍스트/라벨 */
+  --color-primary: #7d8355;     /* 올리브 (포인트) */
+  --color-primary-dark: #5f6740;
+  --color-accent: #a85c3f;      /* 느적한 러스트(황토) (하트/강조) */
+  --color-winter: #7d8355;      /* 겨울 눈송이 → 올리브 아이콘 */
+  --color-line: #ddd2b0;        /* 구분선 */
+
+  /* 상견례 페이지 전용: 제목/라벨류에만 쓰는 둥글둥글 손글씨 폰트 (BM Jua, 자가호스팅) */
+  --font-serif: "BM Jua", "Gowun Batang", "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
 }
 
-/* ── 짝수 섹션 배경 리듬: 쿨톤(#eef4f7) → 웜톤 ── */
+/* ── 짝수 섹션 배경 리듬: 웜하지만 파스텔 아닌 베이지 톤 ── */
 .section:nth-of-type(even):not(.cover) {
-  background: linear-gradient(180deg, var(--color-surface) 0%, #f8ead2 50%, var(--color-surface) 100%);
+  background: linear-gradient(180deg, var(--color-surface) 0%, #e8dbb8 50%, var(--color-surface) 100%);
 }
 
 /* ============================================================
@@ -38,13 +41,13 @@
   margin-bottom: var(--space-4);
   background: var(--color-primary);
   color: #fff;
-  font-family: var(--font-sans);
-  font-size: var(--fs-xs);
-  font-weight: 700;
+  font-family: var(--font-serif);
+  font-size: var(--fs-sm);
+  font-weight: 400;
   letter-spacing: 0.01em;
   text-transform: none;
   border-radius: 999px 999px 4px 999px;
-  box-shadow: 0 3px 0 rgba(74, 61, 52, 0.12);
+  box-shadow: 0 3px 0 rgba(61, 57, 40, 0.15);
 }
 .section:nth-of-type(odd) .section__eyebrow {
   transform: rotate(-2deg);
@@ -55,9 +58,9 @@
 }
 
 .section__title {
-  font-family: var(--font-sans);
-  font-weight: 800;
-  letter-spacing: -0.01em;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: 0;
   display: inline-block;
 }
 .section__title::after {
@@ -78,14 +81,14 @@
   padding: 6px 18px;
   background: var(--color-accent);
   color: #fff;
-  font-family: var(--font-sans);
-  font-size: var(--fs-xs);
-  font-weight: 700;
+  font-family: var(--font-serif);
+  font-size: var(--fs-sm);
+  font-weight: 400;
   letter-spacing: 0.01em;
   text-transform: none;
   border-radius: 999px 999px 999px 4px;
   transform: rotate(-3deg);
-  box-shadow: 0 3px 0 rgba(74, 61, 52, 0.12);
+  box-shadow: 0 3px 0 rgba(61, 57, 40, 0.15);
 }
 .cover__eyebrow::before,
 .cover__eyebrow::after {
@@ -154,7 +157,7 @@
 }
 
 .family-photos-row__label {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
 }
 
 /* 가족 사진: 마스킹테이프로 붙여놓은 느낌 */
@@ -179,22 +182,22 @@
   left: 50%;
   width: 36px;
   height: 16px;
-  background: rgba(224, 127, 92, 0.55);
+  background: rgba(168, 92, 63, 0.55);
   border-radius: 2px;
   transform: translateX(-50%) rotate(-4deg);
   z-index: 2;
 }
 
 /* ============================================================
-   4) 안내 카드 · 연락 카드 제목도 세리프 → 편한 산세리프
+   4) 안내 카드 · 연락 카드 제목도 손글씨 톤으로
    ============================================================ */
 .info-card__title,
 .contact-card__role {
-  font-family: var(--font-sans);
-  font-weight: 700;
+  font-family: var(--font-serif);
+  font-weight: 400;
 }
 .info-card__icon {
-  background: rgba(224, 153, 95, 0.18);
+  background: rgba(125, 131, 85, 0.16);
 }
 
 /* ============================================================
@@ -325,32 +328,35 @@ html {
   transform: none;
 }
 
-/* ── 푸터: 쿨톤 저녁 그라데이션·별빛 → 웜톤 노을 + 반짝임 ── */
+/* ── 푸터: 쿨톤 저녁 그라데이션·별빛 → 올리브/러스트 톤 노을 + 반짝임 ── */
 .footer {
-  background: linear-gradient(180deg, var(--color-surface-2) 0%, #f3d9b3 100%);
+  background: linear-gradient(180deg, var(--color-surface-2) 0%, #ddd0a0 100%);
 }
 .footer::before {
   background-image:
-    radial-gradient(1.6px 1.6px at 16% 40%, rgba(224, 153, 95, 0.95), transparent 60%),
-    radial-gradient(1.4px 1.4px at 34% 20%, rgba(224, 127, 92, 0.8), transparent 60%),
-    radial-gradient(1.8px 1.8px at 52% 58%, rgba(224, 153, 95, 0.9), transparent 60%),
-    radial-gradient(1.3px 1.3px at 70% 26%, rgba(224, 127, 92, 0.8), transparent 60%),
-    radial-gradient(1.6px 1.6px at 86% 46%, rgba(224, 153, 95, 0.95), transparent 60%);
+    radial-gradient(1.6px 1.6px at 16% 40%, rgba(168, 92, 63, 0.9), transparent 60%),
+    radial-gradient(1.4px 1.4px at 34% 20%, rgba(125, 131, 85, 0.8), transparent 60%),
+    radial-gradient(1.8px 1.8px at 52% 58%, rgba(168, 92, 63, 0.85), transparent 60%),
+    radial-gradient(1.3px 1.3px at 70% 26%, rgba(125, 131, 85, 0.8), transparent 60%),
+    radial-gradient(1.6px 1.6px at 86% 46%, rgba(168, 92, 63, 0.9), transparent 60%);
 }
 
 /* ============================================================
    7) 진입 인트로: 청첩장풍 캘리그래피 → 편한 손글씨 톤 인사
    ============================================================ */
 .intro__script {
-  font-family: var(--font-sans);
-  font-weight: 800;
-  font-size: clamp(1.9rem, 9vw, 2.8rem);
-  letter-spacing: -0.01em;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 6.5vw, 2.1rem);
+  letter-spacing: 0;
+  line-height: 1.4;
   color: var(--color-primary-dark);
+  max-width: 86vw;
+  text-align: center;
 }
 .intro__sub {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: 0.04em;
   color: var(--color-text-soft);
 }
