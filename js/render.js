@@ -276,7 +276,7 @@ export function renderProfile(config, root = document) {
 }
 
 /** 월 달력 그리드 DOM 생성 (예식일 강조, 일요일 색) */
-function buildCalendarGrid(year, month, weddingDay) {
+function buildCalendarGrid(year, month, weddingDay, tapTip) {
   const grid = document.createElement("div");
   grid.className = "calendar__grid";
 
@@ -297,7 +297,10 @@ function buildCalendarGrid(year, month, weddingDay) {
       } else {
         cell.textContent = String(d);
         if (i === 0) cell.classList.add("calendar__cell--sun");
-        if (d === weddingDay) cell.classList.add("calendar__day--wedding");
+        if (d === weddingDay) {
+          cell.classList.add("calendar__day--wedding");
+          if (tapTip) cell.dataset.tip = tapTip;
+        }
       }
       grid.appendChild(cell);
     });
@@ -454,7 +457,7 @@ export function renderCalendar(config, root = document) {
   if (host && iso) {
     const { year, month, day } = parseDateTime(iso);
     host.textContent = "";
-    host.appendChild(buildCalendarGrid(year, month, day));
+    host.appendChild(buildCalendarGrid(year, month, day, config?.effects?.calendarTapTip));
   }
 }
 

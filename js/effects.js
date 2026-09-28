@@ -506,7 +506,7 @@ export function initCalendarTap(root = document) {
   const fire = () => {
     const r = cell.getBoundingClientRect();
     snowBurst(r.left + r.width / 2, r.top + r.height / 2);
-    showWedTip(r);
+    showWedTip(r, cell.dataset.tip);
   };
   cell.addEventListener("click", fire);
   cell.addEventListener("keydown", (e) => {
@@ -518,12 +518,12 @@ export function initCalendarTap(root = document) {
 }
 
 let wedTipEl = null;
-function showWedTip(rect) {
+function showWedTip(rect, text) {
   if (typeof document === "undefined") return;
   if (wedTipEl) wedTipEl.remove();
   const tip = document.createElement("div");
   tip.className = "wed-tip";
-  tip.textContent = "우리 결혼해요 💍";
+  tip.textContent = text || "우리 결혼해요 💍";
   document.body.appendChild(tip);
   tip.style.left = `${rect.left + rect.width / 2}px`;
   tip.style.top = `${rect.top}px`;
