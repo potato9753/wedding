@@ -15,6 +15,7 @@ function prefersReduced() {
 
 export function initInviteModal(root = document) {
   const modal = root.querySelector("[data-invite-modal]");
+  const intro = root.querySelector(".intro");
   if (!modal || typeof window === "undefined") return;
 
   const reduced = prefersReduced();
@@ -26,11 +27,25 @@ export function initInviteModal(root = document) {
     if (!reduced) modal.focus({ preventScroll: true });
   };
 
+  // 초대장을 닫으면 그때 인트로 문구가 시작됨
+  const startIntro = () => {
+    if (!intro) return;
+    if (reduced) {
+      intro.style.display = "none"; // 리듀스모션이면 문구 자체를 건너뜀
+      return;
+    }
+    intro.classList.add("is-playing");
+    setTimeout(() => {
+      intro.style.display = "none";
+    }, 3000); // fx-intro-out 종료(2.1s 지연 + 0.9s) 이후 정리
+  };
+
   const hide = () => {
     modal.classList.remove("is-visible");
     modal.setAttribute("aria-hidden", "true");
     const finish = () => {
       modal.hidden = true;
+      startIntro();
     };
     if (reduced) finish();
     else setTimeout(finish, 400);
@@ -44,8 +59,7 @@ export function initInviteModal(root = document) {
     }
   });
 
-  if (reduced) show();
-  else setTimeout(show, 3100); // 인트로(약 3s) 마무리 직후 등장
+  show(); // 초대장이 가장 먼저 뜸
 }
 
 export default initInviteModal;

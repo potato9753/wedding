@@ -426,8 +426,24 @@ html {
 }
 
 /* ============================================================
-   9) "초대장" 팝업 카드 — 인트로가 끝나면 나타나고, 탭하면 닫힙니다
+   9) "초대장" 팝업 카드가 먼저 뜨고, 닫으면 그때 인트로 문구가 재생됨
    ============================================================ */
+.intro,
+.intro__script,
+.intro__sub {
+  animation-play-state: paused;
+}
+.intro.is-playing,
+.intro.is-playing .intro__script,
+.intro.is-playing .intro__sub {
+  animation-play-state: running;
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    animation-play-state: paused;
+  }
+}
+
 .invite-modal {
   position: fixed;
   inset: 0;
