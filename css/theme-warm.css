@@ -519,8 +519,24 @@ html {
 /* ── 10. 탭 확대 힌트 · 눌리는 느낌 · 위로가기 버튼 ── */
 
 /* 확대 가능한 사진에 붙는 돋보기 힌트 아이콘 */
-.menu-repr__item {
+.menu-repr__item,
+.gallery__slide {
   position: relative;
+}
+.gallery__slide::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(61, 57, 40, 0.55);
+  pointer-events: none;
+  z-index: 2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cline x1='21' y1='21' x2='16.2' y2='16.2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .family-photo__img[data-zoom],
 .cover-collage__item img[data-zoom],
@@ -559,6 +575,9 @@ img[data-zoom] + figcaption {
 .family-photo__img[data-zoom]:active,
 .cover-collage__item img[data-zoom]:active,
 .menu-repr__img[data-zoom]:active {
+  filter: brightness(0.88);
+}
+.gallery__slide:active .gallery__slide-img {
   filter: brightness(0.88);
 }
 
@@ -674,4 +693,9 @@ img[data-zoom] + figcaption {
     animation: none;
     transition: none;
   }
+}
+
+/* ── 12. 탭 파티클(하트/캘린더 버스트) 가을 느낌으로 교체 ── */
+.fx-burst {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0 C13 7 17 11 24 12 C17 13 13 17 12 24 C11 17 7 13 0 12 C7 11 11 7 12 0 Z' fill='%23c8874f'/%3E%3C/svg%3E");
 }
