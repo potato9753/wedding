@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 //  * buildMapLinks 만 순수 함수(테스트 대상). 나머지는 브라우저 전용.
 // ============================================================
-import { showToast, copyToClipboard } from "./ui.js?v=202609281800";
+import { showToast, copyToClipboard } from "./ui.js?v=202609281808";
 
 /**
  * 지도앱 딥링크 4종 생성. 명시 URL(links)이 있으면 우선, 없으면 검색어(query)로 생성.
@@ -33,8 +33,17 @@ export function initDirections(config, root = document) {
   };
   setText("[data-venue-name]", venue.name);
   setText("[data-venue-hall]", venue.hall);
-  setText("[data-venue-intro]", d.intro);
   setText("[data-venue-address]", venue.address);
+
+  // 소개 문구: "\n" 로 줄바꿈 지원
+  const introEl = root.querySelector("[data-venue-intro]");
+  if (introEl && d.intro) {
+    introEl.textContent = "";
+    String(d.intro).split("\n").forEach((line, i) => {
+      if (i > 0) introEl.appendChild(document.createElement("br"));
+      introEl.appendChild(document.createTextNode(line));
+    });
+  }
 
   // 약도 이미지 (경로 있을 때만)
   const mapImg = root.querySelector("[data-sketchmap]");

@@ -107,9 +107,9 @@
    ============================================================ */
 #greeting .section__desc {
   display: block;
-  max-width: 320px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: var(--space-5);
+  padding: var(--space-5) var(--space-4);
   background: var(--color-surface-2);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 4px;

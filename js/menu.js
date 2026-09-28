@@ -6,24 +6,23 @@
 //  * 가격은 일부러 표시하지 않습니다 (qty 만 "× n" 으로 표시).
 // ============================================================
 
-function buildItemRow(item) {
-  const row = document.createElement("li");
-  row.className = "menu-item";
-
-  if (item.photo) {
+/** 사진이 먼저 보이는 카드 (대표메뉴와 같은 스타일). photo 가 없으면 이름만. */
+function buildMenuPhotoItem(name, caption, photo) {
+  const fig = document.createElement("figure");
+  fig.className = "menu-repr__item";
+  if (photo) {
     const img = document.createElement("img");
-    img.className = "menu-item__thumb";
-    img.src = item.photo;
-    img.alt = item.name;
+    img.className = "menu-repr__img";
+    img.src = photo;
+    img.alt = name;
     img.loading = "lazy";
-    row.appendChild(img);
+    fig.appendChild(img);
   }
-
-  const label = document.createElement("span");
-  label.textContent = item.qty > 1 ? `${item.name} × ${item.qty}` : item.name;
-  row.appendChild(label);
-
-  return row;
+  const cap = document.createElement("figcaption");
+  cap.className = "menu-repr__cap";
+  cap.textContent = caption;
+  fig.appendChild(cap);
+  return fig;
 }
 
 function buildCourse(course) {
@@ -35,30 +34,20 @@ function buildCourse(course) {
   phase.textContent = course.phase;
   card.appendChild(phase);
 
-  const list = document.createElement("ul");
-  list.className = "menu-course__list";
+  const grid = document.createElement("div");
+  grid.className = "menu-repr";
   (Array.isArray(course.items) ? course.items : []).forEach((item) => {
-    if (item && item.name) list.appendChild(buildItemRow(item));
+    if (!item || !item.name) return;
+    const label = item.qty > 1 ? `${item.name} × ${item.qty}` : item.name;
+    grid.appendChild(buildMenuPhotoItem(item.name, label, item.photo));
   });
-  card.appendChild(list);
+  card.appendChild(grid);
 
   return card;
 }
 
 function buildReprMenuItem(item) {
-  const fig = document.createElement("figure");
-  fig.className = "menu-repr__item";
-  const img = document.createElement("img");
-  img.className = "menu-repr__img";
-  img.src = item.photo;
-  img.alt = item.name;
-  img.loading = "lazy";
-  fig.appendChild(img);
-  const cap = document.createElement("figcaption");
-  cap.className = "menu-repr__cap";
-  cap.textContent = item.price ? `${item.name} · ${item.price}` : item.name;
-  fig.appendChild(cap);
-  return fig;
+  return buildMenuPhotoItem(item.name, item.price ? `${item.name} · ${item.price}` : item.name, item.photo);
 }
 
 /** 대표메뉴 사진 + 네이버·캐치테이블 링크로 이동하는 펼치기(<details>) 블록 */

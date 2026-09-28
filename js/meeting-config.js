@@ -145,7 +145,7 @@ export const MEETING_CONFIG = {
   // ── 오시는 길 (mapQuery 는 장소명으로 자동 딥링크 생성) ──
   //  ⚠ intro 문구는 추측으로 쓴 초안입니다 — 실제 느낌과 다르면 편하게 고쳐주세요.
   directions: {
-    intro: "제철 회·튀김·구이를 코스로 즐기는 갓포 다이닝이에요. 룸으로 예약해서 편하게 얘기 나누기 좋아요.",
+    intro: "제철 회·튀김·구이를 코스로 즐기는 갓포 다이닝이에요.\n룸으로 예약해서 편하게 얘기 나누기 좋아요.",
     sketchMap: "",
     mapQuery: "갓포코젠 광교",
     mapLinks: { kakao: "", naver: "https://map.naver.com/p/entry/place/2044348009", tmap: "", google: "" },
@@ -211,16 +211,14 @@ export const MEETING_CONFIG = {
     // 코스에 없지만 추가로 먹고 싶은 메뉴 (당일 현장 주문 예정 등)
     wishlist: ["참외 셔벗 (디저트, 마지막에 별도 주문 예정)"],
     // 네이버플레이스에 등록된 갓포코젠 대표메뉴 9종 (사진은 자가호스팅 — assets/images/menu/)
+    // ⚠ 코스 리스트에 이미 있는 대표메뉴(제철 생선회·마구로마키·스키야키전골)는 중복이라 여기서 뺐어요.
     reprMenu: [
-      { name: "제철 생선회", price: "54,000원", photo: "../assets/images/menu/repr-01.webp" },
       { name: "(런치) 카이센동 정식", price: "35,000원", photo: "../assets/images/menu/repr-02.webp" },
       { name: "(런치) 우나쥬 정식", price: "38,000원", photo: "../assets/images/menu/repr-03.webp" },
       { name: "프로슈토 아보카도 사라다", price: "28,000원", photo: "../assets/images/menu/repr-04.webp" },
-      { name: "참치 김말이 초밥(마구로마키)", price: "25,000원", photo: "../assets/images/menu/repr-05.webp" },
       { name: "고등어봉초밥 (8p)", price: "32,000원", photo: "../assets/images/menu/repr-06.webp" },
       { name: "양갈비 숯불구이", price: "46,000원", photo: "../assets/images/menu/repr-07.webp" },
       { name: "돌문어튀김(타코텐푸라)", price: "26,000원", photo: "../assets/images/menu/repr-08.webp" },
-      { name: "1++ 한우 스키야키전골", price: "45,000원", photo: "../assets/images/menu/repr-09.webp" },
     ],
     // 전체 메뉴판을 밖에서 더 보고 싶을 때 (펼쳐서 링크로 이동)
     links: {
