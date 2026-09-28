@@ -1,14 +1,14 @@
 // meeting-main.js — 상견례 초대장 초기화 · 와이어링 (main.js 의 축소판)
-import { MEETING_CONFIG } from "./meeting-config.js?v=202609281718";
-import { renderInvitation } from "./render.js?v=202609281718";
-import { renderFamily } from "./family.js?v=202609281718";
-import { renderCoverCollage } from "./cover-collage.js?v=202609281718";
-import { renderMenu } from "./menu.js?v=202609281718";
-import { initReveal } from "./reveal.js?v=202609281718";
-import { initGallery } from "./gallery.js?v=202609281718";
-import { initDirections } from "./directions.js?v=202609281718";
-import { initAudio } from "./audio.js?v=202609281718";
-import { initEffects } from "./effects.js?v=202609281718";
+import { MEETING_CONFIG } from "./meeting-config.js?v=202609281745";
+import { renderInvitation } from "./render.js?v=202609281745";
+import { renderFamily } from "./family.js?v=202609281745";
+import { renderCoverCollage } from "./cover-collage.js?v=202609281745";
+import { renderMenu } from "./menu.js?v=202609281745";
+import { initReveal } from "./reveal.js?v=202609281745";
+import { initGallery } from "./gallery.js?v=202609281745";
+import { initDirections } from "./directions.js?v=202609281745";
+import { initAudio } from "./audio.js?v=202609281745";
+import { initEffects } from "./effects.js?v=202609281745";
 
 if (typeof history !== "undefined" && "scrollRestoration" in history) {
   history.scrollRestoration = "manual";

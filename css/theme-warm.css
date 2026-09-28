@@ -384,6 +384,32 @@ html {
   background: linear-gradient(180deg, rgba(61, 57, 40, 0) 55%, var(--color-surface) 100%);
 }
 
+/* "우리 가족" 콜라주: 균등한 그리드 대신 첫 장을 크게, 나머지는 작게 — 사진마다 원래 비율 그대로 (안 잘림) */
+.family-collage {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.family-collage .family-photo {
+  flex: 0 1 auto;
+  margin: 0;
+}
+.family-collage .family-photo:first-child {
+  width: 58%;
+  max-width: 210px;
+}
+.family-collage .family-photo:not(:first-child) {
+  width: 32%;
+  max-width: 120px;
+}
+.family-collage .family-photo__img {
+  aspect-ratio: auto;
+  height: auto;
+  object-fit: contain;
+}
+
 /* 상견례 안내 섹션: 커플 사진을 은은한 배경으로 (텍스트는 위에 카드로 덮어서 가독성 확보) */
 #calendar {
   position: relative;

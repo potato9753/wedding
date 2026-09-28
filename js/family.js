@@ -31,7 +31,9 @@ function buildMembersGrid(members) {
   return grid;
 }
 
-/** 사진 한 장 카드: src 있으면 이미지, 없으면 "사진 준비중" placeholder */
+/** 사진 한 장 카드: src 있으면 이미지, 없으면 "사진 준비중" placeholder
+ *  photo.focus 를 주면 object-position 으로 써서 원하는 부분이 안 잘리게 조정할 수 있어요 (예: "center 20%").
+ */
 function buildPhotoCard(photo) {
   const card = document.createElement("figure");
   card.className = "family-photo";
@@ -42,6 +44,7 @@ function buildPhotoCard(photo) {
     img.src = photo.src;
     img.alt = photo.caption || "";
     img.loading = "lazy";
+    if (photo.focus) img.style.objectPosition = photo.focus;
     card.appendChild(img);
   } else {
     const ph = document.createElement("div");
@@ -76,6 +79,26 @@ function buildPhotoRow(label, photos) {
   return row;
 }
 
+/** "우리 가족" 사진들(최근 가족사진 + 반려동물)을 한 묶음으로 —
+ *  균등한 그리드 대신 첫 장을 크게, 나머지를 작게 섞어서 자유롭게 배치합니다.
+ */
+function buildFamilyCollage(label, photos) {
+  const row = document.createElement("div");
+  row.className = "family-photos-row";
+
+  const heading = document.createElement("p");
+  heading.className = "family-photos-row__label";
+  heading.textContent = label;
+  row.appendChild(heading);
+
+  const grid = document.createElement("div");
+  grid.className = "family-collage";
+  photos.forEach((p) => grid.appendChild(buildPhotoCard(p)));
+  row.appendChild(grid);
+
+  return row;
+}
+
 function buildSideGroup(label, side) {
   const group = document.createElement("div");
   group.className = "family-group";
@@ -89,11 +112,11 @@ function buildSideGroup(label, side) {
   if (members.length) group.appendChild(buildMembersGrid(members));
 
   const photos = side.photos || {};
-  // 전체 가족(요즘)이 먼저, 그 다음 본인 어린 시절(소개 문구 포함)
+  // 최근 가족사진 + 반려동물을 한 묶음(콜라주)으로, 그 다음 본인 어린 시절(소개 문구 포함)
   const recentPhotos = Array.isArray(photos.recent) ? photos.recent : photos.recent ? [photos.recent] : [];
-  if (recentPhotos.length) group.appendChild(buildPhotoRow("우리 가족", recentPhotos));
+  const familyPhotos = [...recentPhotos, ...(photos.pet ? [photos.pet] : [])];
+  if (familyPhotos.length) group.appendChild(buildFamilyCollage("우리 가족", familyPhotos));
   if (photos.past) group.appendChild(buildPhotoRow("그때 우리", [photos.past]));
-  if (photos.pet) group.appendChild(buildPhotoRow("우리집 반려동물", [photos.pet]));
 
   return group;
 }

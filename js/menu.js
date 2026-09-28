@@ -9,7 +9,20 @@
 function buildItemRow(item) {
   const row = document.createElement("li");
   row.className = "menu-item";
-  row.textContent = item.qty > 1 ? `${item.name} × ${item.qty}` : item.name;
+
+  if (item.photo) {
+    const img = document.createElement("img");
+    img.className = "menu-item__thumb";
+    img.src = item.photo;
+    img.alt = item.name;
+    img.loading = "lazy";
+    row.appendChild(img);
+  }
+
+  const label = document.createElement("span");
+  label.textContent = item.qty > 1 ? `${item.name} × ${item.qty}` : item.name;
+  row.appendChild(label);
+
   return row;
 }
 

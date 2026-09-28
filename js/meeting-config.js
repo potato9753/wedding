@@ -162,48 +162,49 @@ export const MEETING_CONFIG = {
   menu: {
     title: "메뉴 코스",
     note: "7명 기준으로 미리 짜본 코스예요. 알레르기나 못 드시는 음식 있으면 편하게 말씀해주세요.",
+    // 사진은 네이버플레이스 등록 사진(자가호스팅, assets/images/menu/course-*.webp)
     courses: [
       {
         phase: "1차 · 회",
         items: [
-          { name: "제철 생선회", qty: 2 },
-          { name: "제철 국내산 성게알", qty: 1 },
+          { name: "제철 생선회", qty: 2, photo: "../assets/images/menu/course-01-hoe.webp" },
+          { name: "제철 국내산 성게알", qty: 1, photo: "../assets/images/menu/course-02-sungae.webp" },
         ],
       },
       {
         phase: "2차 · 마키",
         items: [
-          { name: "마구로마키 8p", qty: 2 },
-          { name: "안키모마키", qty: 2 },
+          { name: "마구로마키 8p", qty: 2, photo: "../assets/images/menu/course-03-maguromaki.webp" },
+          { name: "안키모마키", qty: 2, photo: "../assets/images/menu/course-04-ankimo.webp" },
         ],
       },
       {
         phase: "3차 · 튀김",
         items: [
-          { name: "복어 텐푸라", qty: 1 },
-          { name: "난코츠 가라아게", qty: 1 },
+          { name: "복어 텐푸라", qty: 1, photo: "../assets/images/menu/course-05-bokeo.webp" },
+          { name: "난코츠 가라아게", qty: 1, photo: "../assets/images/menu/course-06-nankotsu.webp" },
         ],
       },
       {
         phase: "4차 · 구이",
         items: [
-          { name: "도미머리 소금구이", qty: 1 },
-          { name: "은대구 미소구이", qty: 1 },
-          { name: "본갈비 피망 숯불구이", qty: 1 },
+          { name: "도미머리 소금구이", qty: 1, photo: "../assets/images/menu/course-07-domi.webp" },
+          { name: "은대구 미소구이", qty: 1, photo: "../assets/images/menu/course-08-eundaegu.webp" },
+          { name: "본갈비 피망 숯불구이", qty: 1, photo: "../assets/images/menu/course-09-bongalbi.webp" },
         ],
       },
       {
         phase: "5차 · 국물",
         items: [
-          { name: "한우 스지 오뎅나베", qty: 1 },
-          { name: "1++ 한우 스키야키 전골", qty: 1 },
+          { name: "한우 스지 오뎅나베", qty: 1, photo: "../assets/images/menu/course-10-hanwoo-sooji.webp" },
+          { name: "1++ 한우 스키야키 전골", qty: 1, photo: "../assets/images/menu/course-11-sukiyaki.webp" },
         ],
       },
       {
         phase: "6차 · 식사",
         items: [
-          { name: "갈치 솥밥", qty: 1 },
-          { name: "갈비 솥밥", qty: 1 },
+          { name: "갈치 솥밥", qty: 1, photo: "../assets/images/menu/course-12-galchi-sotbap.webp" },
+          { name: "갈비 솥밥", qty: 1, photo: "../assets/images/menu/course-13-galbi-sotbap.webp" },
         ],
       },
     ],
