@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 //  * buildMapLinks 만 순수 함수(테스트 대상). 나머지는 브라우저 전용.
 // ============================================================
-import { showToast, copyToClipboard } from "./ui.js?v=202607281901";
+import { showToast, copyToClipboard } from "./ui.js?v=202609281254";
 
 /**
  * 지도앱 딥링크 4종 생성. 명시 URL(links)이 있으면 우선, 없으면 검색어(query)로 생성.
@@ -33,6 +33,7 @@ export function initDirections(config, root = document) {
   };
   setText("[data-venue-name]", venue.name);
   setText("[data-venue-hall]", venue.hall);
+  setText("[data-venue-intro]", d.intro);
   setText("[data-venue-address]", venue.address);
 
   // 약도 이미지 (경로 있을 때만)

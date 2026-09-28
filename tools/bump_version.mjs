@@ -37,6 +37,13 @@ edit("index.html", (html) =>
     .replace(/(src=")(js\/main\.js)(?:\?v=[^"]*)?(")/g, `$1$2?v=${TOKEN}$3`)
 );
 
+// 1-2) meeting/index.html — 상견례 페이지도 동일하게 (css 상대경로 + 진입점 meeting-main.js)
+edit("meeting/index.html", (html) =>
+  html
+    .replace(/(href=")(\.\.\/css\/[^"?]+\.css)(?:\?v=[^"]*)?(")/g, `$1$2?v=${TOKEN}$3`)
+    .replace(/(src=")(\.\.\/js\/meeting-main\.js)(?:\?v=[^"]*)?(")/g, `$1$2?v=${TOKEN}$3`)
+);
+
 // 2) js/*.js — 로컬 상대 import 체인 (from "./x.js")
 const jsDir = join(root, "js");
 for (const file of readdirSync(jsDir)) {

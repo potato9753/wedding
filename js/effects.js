@@ -68,6 +68,23 @@ function makePetalSprite() {
   return c;
 }
 
+/** 따뜻하게 은은히 떠오르는 빛 입자(웜톤 보케) — 상견례 등 캐주얼한 무드용 */
+function makeGlowSprite() {
+  const S = 64;
+  const c = document.createElement("canvas");
+  c.width = c.height = S;
+  const g = c.getContext("2d");
+  const grad = g.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
+  grad.addColorStop(0, "rgba(255, 221, 173, 0.95)");
+  grad.addColorStop(0.45, "rgba(255, 191, 138, 0.55)");
+  grad.addColorStop(1, "rgba(255, 191, 138, 0)");
+  g.fillStyle = grad;
+  g.beginPath();
+  g.arc(S / 2, S / 2, S / 2, 0, Math.PI * 2);
+  g.fill();
+  return c;
+}
+
 /** 스프라이트를 사전 블러 (심도용). ctx.filter 미지원 시 원본 반환. */
 function blurredSprite(src, radius) {
   const c = document.createElement("canvas");
@@ -94,8 +111,10 @@ export function initFalling(config) {
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const count = Math.max(8, Math.min(70, config?.effects?.intensity || 30));
   const isSnow = kind === "snow";
+  const isGlow = kind === "glow";
+  const dir = isGlow ? -1 : 1; // glow: 위로 떠오름 / snow·petal: 아래로 떨어짐
 
-  const sharp = isSnow ? [makeFlakeSprite(0), makeFlakeSprite(1)] : [makePetalSprite()];
+  const sharp = isSnow ? [makeFlakeSprite(0), makeFlakeSprite(1)] : isGlow ? [makeGlowSprite()] : [makePetalSprite()];
   const soft = sharp.map((s) => blurredSprite(s, 1.6)); // 먼 입자 (심도)
   const bokeh = blurredSprite(sharp[0], 4.5); // 가까운 큰 보케 입자
 
@@ -106,15 +125,16 @@ export function initFalling(config) {
     const isBokeh = isSnow && Math.random() < 0.12;
     p.depth = isBokeh ? 1.05 + Math.random() * 0.55 : 0.5 + Math.random() * 0.7;
     p.x = Math.random() * w;
-    p.y = initial ? Math.random() * h : -30;
-    const base = isSnow ? 4 : 6;
+    p.y = initial ? Math.random() * h : isGlow ? h + 30 : -30;
+    const base = isGlow ? 9 : isSnow ? 4 : 6;
     p.size = base * p.depth + Math.random() * (isSnow ? 4 : 3);
     if (isBokeh) p.size *= 1.9;
-    p.speed = ((isSnow ? 0.3 : 0.45) + Math.random() * (isSnow ? 0.65 : 1.0)) * p.depth;
+    p.speed = ((isGlow ? 0.18 : isSnow ? 0.3 : 0.45) + Math.random() * (isGlow ? 0.3 : isSnow ? 0.65 : 1.0)) * p.depth * dir;
     p.sway = 0.4 + Math.random() * 1.0;
     p.phase = Math.random() * Math.PI * 2;
     p.baseAlpha = (0.6 + Math.random() * 0.4) * (0.55 + p.depth * 0.35);
     if (isBokeh) p.baseAlpha *= 0.45;
+    if (isGlow) p.baseAlpha *= 0.7;
     p.twPhase = Math.random() * Math.PI * 2;
     p.rot = Math.random() * Math.PI * 2;
     p.vr = (Math.random() - 0.5) * (isSnow ? 0.012 : 0.02);
@@ -147,8 +167,8 @@ export function initFalling(config) {
       p.x += Math.sin(p.phase) * p.sway * 0.4;
       p.rot += p.vr;
       p.twPhase += 0.03;
-      if (p.y - p.size > h + 20) seed(p, false);
-      const twinkle = isSnow ? 0.75 + Math.sin(p.twPhase) * 0.25 : 1;
+      if (isGlow ? p.y + p.size < -20 : p.y - p.size > h + 20) seed(p, false);
+      const twinkle = isSnow || isGlow ? 0.75 + Math.sin(p.twPhase) * 0.25 : 1;
       ctx.globalAlpha = Math.max(0, Math.min(1, p.baseAlpha * twinkle));
       const s = p.size * 2;
       ctx.save();
@@ -400,6 +420,7 @@ export function initNavDots(root = document) {
   const labels = {
     cover: "홈",
     greeting: "인사말",
+    family: "가족 소개",
     profile: "신랑·신부",
     calendar: "예식 안내",
     gallery: "갤러리",

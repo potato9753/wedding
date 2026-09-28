@@ -1,0 +1,356 @@
+/* ============================================================
+   상견례 웜톤 + 위트있는 다이어리 테마
+   (variables.css · style.css 뒤에 이어서 로드 — 이 페이지에만 적용)
+
+   겨울 청첩장의 격식 있는 "이거벼우/제목/구분선" 반복 구조를 깨고,
+   스티커 태그 · 마스킹테이프 사진 · 손편지 말풍선으로 톤을 가볍게 합니다.
+   ============================================================ */
+:root {
+  --color-bg: #f2e4d3;          /* 컨테이너 바깥: 웜 샌드 */
+  --color-surface: #fdf8f1;     /* 본문 배경: 웜 아이보리 */
+  --color-surface-2: #f8ecd9;   /* 카드/구획: 웜 크림 */
+  --color-text: #4a3d34;        /* 본문 텍스트: 웜 차콜 브라운 */
+  --color-text-soft: #8a7364;   /* 보조 텍스트 */
+  --color-text-faint: #b6a291;  /* 흐린 텍스트/라벨 */
+  --color-primary: #e0995f;     /* 웜 테라코타 (포인트) */
+  --color-primary-dark: #c17d47;
+  --color-accent: #e07f5c;      /* 코랄 (하트/강조) */
+  --color-winter: #e0995f;      /* 겨울 눈송이 → 웜 아이콘 */
+  --color-line: #ecdcc5;        /* 구분선 */
+}
+
+/* ── 짝수 섹션 배경 리듬: 쿨톤(#eef4f7) → 웜톤 ── */
+.section:nth-of-type(even):not(.cover) {
+  background: linear-gradient(180deg, var(--color-surface) 0%, #f8ead2 50%, var(--color-surface) 100%);
+}
+
+/* ============================================================
+   1) 섹션 헤더 — 격식있는 "라벨 / 제목 / 라인" 3단 구성을 걷어내고
+      스티커 태그 + 마커 밑줄로 가볍게
+   ============================================================ */
+.divider {
+  display: none;
+}
+
+.section__eyebrow {
+  display: inline-block;
+  padding: 5px 16px;
+  margin-bottom: var(--space-4);
+  background: var(--color-primary);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  border-radius: 999px 999px 4px 999px;
+  box-shadow: 0 3px 0 rgba(74, 61, 52, 0.12);
+}
+.section:nth-of-type(odd) .section__eyebrow {
+  transform: rotate(-2deg);
+}
+.section:nth-of-type(even) .section__eyebrow {
+  transform: rotate(2deg);
+  border-radius: 999px 999px 999px 4px;
+}
+
+.section__title {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  display: inline-block;
+}
+.section__title::after {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 6px;
+  margin: 8px auto 0;
+  background: var(--color-accent);
+  opacity: 0.5;
+  border-radius: 6px;
+  transform: rotate(-1.5deg);
+}
+
+/* ── 커버 문구: 스파클 대신 마스킹테이프 태그 ── */
+.cover__eyebrow {
+  display: inline-block;
+  padding: 6px 18px;
+  background: var(--color-accent);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  border-radius: 999px 999px 999px 4px;
+  transform: rotate(-3deg);
+  box-shadow: 0 3px 0 rgba(74, 61, 52, 0.12);
+}
+.cover__eyebrow::before,
+.cover__eyebrow::after {
+  content: none;
+}
+
+/* 갤러리 프레임 · 하트 버스트: 눈꽃 → 웜톤 스파클 (귀여운 디테일만 유지) */
+.fx-burst,
+.gallery__frame::before,
+.gallery__frame::after {
+  background-image: url("../assets/icons/spark.svg");
+}
+
+/* ============================================================
+   2) 인사말: 딱딱한 본문 문단 → 손편지 말풍선
+   ============================================================ */
+#greeting .section__desc {
+  display: block;
+  max-width: 320px;
+  margin: 0 auto;
+  padding: var(--space-5);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 4px;
+  text-align: left;
+  line-height: var(--lh-loose);
+  box-shadow: 0 4px 0 rgba(74, 61, 52, 0.06);
+}
+#greeting .parents {
+  border-top: none;
+  margin-top: var(--space-6);
+  gap: var(--space-1);
+}
+
+/* ============================================================
+   3) 프로필 · 가족 카드 — 각 잡힌 흰 박스 그리드 대신
+      살짝 삐뚤빼뚤한 스티커 카드 + 컬러 배지
+   ============================================================ */
+.profile-card {
+  border: 2px dashed var(--color-line);
+  box-shadow: 0 3px 0 rgba(74, 61, 52, 0.05);
+}
+.profile-card:nth-child(odd) {
+  transform: rotate(-1.4deg);
+}
+.profile-card:nth-child(even) {
+  transform: rotate(1.4deg);
+}
+.profile-card__role {
+  display: inline-block;
+  padding: 2px 12px;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.family-group__label {
+  display: inline-block;
+  padding: 3px 14px;
+  background: var(--color-surface);
+  border: 1px dashed var(--color-primary-dark);
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+
+.family-photos-row__label {
+  font-family: var(--font-sans);
+}
+
+/* 가족 사진: 마스킹테이프로 붙여놓은 느낌 */
+.family-photo {
+  position: relative;
+  padding-top: 10px;
+}
+.family-photo__img {
+  border: 5px solid #fff;
+  box-shadow: 0 6px 16px rgba(74, 61, 52, 0.18);
+}
+.family-photo:nth-child(odd) .family-photo__img {
+  transform: rotate(-2.5deg);
+}
+.family-photo:nth-child(even) .family-photo__img {
+  transform: rotate(2.5deg);
+}
+.family-photo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 36px;
+  height: 16px;
+  background: rgba(224, 127, 92, 0.55);
+  border-radius: 2px;
+  transform: translateX(-50%) rotate(-4deg);
+  z-index: 2;
+}
+
+/* ============================================================
+   4) 안내 카드 · 연락 카드 제목도 세리프 → 편한 산세리프
+   ============================================================ */
+.info-card__title,
+.contact-card__role {
+  font-family: var(--font-sans);
+  font-weight: 700;
+}
+.info-card__icon {
+  background: rgba(224, 153, 95, 0.18);
+}
+
+/* ============================================================
+   5) 커버: 대표 사진 1장 → 흩뿌린 폴라로이드 콜라주 (5장 기준)
+   ============================================================ */
+.cover-collage {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 4 / 5;
+  margin: 0 auto;
+}
+.cover-collage__item {
+  position: absolute;
+  margin: 0;
+}
+.cover-collage__item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 6px solid #fff;
+  border-radius: 4px;
+  box-shadow: 0 10px 24px rgba(74, 61, 52, 0.22);
+  opacity: 0;
+  transform: scale(0.9);
+  animation-duration: 0.7s;
+  animation-timing-function: var(--ease);
+  animation-fill-mode: both;
+}
+/* 메인(가장 큰) 사진 */
+.cover-collage__item:nth-child(1) {
+  width: 56%;
+  aspect-ratio: 3 / 4;
+  top: 4%;
+  left: 22%;
+  z-index: 5;
+}
+.cover-collage__item:nth-child(1) img {
+  transform: rotate(-2deg) scale(0.9);
+  animation-delay: 2.3s;
+}
+.cover-collage__item:nth-child(2) {
+  width: 30%;
+  aspect-ratio: 1 / 1;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+.cover-collage__item:nth-child(2) img {
+  transform: rotate(-9deg) scale(0.9);
+  animation-delay: 2.5s;
+}
+.cover-collage__item:nth-child(3) {
+  width: 30%;
+  aspect-ratio: 1 / 1;
+  top: 3%;
+  right: 0;
+  z-index: 3;
+}
+.cover-collage__item:nth-child(3) img {
+  transform: rotate(8deg) scale(0.9);
+  animation-delay: 2.62s;
+}
+.cover-collage__item:nth-child(4) {
+  width: 28%;
+  aspect-ratio: 1 / 1;
+  bottom: 6%;
+  left: 0;
+  z-index: 2;
+}
+.cover-collage__item:nth-child(4) img {
+  transform: rotate(10deg) scale(0.9);
+  animation-delay: 2.74s;
+}
+.cover-collage__item:nth-child(5) {
+  width: 28%;
+  aspect-ratio: 1 / 1;
+  bottom: 2%;
+  right: 0;
+  z-index: 2;
+}
+.cover-collage__item:nth-child(5) img {
+  transform: rotate(-8deg) scale(0.9);
+  animation-delay: 2.86s;
+}
+/* 회전값은 아이템마다 다르므로, 각자 자기 회전을 유지한 채 스케일/투명도만 애니메이션 */
+.cover-collage__item:nth-child(1) img { animation-name: fx-collage-in-1; }
+.cover-collage__item:nth-child(2) img { animation-name: fx-collage-in-2; }
+.cover-collage__item:nth-child(3) img { animation-name: fx-collage-in-3; }
+.cover-collage__item:nth-child(4) img { animation-name: fx-collage-in-4; }
+.cover-collage__item:nth-child(5) img { animation-name: fx-collage-in-5; }
+@keyframes fx-collage-in-1 { to { opacity: 1; transform: rotate(-2deg) scale(1); } }
+@keyframes fx-collage-in-2 { to { opacity: 1; transform: rotate(-9deg) scale(1); } }
+@keyframes fx-collage-in-3 { to { opacity: 1; transform: rotate(8deg) scale(1); } }
+@keyframes fx-collage-in-4 { to { opacity: 1; transform: rotate(10deg) scale(1); } }
+@keyframes fx-collage-in-5 { to { opacity: 1; transform: rotate(-8deg) scale(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .cover-collage__item img {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ============================================================
+   6) 스크롤 대신 섹션 단위 "슬라이드" 느낌 + 등장 하이라이트
+   ============================================================ */
+html {
+  scroll-snap-type: y proximity;
+}
+.section,
+.footer {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-snap-type: none;
+  }
+}
+
+/* 섹션이 뷰포트에 들어올 때: 페이드+이동 → 살짝 확대되며 포착되는 하이라이트 느낌 */
+.js-reveal [data-reveal] {
+  transform: translateY(28px) scale(0.97);
+}
+.js-reveal [data-reveal].is-visible {
+  transform: none;
+}
+
+/* ── 푸터: 쿨톤 저녁 그라데이션·별빛 → 웜톤 노을 + 반짝임 ── */
+.footer {
+  background: linear-gradient(180deg, var(--color-surface-2) 0%, #f3d9b3 100%);
+}
+.footer::before {
+  background-image:
+    radial-gradient(1.6px 1.6px at 16% 40%, rgba(224, 153, 95, 0.95), transparent 60%),
+    radial-gradient(1.4px 1.4px at 34% 20%, rgba(224, 127, 92, 0.8), transparent 60%),
+    radial-gradient(1.8px 1.8px at 52% 58%, rgba(224, 153, 95, 0.9), transparent 60%),
+    radial-gradient(1.3px 1.3px at 70% 26%, rgba(224, 127, 92, 0.8), transparent 60%),
+    radial-gradient(1.6px 1.6px at 86% 46%, rgba(224, 153, 95, 0.95), transparent 60%);
+}
+
+/* ============================================================
+   7) 진입 인트로: 청첩장풍 캘리그래피 → 편한 손글씨 톤 인사
+   ============================================================ */
+.intro__script {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: clamp(1.9rem, 9vw, 2.8rem);
+  letter-spacing: -0.01em;
+  color: var(--color-primary-dark);
+}
+.intro__sub {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-text-soft);
+}
