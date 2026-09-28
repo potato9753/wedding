@@ -285,6 +285,34 @@ export function initScrollProgress() {
   update();
 }
 
+/** 위로 가기 버튼 — 일정 스크롤 이후 나타나는 떠있는 단추 */
+export function initBackToTop() {
+  if (typeof document === "undefined") return;
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "fx-top";
+  btn.setAttribute("aria-label", "맨 위로 가기");
+  btn.innerHTML =
+    '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+  document.body.appendChild(btn);
+
+  let visible = false;
+  const threshold = () => window.innerHeight * 0.8;
+  const update = () => {
+    const show = window.scrollY > threshold();
+    if (show !== visible) {
+      visible = show;
+      btn.classList.toggle("is-visible", visible);
+    }
+  };
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update, { passive: true });
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: prefersReduced() ? "auto" : "smooth" });
+  });
+  update();
+}
+
 /**
  * 숫자 카운트업 — 요소가 화면에 들어오면 0→target 로 증가.
  * @param {Element} el 대상

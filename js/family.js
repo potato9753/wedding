@@ -44,6 +44,7 @@ function buildPhotoCard(photo) {
     img.src = photo.src;
     img.alt = photo.caption || "";
     img.loading = "lazy";
+    img.setAttribute("data-zoom", "");
     if (photo.focus) img.style.objectPosition = photo.focus;
     card.appendChild(img);
   } else {

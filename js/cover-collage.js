@@ -23,6 +23,7 @@ export function renderCoverCollage(config, root = document) {
     img.alt = item.alt || "";
     img.loading = i === 0 ? "eager" : "lazy";
     img.decoding = "async";
+    img.setAttribute("data-zoom", "");
     fig.appendChild(img);
     host.appendChild(fig);
   });

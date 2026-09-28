@@ -16,6 +16,7 @@ function buildMenuPhotoItem(name, caption, photo) {
     img.src = photo;
     img.alt = name;
     img.loading = "lazy";
+    img.setAttribute("data-zoom", "");
     fig.appendChild(img);
   }
   const cap = document.createElement("figcaption");
