@@ -4,7 +4,7 @@
 //  * 순수 함수(dDay/countdownParts/elapsedDays)는 node --test 로 검증.
 //  * startCountdown 만 DOM/타이머를 사용(브라우저 전용).
 // ============================================================
-import { parseDateTime } from "./render.js?v=202609302304";
+import { parseDateTime } from "./render.js?v=202609302305";
 
 const DAY_MS = 86400000;
 

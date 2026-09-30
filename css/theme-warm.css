@@ -65,8 +65,8 @@ body::after {
 
 .section__title {
   font-family: var(--font-serif);
-  font-weight: 700;
-  letter-spacing: 0.01em;
+  font-weight: 400;
+  letter-spacing: 0.04em;
   display: inline-block;
 }
 .section__title::after {
@@ -720,6 +720,23 @@ img[data-zoom] + figcaption {
   .menu-links summary {
     transition: none;
   }
+}
+
+/* 이름/제목 자간·굵기: Bold 세리프가 다소 무겁게 느껴져 살짝 가볍게 */
+.cover__names {
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+/* "+ 더 먹고 싶은 메뉴" 박스: 점선 테두리 → 실선 (스티커 장식 통일 제거) */
+.menu-wishlist {
+  border-style: solid;
+}
+
+/* 안내 섹션 아이콘: 원형 배경을 더 얇고 정제된 라인 스타일로 */
+.info-card__icon {
+  background: rgba(200, 164, 104, 0.14);
+  border: 1px solid rgba(200, 164, 104, 0.35);
 }
 
 /* 캘린더 탭 툴팁: 골드 배경에 흰 글씨는 대비가 낮아 다크 텍스트로 교체 */
