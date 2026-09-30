@@ -23,7 +23,7 @@ export const MEETING_CONFIG = {
     collage: [
       { src: "../assets/images/couple/couple-19.webp", alt: "재진 · 소은" },
       { src: "../assets/images/couple/couple-12.webp", alt: "재진 · 소은 · 시라카와고" },
-      { src: "../assets/images/couple/couple-07.webp", alt: "재진 · 소은" },
+      { src: "../assets/images/couple/couple-05.webp", alt: "재진 · 소은" },
       { src: "../assets/images/couple/couple-03.webp", alt: "재진 · 소은" },
       { src: "../assets/images/couple/couple-16.webp", alt: "재진 · 소은" },
     ],
