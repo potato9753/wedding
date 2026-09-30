@@ -1,30 +1,37 @@
 /* ============================================================
-   상견례 웜톤 + 위트있는 다이어리 테마
+   상견례 프리미엄 다크 올리브 테마
    (variables.css · style.css 뒤에 이어서 로드 — 이 페이지에만 적용)
 
-   겨울 청첩장의 격식 있는 "이거벼우/제목/구분선" 반복 구조를 깨고,
-   스티커 태그 · 마스킹테이프 사진 · 손편지 말풍선으로 톤을 가볍게 합니다.
+   다크 차콜올리브 배경 + 골드 포인트 라인으로 정제된 레스토랑 초청장 톤.
+   스티커/마스킹테이프 장식은 걷어내고, 얇은 라인과 절제된 세리프로 구성합니다.
    ============================================================ */
 :root {
-  --color-bg: #e8e1cd;          /* 컨테이너 바깥: 무광 베이지 */
-  --color-surface: #f8f4e9;     /* 본문 배경: 웜 오프화이트 */
-  --color-surface-2: #eee5cf;   /* 카드/구획: 짙은 베이지 */
-  --color-text: #3d3928;        /* 본문 텍스트: 다크 올리브 브라운 */
-  --color-text-soft: #6e6650;   /* 보조 텍스트 */
-  --color-text-faint: #a89c7e;  /* 흐린 텍스트/라벨 */
-  --color-primary: #7d8355;     /* 올리브 (포인트) */
-  --color-primary-dark: #5f6740;
-  --color-accent: #a85c3f;      /* 느적한 러스트(황토) (하트/강조) */
-  --color-winter: #7d8355;      /* 겨울 눈송이 → 올리브 아이콘 */
-  --color-line: #ddd2b0;        /* 구분선 */
+  --color-bg: #20241c;          /* 컨테이너 바깥: 다크 차콜올리브 */
+  --color-surface: #262b20;     /* 본문 배경 */
+  --color-surface-2: #2f3527;   /* 카드/구획 */
+  --color-text: #ece6d6;        /* 본문 텍스트: 웜 아이보리 */
+  --color-text-soft: #a7ac97;   /* 보조 텍스트 */
+  --color-text-faint: #6f7562;  /* 흐린 텍스트/라벨 */
+  --color-primary: #c8a468;     /* 골드 (포인트) */
+  --color-primary-dark: #a8854f;
+  --color-accent: #c8a468;      /* 골드 (하트/강조) */
+  --color-winter: #c8a468;      /* 아이콘 톤 */
+  --color-line: #4a5140;        /* 구분선 */
 
-  /* 상견례 페이지 전용: 제목/라벨류에만 쓰는 둥글둥글 손글씨 폰트 (BM Jua, 자가호스팅) */
-  --font-serif: "BM Jua", "Gowun Batang", "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
+  /* 상견례 페이지 전용: 제목/이름에 쓰는 세리프 (Gowun Batang, 자가호스팅) */
+  --font-serif: "Gowun Batang", "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
 }
 
-/* ── 짝수 섹션 배경 리듬: 웜하지만 파스텔 아닌 베이지 톤 ── */
+/* ── 짝수 섹션 배경 리듬: 다크 톤 안에서 미묘한 명암 차이 ── */
 .section:nth-of-type(even):not(.cover) {
-  background: linear-gradient(180deg, var(--color-surface) 0%, #e8dbb8 50%, var(--color-surface) 100%);
+  background: linear-gradient(180deg, var(--color-surface) 0%, #232820 50%, var(--color-surface) 100%);
+}
+
+/* style.css 의 겨울(쿨톤) 비네트 오버레이를 골드 톤으로 교체 */
+body::after {
+  background:
+    radial-gradient(120% 82% at 50% -12%, rgba(200, 164, 104, 0.10), rgba(200, 164, 104, 0) 45%),
+    radial-gradient(100% 62% at 50% 112%, rgba(200, 164, 104, 0.06), rgba(200, 164, 104, 0) 44%);
 }
 
 /* ============================================================
@@ -37,69 +44,107 @@
 
 .section__eyebrow {
   display: inline-block;
-  padding: 5px 16px;
-  margin-bottom: var(--space-4);
-  background: var(--color-primary);
-  color: #fff;
-  font-family: var(--font-serif);
-  font-size: var(--fs-sm);
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  text-transform: none;
-  border-radius: 999px 999px 4px 999px;
-  box-shadow: 0 3px 0 rgba(61, 57, 40, 0.15);
+  margin-bottom: var(--space-3);
+  background: none;
+  color: var(--color-primary);
+  font-family: "Pretendard", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
 }
-.section:nth-of-type(odd) .section__eyebrow {
-  transform: rotate(-2deg);
-}
+.section:nth-of-type(odd) .section__eyebrow,
 .section:nth-of-type(even) .section__eyebrow {
-  transform: rotate(2deg);
-  border-radius: 999px 999px 999px 4px;
+  transform: none;
+  border-radius: 0;
 }
 
 .section__title {
   font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: 0;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   display: inline-block;
 }
 .section__title::after {
   content: "";
   display: block;
   width: 44px;
-  height: 6px;
-  margin: 8px auto 0;
+  height: 1px;
+  margin: 14px auto 0;
   background: var(--color-accent);
-  opacity: 0.5;
-  border-radius: 6px;
-  transform: rotate(-1.5deg);
+  opacity: 0.8;
+  border-radius: 0;
+  transform: none;
 }
 
-/* ── 커버 문구: 스파클 대신 마스킹테이프 태그 ── */
+/* ── 커버 문구: 얇은 골드 라인 태그 ── */
 .cover__eyebrow {
   display: inline-block;
-  padding: 6px 18px;
-  background: var(--color-accent);
-  color: #fff;
-  font-family: var(--font-serif);
-  font-size: var(--fs-sm);
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  text-transform: none;
-  border-radius: 999px 999px 999px 4px;
-  transform: rotate(-3deg);
-  box-shadow: 0 3px 0 rgba(61, 57, 40, 0.15);
+  padding: 0;
+  background: none;
+  color: var(--color-primary);
+  font-family: "Pretendard", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 0;
+  transform: none;
+  box-shadow: none;
 }
 .cover__eyebrow::before,
 .cover__eyebrow::after {
   content: none;
 }
 
-/* 갤러리 프레임 · 하트 버스트: 눈꽃 → 웜톤 스파클 (귀여운 디테일만 유지) */
+/* 갤러리 프레임 · 하트 버스트: 골드 스파클 (흰 매트 → 다크 카드) */
 .fx-burst,
 .gallery__frame::before,
 .gallery__frame::after {
-  background-image: url("../assets/icons/spark.svg");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0 C13 7 17 11 24 12 C17 13 13 17 12 24 C11 17 7 13 0 12 C7 11 11 7 12 0 Z' fill='%23c8a468'/%3E%3C/svg%3E");
+}
+.gallery__frame {
+  background: var(--color-surface-2);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35), 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+.gallery__viewport {
+  box-shadow: 0 0 0 1px var(--color-line);
+}
+
+/* 지도앱 버튼: 흰색 하드코딩(--color-white) → 카드 톤 */
+.map-links__btn {
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  border: 1px solid var(--color-line);
+}
+.map-links__btn:active {
+  background: var(--color-surface);
+}
+
+/* BGM 토글 버튼: 흰색 하드코딩 → 카드 톤 */
+.bgm-toggle {
+  color: var(--color-primary);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-line);
+}
+.bgm-toggle:hover,
+.bgm-toggle.is-playing {
+  background: var(--color-surface-2);
+  color: var(--color-primary);
+}
+
+/* 내비 점 · 툴팁: 쿨톤(겨울) 하드코딩 색을 팔레트 색으로 교체 */
+.nav-dots__dot {
+  background: var(--color-line);
+}
+.nav-dots__tip {
+  color: var(--color-text);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-line);
 }
 
 /* ============================================================
@@ -112,10 +157,10 @@
   padding: var(--space-5) var(--space-4);
   background: var(--color-surface-2);
   border: 1px solid var(--color-line);
-  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 4px;
+  border-radius: 4px;
   text-align: left;
   line-height: var(--lh-loose);
-  box-shadow: 0 4px 0 rgba(74, 61, 52, 0.06);
+  box-shadow: none;
 }
 #greeting .parents {
   border-top: none;
@@ -127,21 +172,25 @@
    3) 프로필 · 가족 카드 — 각 잡힌 흰 박스 그리드 대신
       살짝 삐뚤빼뚤한 스티커 카드 + 컬러 배지
    ============================================================ */
-.profile-card {
-  border: 2px dashed var(--color-line);
-  box-shadow: 0 3px 0 rgba(74, 61, 52, 0.05);
+/* style.css 의 겨울 서리유리(frosted glass) 효과가 흰색 반투명으로 하드코딩돼 있어
+   다크/웜 팔레트를 덮어버리는 문제를 막기 위해 카드 배경을 다시 지정합니다. */
+.profile-card,
+.info-card {
+  background: var(--color-surface-2);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border: 1px solid var(--color-line);
+  box-shadow: none;
 }
-.profile-card:nth-child(odd) {
-  transform: rotate(-1.4deg);
-}
+.profile-card:nth-child(odd),
 .profile-card:nth-child(even) {
-  transform: rotate(1.4deg);
+  transform: none;
 }
 .profile-card__role {
   display: inline-block;
   padding: 2px 12px;
   background: var(--color-primary);
-  color: #fff;
+  color: var(--color-bg);
   border-radius: 999px;
   font-weight: 700;
   letter-spacing: 0;
@@ -149,43 +198,36 @@
 
 .family-group__label {
   display: inline-block;
-  padding: 3px 14px;
-  background: var(--color-surface);
-  border: 1px dashed var(--color-primary-dark);
-  border-radius: 999px;
-  letter-spacing: 0.02em;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-family: "Pretendard", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 .family-photos-row__label {
   font-family: var(--font-serif);
 }
 
-/* 가족 사진: 마스킹테이프로 붙여놓은 느낌 */
+/* 가족 사진: 얇은 골드 라인 프레임 (마스킹테이프 제거) */
 .family-photo {
   position: relative;
-  padding-top: 10px;
+  padding-top: 0;
 }
 .family-photo__img {
-  border: 5px solid #fff;
-  box-shadow: 0 6px 16px rgba(74, 61, 52, 0.18);
+  border: 1px solid var(--color-line);
+  box-shadow: none;
 }
-.family-photo:nth-child(odd) .family-photo__img {
-  transform: rotate(-2.5deg);
-}
+.family-photo:nth-child(odd) .family-photo__img,
 .family-photo:nth-child(even) .family-photo__img {
-  transform: rotate(2.5deg);
+  transform: none;
 }
 .family-photo::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 36px;
-  height: 16px;
-  background: rgba(168, 92, 63, 0.55);
-  border-radius: 2px;
-  transform: translateX(-50%) rotate(-4deg);
-  z-index: 2;
+  content: none;
 }
 
 /* ============================================================
@@ -197,7 +239,7 @@
   font-weight: 400;
 }
 .info-card__icon {
-  background: rgba(125, 131, 85, 0.16);
+  background: rgba(200, 164, 104, 0.14);
 }
 
 /* ============================================================
@@ -219,14 +261,16 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border: 6px solid #fff;
-  border-radius: 4px;
-  box-shadow: 0 10px 24px rgba(74, 61, 52, 0.22);
+  border: 1px solid var(--color-line);
+  border-radius: 2px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+  filter: sepia(0.12) brightness(0.96);
   opacity: 0;
-  transform: scale(0.9);
+  transform: scale(0.94);
   animation-duration: 0.7s;
   animation-timing-function: var(--ease);
   animation-fill-mode: both;
+  animation-name: fx-collage-in;
 }
 /* 메인(가장 큰) 사진 */
 .cover-collage__item:nth-child(1) {
@@ -237,7 +281,6 @@
   z-index: 5;
 }
 .cover-collage__item:nth-child(1) img {
-  transform: rotate(-2deg) scale(0.9);
   animation-delay: 2.3s;
 }
 .cover-collage__item:nth-child(2) {
@@ -248,7 +291,6 @@
   z-index: 3;
 }
 .cover-collage__item:nth-child(2) img {
-  transform: rotate(-9deg) scale(0.9);
   animation-delay: 2.5s;
 }
 .cover-collage__item:nth-child(3) {
@@ -259,7 +301,6 @@
   z-index: 3;
 }
 .cover-collage__item:nth-child(3) img {
-  transform: rotate(8deg) scale(0.9);
   animation-delay: 2.62s;
 }
 .cover-collage__item:nth-child(4) {
@@ -270,7 +311,6 @@
   z-index: 2;
 }
 .cover-collage__item:nth-child(4) img {
-  transform: rotate(10deg) scale(0.9);
   animation-delay: 2.74s;
 }
 .cover-collage__item:nth-child(5) {
@@ -281,20 +321,9 @@
   z-index: 2;
 }
 .cover-collage__item:nth-child(5) img {
-  transform: rotate(-8deg) scale(0.9);
   animation-delay: 2.86s;
 }
-/* 회전값은 아이템마다 다르므로, 각자 자기 회전을 유지한 채 스케일/투명도만 애니메이션 */
-.cover-collage__item:nth-child(1) img { animation-name: fx-collage-in-1; }
-.cover-collage__item:nth-child(2) img { animation-name: fx-collage-in-2; }
-.cover-collage__item:nth-child(3) img { animation-name: fx-collage-in-3; }
-.cover-collage__item:nth-child(4) img { animation-name: fx-collage-in-4; }
-.cover-collage__item:nth-child(5) img { animation-name: fx-collage-in-5; }
-@keyframes fx-collage-in-1 { to { opacity: 1; transform: rotate(-2deg) scale(1); } }
-@keyframes fx-collage-in-2 { to { opacity: 1; transform: rotate(-9deg) scale(1); } }
-@keyframes fx-collage-in-3 { to { opacity: 1; transform: rotate(8deg) scale(1); } }
-@keyframes fx-collage-in-4 { to { opacity: 1; transform: rotate(10deg) scale(1); } }
-@keyframes fx-collage-in-5 { to { opacity: 1; transform: rotate(-8deg) scale(1); } }
+@keyframes fx-collage-in { to { opacity: 1; transform: scale(1); } }
 
 @media (prefers-reduced-motion: reduce) {
   .cover-collage__item img {
@@ -328,17 +357,17 @@ html {
   transform: none;
 }
 
-/* ── 푸터: 쿨톤 저녁 그라데이션·별빛 → 올리브/러스트 톤 노을 + 반짝임 ── */
+/* ── 푸터: 다크 올리브 → 더 짙은 톤 + 골드 반짝임 ── */
 .footer {
-  background: linear-gradient(180deg, var(--color-surface-2) 0%, #ddd0a0 100%);
+  background: linear-gradient(180deg, var(--color-surface-2) 0%, #171a13 100%);
 }
 .footer::before {
   background-image:
-    radial-gradient(1.6px 1.6px at 16% 40%, rgba(168, 92, 63, 0.9), transparent 60%),
-    radial-gradient(1.4px 1.4px at 34% 20%, rgba(125, 131, 85, 0.8), transparent 60%),
-    radial-gradient(1.8px 1.8px at 52% 58%, rgba(168, 92, 63, 0.85), transparent 60%),
-    radial-gradient(1.3px 1.3px at 70% 26%, rgba(125, 131, 85, 0.8), transparent 60%),
-    radial-gradient(1.6px 1.6px at 86% 46%, rgba(168, 92, 63, 0.9), transparent 60%);
+    radial-gradient(1.6px 1.6px at 16% 40%, rgba(200, 164, 104, 0.9), transparent 60%),
+    radial-gradient(1.4px 1.4px at 34% 20%, rgba(200, 164, 104, 0.6), transparent 60%),
+    radial-gradient(1.8px 1.8px at 52% 58%, rgba(200, 164, 104, 0.85), transparent 60%),
+    radial-gradient(1.3px 1.3px at 70% 26%, rgba(200, 164, 104, 0.6), transparent 60%),
+    radial-gradient(1.6px 1.6px at 86% 46%, rgba(200, 164, 104, 0.9), transparent 60%);
 }
 
 /* ============================================================
@@ -421,7 +450,7 @@ html {
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(180deg, rgba(248, 244, 233, 0.94) 0%, rgba(248, 244, 233, 0.86) 55%, var(--color-surface) 100%),
+    linear-gradient(180deg, rgba(32, 36, 28, 0.88) 0%, rgba(32, 36, 28, 0.82) 55%, var(--color-surface) 100%),
     url("../assets/images/couple/couple-08.webp") center 30% / cover no-repeat;
 }
 
@@ -466,12 +495,12 @@ html {
 .invite-modal__card {
   position: relative;
   background: var(--color-surface);
-  border: 2px dashed var(--color-primary-dark);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-primary);
+  border-radius: 4px;
   padding: var(--space-8) var(--space-6);
   text-align: center;
   max-width: 300px;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   transform: scale(0.92) translateY(10px);
   transition: transform 0.4s var(--ease);
 }
@@ -481,13 +510,16 @@ html {
 .invite-modal__label {
   display: inline-block;
   margin: 0 auto var(--space-4);
-  padding: 4px 18px;
-  background: var(--color-accent);
-  color: #fff;
-  font-family: var(--font-serif);
-  font-size: var(--fs-sm);
-  border-radius: 999px 999px 999px 4px;
-  transform: rotate(-3deg);
+  padding: 0;
+  background: none;
+  color: var(--color-primary);
+  font-family: "Pretendard", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border-radius: 0;
+  transform: none;
 }
 .invite-modal__text {
   margin: 0;
@@ -622,11 +654,11 @@ img[data-zoom] + figcaption {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: none;
+  border: 1px solid var(--color-primary);
   border-radius: 50%;
-  background: var(--color-primary);
-  color: #fff;
-  box-shadow: 0 6px 16px rgba(74, 61, 52, 0.28);
+  background: var(--color-surface-2);
+  color: var(--color-primary);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
   opacity: 0;
   visibility: hidden;
   transform: translateY(8px);
@@ -651,17 +683,20 @@ img[data-zoom] + figcaption {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   margin: 0 auto;
-  padding: 12px 20px;
+  padding: 12px 22px;
   max-width: max-content;
   background: var(--color-surface-2);
-  border: 1.5px dashed var(--color-primary);
+  border: 1px solid var(--color-primary);
   border-radius: 999px;
-  box-shadow: 0 3px 10px rgba(74, 61, 52, 0.12);
-  font-family: var(--font-serif);
+  box-shadow: 0 3px 14px rgba(200, 164, 104, 0.16);
+  font-family: "Pretendard", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-primary);
   text-align: center;
-  animation: fx-menu-cta 2.2s ease-in-out infinite;
 }
 .menu-links summary::before {
   content: "";
@@ -670,29 +705,29 @@ img[data-zoom] + figcaption {
   content: "";
   width: 10px;
   height: 10px;
-  border-right: 2px solid var(--color-primary-dark);
-  border-bottom: 2px solid var(--color-primary-dark);
+  border-right: 2px solid var(--color-primary);
+  border-bottom: 2px solid var(--color-primary);
   transform: rotate(45deg);
   transition: transform 0.25s ease;
 }
 .menu-links[open] summary::after {
   transform: rotate(-135deg);
 }
-.menu-links[open] summary {
-  animation: none;
-}
 .menu-links summary:active {
   filter: brightness(0.94);
 }
-@keyframes fx-menu-cta {
-  0%, 100% { box-shadow: 0 3px 10px rgba(74, 61, 52, 0.12); }
-  50% { box-shadow: 0 3px 16px rgba(125, 131, 85, 0.35); }
-}
 @media (prefers-reduced-motion: reduce) {
   .menu-links summary {
-    animation: none;
     transition: none;
   }
+}
+
+/* 캘린더 탭 툴팁: 골드 배경에 흰 글씨는 대비가 낮아 다크 텍스트로 교체 */
+.wed-tip {
+  color: var(--color-bg);
+}
+.wed-tip::after {
+  border-top-color: var(--color-primary);
 }
 
 /* ── 12. 탭 파티클(하트/캘린더 버스트) 가을 느낌으로 교체 ── */
