@@ -730,6 +730,28 @@ img[data-zoom] + figcaption {
   border-top-color: var(--color-primary);
 }
 
+/* 진입 인트로 화면: 흰색 하드코딩 배경 → 다크 올리브 */
+.intro {
+  background: radial-gradient(120% 80% at 50% 32%, var(--color-surface-2), var(--color-bg) 72%);
+}
+.invite-modal {
+  background: rgba(10, 12, 8, 0.72);
+}
+
+/* 커버 섹션: "겨울 라이트 글로우" 흰색 하드코딩 → 골드 은은한 글로우 */
+.cover {
+  background:
+    radial-gradient(130% 75% at 50% 20%, rgba(200, 164, 104, 0.16) 0%, rgba(200, 164, 104, 0) 62%),
+    var(--color-surface);
+}
+
+/* 갤러리 라이트박스 닫기·이전/다음 버튼: 흰색 하드코딩 → 골드 톤 */
+.lightbox__close,
+.lightbox__nav {
+  color: var(--color-primary);
+  background: rgba(200, 164, 104, 0.16);
+}
+
 /* ── 12. 탭 파티클(하트/캘린더 버스트) 가을 느낌으로 교체 ── */
 .fx-burst {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0 C13 7 17 11 24 12 C17 13 13 17 12 24 C11 17 7 13 0 12 C7 11 11 7 12 0 Z' fill='%23c8874f'/%3E%3C/svg%3E");
