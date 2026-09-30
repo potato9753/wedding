@@ -166,66 +166,52 @@ export const MEETING_CONFIG = {
     // 사진은 네이버플레이스 등록 사진(자가호스팅, assets/images/menu/course-*.webp)
     courses: [
       {
-        phase: "1차 · 회",
+        phase: "1차 · 타코사라다",
         items: [
-          { name: "제철 생선회", qty: 2, photo: "../assets/images/menu/course-01-hoe.webp" },
-          { name: "제철 국내산 성게알", qty: 1, photo: "../assets/images/menu/course-02-sungae.webp" },
+          { name: "타코 사라다", qty: 2, photo: "../assets/images/menu/31-taco-salad.webp" },
         ],
       },
       {
-        phase: "2차 · 마키",
+        phase: "2차 · 사시미",
+        items: [
+          { name: "사시미 (4인)", qty: 2, photo: "../assets/images/menu/course-01-hoe.webp" },
+        ],
+      },
+      {
+        phase: "3차 · 마키",
         items: [
           { name: "마구로마키 8p", qty: 2, photo: "../assets/images/menu/course-03-maguromaki.webp" },
-          { name: "안키모마키", qty: 2, photo: "../assets/images/menu/course-04-ankimo.webp" },
+          { name: "안키모마키", qty: 1, photo: "../assets/images/menu/course-04-ankimo.webp" },
         ],
       },
       {
-        phase: "3차 · 튀김",
+        phase: "4차 · 갈치 · 장어",
         items: [
-          { name: "복어 텐푸라", qty: 1, photo: "../assets/images/menu/course-05-bokeo.webp" },
-          { name: "난코츠 가라아게", qty: 1, photo: "../assets/images/menu/course-06-nankotsu.webp" },
+          { name: "갈치 아이올리", qty: 1, photo: "../assets/images/menu/18-galchi-aioli.webp" },
+          { name: "민물장어 숯불구이", qty: 1, photo: "../assets/images/menu/23-eel-25.webp" },
         ],
       },
       {
-        phase: "4차 · 구이",
+        phase: "5차 · 식사",
         items: [
-          { name: "도미머리 소금구이", qty: 1, photo: "../assets/images/menu/course-07-domi.webp" },
-          { name: "은대구 미소구이", qty: 1, photo: "../assets/images/menu/course-08-eundaegu.webp" },
-          { name: "본갈비 피망 숯불구이", qty: 1, photo: "../assets/images/menu/course-09-bongalbi.webp" },
-        ],
-      },
-      {
-        phase: "5차 · 국물",
-        items: [
-          { name: "한우 스지 오뎅나베", qty: 1, photo: "../assets/images/menu/course-10-hanwoo-sooji.webp" },
-          { name: "1++ 한우 스키야키 전골", qty: 1, photo: "../assets/images/menu/course-11-sukiyaki.webp" },
-        ],
-      },
-      {
-        phase: "6차 · 식사",
-        items: [
-          { name: "갈치 솥밥", qty: 1, photo: "../assets/images/menu/course-12-galchi-sotbap.webp" },
-          { name: "갈비 솥밥", qty: 1, photo: "../assets/images/menu/course-13-galbi-sotbap.webp" },
+          { name: "해물모시우동", qty: 2, photo: "../assets/images/menu/33-udon-seafood.webp" },
         ],
       },
     ],
     // 코스에 없지만 추가로 먹고 싶은 메뉴 (당일 현장 주문 예정 등)
     wishlist: ["참외 셔벗 (디저트, 마지막에 별도 주문 예정)"],
-    // 네이버플레이스에 등록된 갓포코젠 대표메뉴 9종 (사진은 자가호스팅 — assets/images/menu/)
-    // ⚠ 코스 리스트에 이미 있는 대표메뉴(제철 생선회·마구로마키·스키야키전골)는 중복이라 여기서 뺐어요.
-    // 네이버플레이스 전체 메뉴판(37개) 중 코스에 없는 항목은 다 넣었어요.
+    // 네이버플레이스 전체 메뉴판(37개) 중 코스 리스트에 있는 항목(타코사라다·사시미·마구로마키·안키모마키·갈치아이올리·장어구이·해물모시우동)은
+    // 중복이라 여기서 뺐고, 나머지를 다 넣었어요. (사진은 자가호스팅 — assets/images/menu/)
     // (시즌아웃/품절 메뉴, 참외셔벗(위시리스트에 이미 있음)은 제외)
     reprMenu: [
       { name: "(런치) 스키야키 정식", price: "35,000원", photo: "../assets/images/menu/14-lunch-sukiyaki.webp" },
       { name: "(런치) 우나쥬 정식", price: "38,000원", photo: "../assets/images/menu/15-lunch-unaju.webp" },
       { name: "(런치) 치라시동 정식", price: "28,000원", photo: "../assets/images/menu/16-lunch-chirashi.webp" },
       { name: "(런치) 카이센동 정식", price: "35,000원", photo: "../assets/images/menu/17-lunch-kaisendon.webp" },
-      { name: "갈치 아이올리", price: "28,000원", photo: "../assets/images/menu/18-galchi-aioli.webp" },
       { name: "고등어봉초밥 (4p)", price: "16,000원", photo: "../assets/images/menu/19-mackerel-4.webp" },
       { name: "고등어봉초밥 (8p)", price: "32,000원", photo: "../assets/images/menu/20-mackerel-8.webp" },
       { name: "도미 머리 조림", price: "38,000원", photo: "../assets/images/menu/21-domi-jorim.webp" },
       { name: "돌문어튀김(타코텐푸라)", price: "26,000원", photo: "../assets/images/menu/22-tako-tempura.webp" },
-      { name: "민물장어 숯불구이 (2인)", price: "25,000원", photo: "../assets/images/menu/23-eel-25.webp" },
       { name: "민물장어숯불구이 (통)", price: "48,000원", photo: "../assets/images/menu/24-eel-48.webp" },
       { name: "바질부라타치즈 플래터", price: "25,000원", photo: "../assets/images/menu/25-burrata.webp" },
       { name: "아지후라이", price: "28,000원", photo: "../assets/images/menu/26-aji-fry.webp" },
@@ -233,9 +219,7 @@ export const MEETING_CONFIG = {
       { name: "참치젓갈 생선회 무침", price: "26,000원", photo: "../assets/images/menu/28-tuna-jeotgal.webp" },
       { name: "츠케모노 5종", price: "13,000원", photo: "../assets/images/menu/29-tsukemono.webp" },
       { name: "카이센 갈릭 이나니와 비빔우동", price: "29,000원", photo: "../assets/images/menu/30-udon-garlic.webp" },
-      { name: "타코 사라다", price: "35,000원", photo: "../assets/images/menu/31-taco-salad.webp" },
       { name: "프로슈토 아보카도 사라다", price: "28,000원", photo: "../assets/images/menu/32-prosciutto.webp" },
-      { name: "해물모시우동", price: "25,000원", photo: "../assets/images/menu/33-udon-seafood.webp" },
       { name: "해물베이컨토마토스튜", price: "35,000원", photo: "../assets/images/menu/34-stew.webp" },
     ],
     // 전체 메뉴판을 밖에서 더 보고 싶을 때 (펼쳐서 링크로 이동)
@@ -251,7 +235,7 @@ export const MEETING_CONFIG = {
       {
         icon: "meal",
         title: "먹는 얘기부터 하면,",
-        desc: ["부담 없는 자리예요, 편하게 오세요.", "제철 회·구이 코스로 준비했습니다."],
+        desc: ["부담 없는 자리예요, 편하게 오세요.", "타코사라다부터 사시미·마키·구이·우동까지 코스로 준비했습니다."],
       },
       {
         icon: "default",
